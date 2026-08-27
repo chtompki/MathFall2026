@@ -1,95 +1,144 @@
-\documentclass[12pt]{article}
-
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath, amssymb, amsthm}
+%! Author = chtompki
+%! Date = 1/14/26
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
 \usepackage{enumitem}
 
-\title{Math 556: Graph Theory\\Homework}
-\author{Virginia Commonwealth University\\Brent Cody}
-\date{}
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\title{Graph Theory:\\Homework 1\\ Book Section 1.1.}
+\author{Rob Tompkins}
+\date{\today}
+
 
 \begin{document}
 
     \maketitle
 
-    \section*{\S 1.1}
+    % Problem 1
+    \textbf{1.} Consider the following four families of graphs:
+    \[
+        A=\{\text{paths}\}, \qquad
+        B=\{\text{cycles}\}, \qquad
+        C=\{\text{complete graphs}\}, \qquad
+        D=\{\text{bipartite graphs}\}.
+    \]
+    For each pair of these families, determine all isomorphism classes of
+    graphs that belong to both families.
 
-    \begin{enumerate}
+    \begin{solution}
+        Temp
+    \end{solution}
 
-        \item Consider the following four families of graphs:
-        \[
-            A=\{\text{paths}\}, \qquad
-            B=\{\text{cycles}\}, \qquad
-            C=\{\text{complete graphs}\}, \qquad
-            D=\{\text{bipartite graphs}\}.
-        \]
-        For each pair of these families, determine all isomorphism classes of
-        graphs that belong to both families.
+    % Problem 2
+    \textbf{2.} Prove that removing two opposite corner squares from an
+    $8$-by-$8$ checkerboard leaves a subboard that cannot be partitioned
+    into $1$-by-$2$ and $2$-by-$1$ rectangles. Using the same argument,
+    make a general statement about all bipartite graphs.
 
-        \item Prove that removing two opposite corner squares from an
-        $8$-by-$8$ checkerboard leaves a subboard that cannot be partitioned
-        into $1$-by-$2$ and $2$-by-$1$ rectangles. Using the same argument,
-        make a general statement about all bipartite graphs.
+    \medskip
 
-        \medskip
+    \noindent
+    \textit{Hint:} An $8$-by-$8$ checkerboard can be represented by a graph.
+    Each square corresponds to a vertex, and two vertices are adjacent if
+    and only if the corresponding squares share a side.
 
-        \noindent
-        \textit{Hint:} An $8$-by-$8$ checkerboard can be represented by a graph.
-        Each square corresponds to a vertex, and two vertices are adjacent if
-        and only if the corresponding squares share a side.
+    \begin{proof}
+        Temp
+    \end{proof}
 
-        \item Let $G$ be a simple bipartite graph with $n$ vertices and $m$
-        edges. Prove that
-        \[
-            m \leq \frac{n^2}{4}.
-        \]
+    % Problem 3
+    \textbf{3.} Let $G$ be a simple bipartite graph with $n$ vertices and $m$
+    edges. Prove that
+    \[
+        m \leq \frac{n^2}{4}.
+    \]
 
-        \medskip
+    \medskip
 
-        \noindent
-        \textit{Hint:} Suppose $X$ and $Y$ are partite sets of $G$ with
-        $|X|=r$ and $|Y|=s$. First show that
-        \[
-            m \leq rs,
-        \]
-        and use it to prove
-        \[
-            m \leq \frac{n^2}{4}.
-        \]
+    \noindent
+    \textit{Hint:} Suppose $X$ and $Y$ are partite sets of $G$ with
+    $|X|=r$ and $|Y|=s$. First show that
+    \[
+        m \leq rs,
+    \]
+    and use it to prove
+    \[
+        m \leq \frac{n^2}{4}.
+    \]
 
-        \item Let $G$ be a graph with girth $4$ in which every vertex has
-        degree $k$. Prove that $G$ has at least $2k$ vertices. Determine all
-        such graphs with exactly $2k$ vertices.
+    \begin{proof}
+        temp
+    \end{proof}
 
-        \item Let $P$ be the Petersen graph. Use the definition of $P$ given
-        in terms of $2$-element subsets of a set of size $5$ to prove the
-        following.
+    % Problem 4
+    \textbf{4.} Let $G$ be a graph with girth $4$ in which every vertex has
+    degree $k$. Prove that $G$ has at least $2k$ vertices. Determine all
+    such graphs with exactly $2k$ vertices.
 
-        \begin{enumerate}[label=(\alph*)]
-        \item $P$ contains a cycle of length $6$.
+    \begin{proof}
+        temp
+    \end{proof}
 
-        \item $P$ contains a cycle of length $8$.
+    \textbf{5.} Let $P$ be the Petersen graph. Use the definition of $P$ given
+    in terms of $2$-element subsets of a set of size $5$ to prove the
+    following.
 
-        \item $P$ does not contain a cycle of length $7$.
+    \begin{enumerate}[label=(\alph*)]
+    \item $P$ contains a cycle of length $6$.
 
-        \medskip
+    \item $P$ contains a cycle of length $8$.
 
-        \noindent
-        \textit{Hint:} For contradiction, assume that $C$ is a cycle in
-        $P$ of length $7$. First, explain why every edge of $P$ whose
-        endpoints both lie in $C$ must be an edge of $C$.
+    \item $P$ does not contain a cycle of length $7$.
 
-        Let $u$ be a vertex of $C$ and let $v,w$ be vertices of $C$
-        farthest from $u$. Show that there is some vertex
-        \[
-            x \notin V(C)
-        \]
-        such that $u$ and $v$ are both adjacent to $x$, and $u$ and $w$
-        are both adjacent to $x$. Conclude that $\{w,v,x\}$ are the
-        vertices of a $3$-cycle in $P$, which contradicts the fact that
-        $P$ is triangle-free.
-        \end{enumerate}
+    \medskip
 
+    \noindent
+    \textit{Hint:} For contradiction, assume that $C$ is a cycle in
+    $P$ of length $7$. First, explain why every edge of $P$ whose
+    endpoints both lie in $C$ must be an edge of $C$.
+
+    Let $u$ be a vertex of $C$ and let $v,w$ be vertices of $C$
+    farthest from $u$. Show that there is some vertex
+    \[
+        x \notin V(C)
+    \]
+    such that $u$ and $v$ are both adjacent to $x$, and $u$ and $w$
+    are both adjacent to $x$. Conclude that $\{w,v,x\}$ are the
+    vertices of a $3$-cycle in $P$, which contradicts the fact that
+    $P$ is triangle-free.
     \end{enumerate}
+
+    \begin{solution}
+        temp
+    \end{solution}
 
 \end{document}

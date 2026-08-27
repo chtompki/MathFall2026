@@ -1,0 +1,473 @@
+%! Author = chtompki
+%! Date = 1/14/26
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{amsart}
+
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\title{Graph Theory:\\Homework 1\\ Book Section 1.1.}
+\author{Rob Tompkins}
+\date{\today}
+
+\begin{document}
+
+    \maketitle
+
+    % Problem 1
+    \textbf{1.} Consider the following four families of graphs:
+    \[
+        A=\{\text{paths}\}, \qquad
+        B=\{\text{cycles}\}, \qquad
+        C=\{\text{complete graphs}\}, \qquad
+        D=\{\text{bipartite graphs}\}.
+    \]
+    For each pair of these families, determine all isomorphism classes of
+    graphs that belong to both families.
+
+    \begin{solution}
+        We consider each of the six possible pairs.
+
+        \begin{enumerate}[label=(\alph*)]
+            \item $A\cap B$: paths and cycles.
+
+            A path has two vertices of degree $1$ unless it is a trivial
+            path, while every vertex of a cycle has degree $2$. Therefore,
+            no graph is both a path and a cycle. Hence
+            \[
+                A\cap B=\varnothing.
+            \]
+
+            \item $A\cap C$: paths and complete graphs.
+
+            The graphs $K_1$ and $K_2$ are paths. If $n\geq 3$, every
+            vertex of $K_n$ has degree $n-1\geq 2$, whereas a path has
+            vertices of degree at most $2$ and has endpoints of degree $1$.
+            Thus
+            \[
+                A\cap C=\{K_1,K_2\}.
+            \]
+
+            \item $A\cap D$: paths and bipartite graphs.
+
+            Every path is bipartite. To see this, color the vertices
+            alternately along the path. Adjacent vertices then receive
+            different colors. Therefore
+            \[
+                A\cap D=A.
+            \]
+
+            \item $B\cap C$: cycles and complete graphs.
+
+            The graph $K_3$ is a cycle of length $3$, namely $C_3$.
+            For $n\geq 4$, every vertex of $K_n$ has degree at least $3$,
+            while every vertex of a cycle has degree $2$. Hence
+            \[
+                B\cap C=\{K_3\}=\{C_3\}.
+            \]
+
+            \item $B\cap D$: cycles and bipartite graphs.
+
+            A cycle is bipartite if and only if it has even length.
+            Therefore
+            \[
+                B\cap D=\{C_{2k}:k\geq 2\}.
+            \]
+
+            \item $C\cap D$: complete graphs and bipartite graphs.
+
+            The graphs $K_1$ and $K_2$ are bipartite. If $n\geq 3$,
+            $K_n$ contains a triangle, and therefore is not bipartite.
+            Hence
+            \[
+                C\cap D=\{K_1,K_2\}.
+            \]
+        \end{enumerate}
+    \end{solution}
+
+    % Problem 2
+    \textbf{2.} Prove that removing two opposite corner squares from an
+    $8$-by-$8$ checkerboard leaves a subboard that cannot be partitioned
+    into $1$-by-$2$ and $2$-by-$1$ rectangles. Using the same argument,
+    make a general statement about all bipartite graphs.
+
+    \medskip
+
+    \noindent
+    \textit{Hint:} An $8$-by-$8$ checkerboard can be represented by a graph.
+    Each square corresponds to a vertex, and two vertices are adjacent if
+    and only if the corresponding squares share a side.
+
+    \begin{proof}
+        Color the checkerboard in the usual way with alternating black and
+        white squares. There are initially $32$ black squares and $32$
+        white squares.
+
+        Opposite corners of an $8$-by-$8$ checkerboard have the same color.
+        Thus, after removing two opposite corner squares, the remaining
+        board contains either
+        \[
+            30\text{ black squares and }32\text{ white squares},
+        \]
+        or
+        \[
+            32\text{ black squares and }30\text{ white squares}.
+        \]
+
+        Every $1$-by-$2$ or $2$-by-$1$ rectangle covers two adjacent
+        squares. Since adjacent squares have opposite colors, every such
+        rectangle covers exactly one black square and one white square.
+
+        Therefore, any board that can be partitioned into these rectangles
+        must contain the same number of black and white squares. The board
+        obtained by deleting two opposite corners does not, so such a
+        partition is impossible.
+
+        In graph-theoretic language, let $G$ be a bipartite graph with
+        partite sets $X$ and $Y$. A collection of edges covering every
+        vertex exactly once is a perfect matching. Every edge in a
+        bipartite graph contains one vertex from $X$ and one vertex from
+        $Y$. Hence, if $G$ has a perfect matching, then necessarily
+        \[
+            |X|=|Y|.
+        \]
+
+        Thus, a bipartite graph whose two partite sets have different
+        cardinalities cannot have a perfect matching.
+    \end{proof}
+
+    % Problem 3
+    \textbf{3.} Let $G$ be a simple bipartite graph with $n$ vertices and $m$
+    edges. Prove that
+    \[
+        m \leq \frac{n^2}{4}.
+    \]
+
+    \medskip
+
+    \noindent
+    \textit{Hint:} Suppose $X$ and $Y$ are partite sets of $G$ with
+    $|X|=r$ and $|Y|=s$. First show that
+    \[
+        m \leq rs,
+    \]
+    and use it to prove
+    \[
+        m \leq \frac{n^2}{4}.
+    \]
+
+    \begin{proof}
+        Let $X$ and $Y$ be the two partite sets of $G$, with
+        \[
+            |X|=r
+            \qquad\text{and}\qquad
+            |Y|=s.
+        \]
+        Since every edge of a bipartite graph joins a vertex of $X$ to a
+        vertex of $Y$, and since $G$ is simple, there can be at most one
+        edge for each pair $(x,y)\in X\times Y$. Therefore
+        \[
+            m\leq rs.
+        \]
+
+        Since
+        \[
+            r+s=n,
+        \]
+        we have
+        \[
+            (r-s)^2\geq 0.
+        \]
+        Expanding gives
+        \[
+            r^2-2rs+s^2\geq 0.
+        \]
+        Hence
+        \[
+            r^2+2rs+s^2\geq 4rs,
+        \]
+        so
+        \[
+            (r+s)^2\geq 4rs.
+        \]
+        Since $r+s=n$,
+        \[
+            n^2\geq 4rs,
+        \]
+        and therefore
+        \[
+            rs\leq \frac{n^2}{4}.
+        \]
+
+        Combining the two inequalities gives
+        \[
+            \boxed{m\leq \frac{n^2}{4}}.
+        \]
+
+        Equality occurs when the two partite sets are as equal in size as
+        possible and every possible edge between them is present.
+    \end{proof}
+
+    % Problem 4
+    \textbf{4.} Let $G$ be a graph with girth $4$ in which every vertex has
+    degree $k$. Prove that $G$ has at least $2k$ vertices. Determine all
+    such graphs with exactly $2k$ vertices.
+
+    \begin{proof}
+        Since $G$ has girth $4$, it contains no triangles.
+
+        Choose a vertex $v\in V(G)$. Since every vertex has degree $k$,
+        $v$ has exactly $k$ neighbors. Let
+        \[
+            N(v)=\{v_1,v_2,\ldots,v_k\}.
+        \]
+
+        Because $G$ contains no triangles, no two vertices in $N(v)$ can
+        be adjacent. Otherwise, if $v_i$ and $v_j$ were adjacent, then
+        \[
+            v,v_i,v_j,v
+        \]
+        would form a $3$-cycle.
+
+        Now choose $v_1\in N(v)$. Since $\deg(v_1)=k$, the vertex $v_1$
+        has $k-1$ neighbors other than $v$. None of these $k-1$ vertices
+        can lie in $N(v)$, since that would create a triangle containing
+        $v$.
+
+        Thus the graph contains at least
+        \[
+            1+k+(k-1)=2k
+        \]
+        vertices. Hence
+        \[
+            |V(G)|\geq 2k.
+        \]
+
+        Now suppose $|V(G)|=2k$. Define
+        \[
+            X=N(v)
+        \]
+        and
+        \[
+            Y=V(G)\setminus X.
+        \]
+        Since $|X|=k$ and $|V(G)|=2k$, we have $|Y|=k$.
+
+        There are no edges between vertices of $X$, since such an edge
+        would create a triangle with $v$. Each vertex of $X$ has degree
+        $k$, and there are exactly $k$ vertices in $Y$. Therefore every
+        vertex of $X$ must be adjacent to every vertex of $Y$.
+
+        Consequently,
+        \[
+            G\cong K_{k,k}.
+        \]
+
+        Conversely, for $k\geq 2$, the complete bipartite graph $K_{k,k}$
+        is $k$-regular, has $2k$ vertices, and has girth $4$. Therefore
+        the graphs attaining equality are precisely
+        \[
+            \boxed{K_{k,k}}.
+        \]
+    \end{proof}
+
+    % Problem 5
+    \textbf{5.} Let $P$ be the Petersen graph. Use the definition of $P$ given
+    in terms of $2$-element subsets of a set of size $5$ to prove the
+    following.
+
+    \begin{enumerate}[label=(\alph*)]
+        \item $P$ contains a cycle of length $6$.
+
+        \item $P$ contains a cycle of length $8$.
+
+        \item $P$ does not contain a cycle of length $7$.
+
+        \medskip
+
+        \noindent
+        \textit{Hint:} For contradiction, assume that $C$ is a cycle in
+        $P$ of length $7$. First, explain why every edge of $P$ whose
+        endpoints both lie in $C$ must be an edge of $C$.
+
+        Let $u$ be a vertex of $C$ and let $v,w$ be vertices of $C$
+        farthest from $u$. Show that there is some vertex
+        \[
+            x \notin V(C)
+        \]
+        such that $u$ and $v$ are both adjacent to $x$, and $u$ and $w$
+        are both adjacent to $x$. Conclude that $\{w,v,x\}$ are the
+        vertices of a $3$-cycle in $P$, which contradicts the fact that
+        $P$ is triangle-free.
+    \end{enumerate}
+
+    \begin{solution}
+        Recall that the vertices of the Petersen graph are the $2$-element
+        subsets of
+        \[
+            \{1,2,3,4,5\},
+        \]
+        and two vertices are adjacent precisely when the corresponding
+        $2$-element subsets are disjoint.
+
+        \medskip
+
+        \noindent
+        \textbf{(a)} Consider the sequence
+        \[
+            12,\;34,\;15,\;23,\;45,\;13,\;12.
+        \]
+        Consecutive $2$-element subsets are disjoint:
+        \[
+            \begin{aligned}
+                12\cap34&=\varnothing,\\
+                34\cap15&=\varnothing,\\
+                15\cap23&=\varnothing,\\
+                23\cap45&=\varnothing,\\
+                45\cap13&=\varnothing,\\
+                13\cap12&=\varnothing.
+            \end{aligned}
+        \]
+        Thus these six distinct vertices form the cycle
+        \[
+            12-34-15-23-45-13-12.
+        \]
+        Hence $P$ contains a cycle of length $6$.
+
+        \medskip
+
+        \noindent
+        \textbf{(b)} Consider
+        \[
+            12,\;34,\;15,\;23,\;14,\;25,\;13,\;45,\;12.
+        \]
+        Again, every pair of consecutive $2$-element subsets is disjoint:
+        \[
+            \begin{aligned}
+                12\cap34&=\varnothing,\\
+                34\cap15&=\varnothing,\\
+                15\cap23&=\varnothing,\\
+                23\cap14&=\varnothing,\\
+                14\cap25&=\varnothing,\\
+                25\cap13&=\varnothing,\\
+                13\cap45&=\varnothing,\\
+                45\cap12&=\varnothing.
+            \end{aligned}
+        \]
+        Therefore
+        \[
+            12-34-15-23-14-25-13-45-12
+        \]
+        is an $8$-cycle in $P$.
+
+        \medskip
+
+        \noindent
+        \textbf{(c)} Suppose, for contradiction, that $P$ contains a
+        $7$-cycle $C$.
+
+        First observe that $C$ cannot have a chord. Indeed, a chord of a
+        $7$-cycle divides the cycle into two smaller cycles whose lengths
+        sum to $9$. Since the Petersen graph has girth $5$, neither of
+        these cycles can have length less than $5$. This is impossible
+        because two integers each at least $5$ cannot sum to $9$.
+        Therefore every edge of $P$ whose endpoints lie in $C$ must
+        already be an edge of $C$.
+
+        Since the Petersen graph is $3$-regular, each vertex of $C$ has
+        exactly two neighbors on $C$ and exactly one neighbor outside
+        $C$.
+
+        There are $10$ vertices in the Petersen graph, so exactly three
+        vertices lie outside $C$. Let these vertices be
+        \[
+            x,y,z.
+        \]
+
+        The seven vertices of $C$ each have exactly one edge leading
+        outside $C$. Thus there are seven edges from $C$ to
+        $\{x,y,z\}$.
+
+        Since $x,y,z$ each have degree $3$, the sum of their degrees is
+        \[
+            3+3+3=9.
+        \]
+        If $e$ denotes the number of edges among $x,y,z$, then those
+        internal edges contribute $2e$ to this degree sum. Hence
+        \[
+            7+2e=9,
+        \]
+        so
+        \[
+            e=1.
+        \]
+
+        Thus among the three vertices outside $C$, exactly one pair is
+        adjacent.
+
+        Let $u$ be a vertex of $C$, and let $v$ and $w$ be the two
+        vertices of $C$ at distance $3$ from $u$ along the cycle. Since
+        the Petersen graph has diameter $2$, both $u$ and $v$ must have
+        a common neighbor, and both $u$ and $w$ must have a common
+        neighbor.
+
+        These common neighbors cannot lie on $C$, since $C$ has no
+        chords. Therefore the common neighbors must lie outside $C$.
+
+        But $u$ has only one neighbor outside $C$. Call it $x$. Hence
+        $x$ must be a common neighbor of $u$ and $v$, and also a common
+        neighbor of $u$ and $w$. Thus
+        \[
+            xv,\;xw\in E(P).
+        \]
+
+        Since $v$ and $w$ are adjacent on the $7$-cycle $C$, we also have
+        \[
+            vw\in E(P).
+        \]
+
+        Therefore the three vertices
+        \[
+            v,\;w,\;x
+        \]
+        form a triangle
+        \[
+            v-x-w-v.
+        \]
+
+        This contradicts the fact that the Petersen graph is
+        triangle-free. Therefore the Petersen graph cannot contain a
+        cycle of length $7$.
+    \end{solution}
+
+\end{document}
