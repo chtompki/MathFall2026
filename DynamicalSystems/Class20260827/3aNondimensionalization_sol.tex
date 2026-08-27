@@ -1,0 +1,1031 @@
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{microtype}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\newcommand{\sectionrule}{%
+    \vspace{0.3em}
+    \hrule
+    \vspace{0.8em}
+}
+
+\title{Dynamical Systems:\\Class August 27, 2026\\ 3.a Nondimensionalization.}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+
+    \section*{Nondimensionalization}
+
+    \subsection*{Problem 1}
+
+    Let
+    \[
+        \dot N=rN\left(1-\frac{N}{K}\right)-H.
+    \]
+    This is a logistic population model where there is a constant
+    harvesting rate reducing population growth.
+
+    \begin{enumerate}[label=(\alph*)]
+
+% ------------------------------------------------------------------
+        \item
+        For each of the variables and each of the parameters, identify its
+        associated dimension. Write this out in expressions of the form
+        \([a]=L\).
+
+        \subsubsection*{Solution}
+
+        Let \(P\) denote the dimension of population and let \(T\) denote the
+        dimension of time. Since \(N\) is a population and \(t\) is time,
+        \[
+            [N]=P,
+            \qquad
+            [t]=T.
+        \]
+
+        The left-hand side has dimension
+        \[
+            [\dot N]
+            =
+            \left[\frac{dN}{dt}\right]
+            =
+            \frac{P}{T}.
+        \]
+
+        The logistic term must therefore also have dimension \(P/T\):
+        \[
+            \left[
+                rN\left(1-\frac{N}{K}\right)
+            \right]
+            =
+            \frac{P}{T}.
+        \]
+
+        The quantity inside the parentheses must be dimensionless. Therefore,
+        \[
+            \left[\frac{N}{K}\right]=1,
+        \]
+        so
+        \[
+            [K]=P.
+        \]
+
+        It follows that
+        \[
+            [r][N]=\frac{P}{T},
+        \]
+        and hence
+        \[
+            [r]=T^{-1}.
+        \]
+
+        Finally, the harvesting term \(H\) must have the same dimension as
+        \(\dot N\), so
+        \[
+            [H]=\frac{P}{T}.
+        \]
+
+        Thus,
+        \[
+            \boxed{
+                [N]=P,\qquad
+                [t]=T,\qquad
+                [r]=T^{-1},\qquad
+                [K]=P,\qquad
+                [H]=PT^{-1}.
+            }
+        \]
+
+% ------------------------------------------------------------------
+        \item
+        Create dimensional constants \(N_0\) and \(T_0\), and use them to
+        create nondimensional variables
+        \[
+            x=\frac{N}{N_0}
+            \qquad\text{and}\qquad
+            \tau=\frac{t}{T_0}.
+        \]
+        Substitute \(x\) and \(\tau\) into the equation and simplify.
+
+        \subsubsection*{Solution}
+
+        Define
+        \[
+            x=\frac{N}{N_0},
+            \qquad
+            \tau=\frac{t}{T_0}.
+        \]
+
+        Thus,
+        \[
+            N=N_0x,
+            \qquad
+            t=T_0\tau.
+        \]
+
+        We transform the derivative using the chain rule:
+        \[
+            \frac{dN}{dt}
+            =
+            \frac{d(N_0x)}{d\tau}
+            \frac{d\tau}{dt}.
+        \]
+
+        Since
+        \[
+            \frac{d\tau}{dt}=\frac{1}{T_0},
+        \]
+        we obtain
+        \[
+            \frac{dN}{dt}
+            =
+            \frac{N_0}{T_0}\frac{dx}{d\tau}.
+        \]
+
+        Substituting \(N=N_0x\) into the original equation gives
+        \[
+            \frac{N_0}{T_0}\frac{dx}{d\tau}
+            =
+            rN_0x
+            \left(
+                1-\frac{N_0x}{K}
+            \right)
+            -H.
+        \]
+
+        Multiplying through by \(T_0/N_0\),
+        \[
+            \frac{dx}{d\tau}
+            =
+            rT_0x
+            \left(
+                1-\frac{N_0}{K}x
+            \right)
+            -
+            \frac{HT_0}{N_0}.
+        \]
+
+        Therefore,
+        \[
+            \boxed{
+                \frac{dx}{d\tau}
+                =
+                rT_0x
+                \left(
+                    1-\frac{N_0}{K}x
+                \right)
+                -
+                \frac{HT_0}{N_0}.
+            }
+        \]
+
+        Equivalently, expanding the logistic term,
+        \[
+            \boxed{
+                \frac{dx}{d\tau}
+                =
+                rT_0x
+                -
+                \frac{rT_0N_0}{K}x^2
+                -
+                \frac{HT_0}{N_0}.
+            }
+        \]
+
+% ------------------------------------------------------------------
+        \item
+        List all nondimensional groups that arise. Consider a combination a
+        nondimensional group if the combination is nondimensional but every
+        piece would be dimensional if it were broken apart in any way.
+
+        \subsubsection*{Solution}
+
+        From
+        \[
+            \frac{dx}{d\tau}
+            =
+            rT_0x
+            \left(
+                1-\frac{N_0}{K}x
+            \right)
+            -
+            \frac{HT_0}{N_0},
+        \]
+        the nondimensional groups are
+        \[
+            rT_0,
+            \qquad
+            \frac{N_0}{K},
+            \qquad
+            \frac{HT_0}{N_0}.
+        \]
+
+        We may verify each directly.
+
+        First,
+        \[
+            [rT_0]
+            =
+            T^{-1}T
+            =
+            1.
+        \]
+
+        Second,
+        \[
+            \left[\frac{N_0}{K}\right]
+            =
+            \frac{P}{P}
+            =
+            1.
+        \]
+
+        Third,
+        \[
+            \left[\frac{HT_0}{N_0}\right]
+            =
+            \frac{(P/T)T}{P}
+            =
+            1.
+        \]
+
+        Thus,
+        \[
+            \boxed{
+                rT_0,\qquad
+                \frac{N_0}{K},\qquad
+                \frac{HT_0}{N_0}
+            }
+        \]
+        are the nondimensional groups that arise.
+
+% ------------------------------------------------------------------
+        \item
+        Make choices for values of the constants \(T_0\) and \(N_0\) that
+        eliminate two of the nondimensional groups.
+
+        \subsubsection*{Solution}
+
+        A natural choice is to make
+        \[
+            rT_0=1.
+        \]
+
+        Therefore choose
+        \[
+            \boxed{T_0=\frac{1}{r}}.
+        \]
+
+        We can also choose
+        \[
+            \frac{N_0}{K}=1,
+        \]
+        which gives
+        \[
+            \boxed{N_0=K}.
+        \]
+
+        With these choices,
+        \[
+            rT_0=1
+            \qquad\text{and}\qquad
+            \frac{N_0}{K}=1.
+        \]
+
+        The differential equation becomes
+        \[
+            \frac{dx}{d\tau}
+            =
+            x(1-x)
+            -
+            \frac{H}{rK}.
+        \]
+
+% ------------------------------------------------------------------
+        \item
+        Define a new nondimensional parameter (use a Greek letter such as
+        \(\alpha,\beta,\gamma,\mu\)), and rewrite your equation as a
+        nondimensional one.
+
+        \subsubsection*{Solution}
+
+        Define
+        \[
+            \boxed{
+                \alpha=\frac{H}{rK}
+            }.
+        \]
+
+        The nondimensional equation becomes
+        \[
+            \boxed{
+                \frac{dx}{d\tau}
+                =
+                x(1-x)-\alpha.
+            }
+        \]
+
+        Here
+        \[
+            x=\frac{N}{K},
+            \qquad
+            \tau=rt,
+            \qquad
+            \alpha=\frac{H}{rK}.
+        \]
+
+% ------------------------------------------------------------------
+        \item
+        How many parameters are there in the nondimensional system? How does
+        this compare to the number in the dimensional version? Notice that
+        each dimensional constant we introduce enables us to remove a
+        parameter, so that the nondimensional equation has fewer parameters
+        than the dimensional one. This result on the reduction in the number
+        of parameters from nondimensionalization is called the Buckingham Pi
+        theorem. It is called the ``pi'' theorem because he used the symbols
+        \(\Pi_1,\Pi_2,\ldots\) to represent the nondimensional groups.
+
+        \subsubsection*{Solution}
+
+        The original dimensional equation
+        \[
+            \dot N
+            =
+            rN\left(1-\frac{N}{K}\right)-H
+        \]
+        contains three parameters:
+        \[
+            r,\qquad K,\qquad H.
+        \]
+
+        After nondimensionalization, the equation is
+        \[
+            \frac{dx}{d\tau}
+            =
+            x(1-x)-\alpha,
+        \]
+        which contains only one parameter:
+        \[
+            \alpha=\frac{H}{rK}.
+        \]
+
+        Therefore,
+        \[
+            \boxed{
+                \text{dimensional model: 3 parameters}
+            }
+        \]
+        while
+        \[
+            \boxed{
+                \text{nondimensional model: 1 parameter}.
+            }
+        \]
+
+        We introduced two dimensional scaling constants, \(T_0\) and \(N_0\),
+        and these allowed us to eliminate two of the original independent
+        parameters.
+
+        Thus the parameter count has been reduced from
+        \[
+            \boxed{3\longrightarrow 1}.
+        \]
+
+    \end{enumerate}
+
+
+    \newpage
+
+% ==================================================================
+% PROBLEM 2
+% ==================================================================
+
+    \subsection*{Problem 2}
+
+    \textit{Rotate your roles: questioner \(\rightarrow\) timekeeper
+        \(\rightarrow\) scribe.}
+
+    Let
+    \[
+        \dot N
+        =
+        rN\left(1-\frac{N}{K}\right)
+        -
+        \frac{HN}{A+N}.
+    \]
+    This is a slightly different harvesting case.
+
+    \begin{enumerate}[label=(\alph*)]
+
+% ------------------------------------------------------------------
+        \item
+        This harvesting term,
+        \[
+            \frac{HN}{A+N},
+        \]
+        is in the form of a special function called a Monod function. Plot an
+        approximation of the Monod function by hand without using any plotting
+        tools.
+
+        \subsubsection*{Solution}
+
+        Consider the harvesting function
+        \[
+            F(N)=\frac{HN}{A+N}.
+        \]
+
+        At \(N=0\),
+        \[
+            F(0)=0.
+        \]
+
+        At \(N=A\),
+        \[
+            F(A)
+            =
+            \frac{HA}{A+A}
+            =
+            \frac{H}{2}.
+        \]
+
+        As \(N\to\infty\),
+        \[
+            \lim_{N\to\infty}
+            \frac{HN}{A+N}
+            =
+            H.
+        \]
+
+        Thus the horizontal asymptote is
+        \[
+            \boxed{F(N)=H}.
+        \]
+
+        For small \(N\), we have
+        \[
+            A+N\approx A,
+        \]
+        so
+        \[
+            F(N)
+            \approx
+            \frac{H}{A}N.
+        \]
+
+        Therefore, near \(N=0\), the function is approximately linear with
+        slope
+        \[
+            \frac{H}{A}.
+        \]
+
+        A sketch of the function is:
+
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    width=11cm,
+                    height=6.5cm,
+                    axis lines=middle,
+                    xlabel={$N$},
+                ylabel={$F(N)$},
+                xmin=0,
+                xmax=5,
+                ymin=0,
+                ymax=1.2,
+                xtick={1},
+                xticklabels={$A$},
+                ytick={0.5,1},
+                yticklabels={$\frac{H}{2}$,$H$},
+                samples=200,
+                domain=0:5,
+                clip=false
+                ]
+                    \addplot[thick] {x/(1+x)};
+
+                    \addplot[dashed,domain=0:5] {1};
+
+                    \addplot[only marks,mark=*]
+                    coordinates {(1,0.5)};
+
+                    \node at (axis cs:1.2,0.43)
+                        {$\left(A,\frac{H}{2}\right)$};
+
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+
+        The important qualitative features are therefore
+        \[
+            \boxed{
+                F(0)=0,\qquad
+                F(A)=\frac{H}{2},\qquad
+                F(N)\to H
+                \text{ as }N\to\infty.
+            }
+        \]
+
+% ------------------------------------------------------------------
+        \item
+        What do you think of this function as a description of a harvesting
+        process?
+
+        \subsubsection*{Solution}
+
+        The function
+        \[
+            F(N)=\frac{HN}{A+N}
+        \]
+        gives a harvesting rate that depends on the available population.
+
+        When the population is small,
+        \[
+            F(N)\approx\frac{H}{A}N,
+        \]
+        so the harvesting rate is also small. Thus, when there are few
+        individuals available, relatively few individuals are harvested.
+
+        As the population increases, the harvesting rate increases, but it
+        does not increase without bound. Instead,
+        \[
+            F(N)\to H.
+        \]
+
+        Thus \(H\) represents the maximum harvesting rate.
+
+        This is a reasonable model when the ability to harvest is limited by
+        the availability of the population at low population levels and by
+        some maximum harvesting capacity at high population levels.
+
+% ------------------------------------------------------------------
+        \item
+        Identify the dimension of each of the variables and parameters. Once
+        you nondimensionalize how many parameters do you expect to remain?
+
+        \subsubsection*{Solution}
+
+        Again let \(P\) denote population and \(T\) denote time.
+
+        We have
+        \[
+            [N]=P,
+            \qquad
+            [t]=T.
+        \]
+
+        As before,
+        \[
+            [r]=T^{-1},
+            \qquad
+            [K]=P.
+        \]
+
+        Because \(A\) is added to \(N\),
+        \[
+            [A]=[N]=P.
+        \]
+
+        Now consider
+        \[
+            \frac{HN}{A+N}.
+        \]
+
+        Since
+        \[
+            \left[
+                \frac{N}{A+N}
+            \right]
+            =1,
+        \]
+        the parameter \(H\) itself must have the dimension of population per
+        unit time:
+        \[
+            [H]=\frac{P}{T}.
+        \]
+
+        Therefore,
+        \[
+            \boxed{
+                [N]=P,\qquad
+                [t]=T,\qquad
+                [r]=T^{-1},\qquad
+                [K]=P,\qquad
+                [A]=P,\qquad
+                [H]=PT^{-1}.
+            }
+        \]
+
+        There are four dimensional parameters:
+        \[
+            r,\qquad K,\qquad A,\qquad H.
+        \]
+
+        There are two fundamental dimensions involved:
+        \[
+            P
+            \qquad\text{and}\qquad
+            T.
+        \]
+
+        We therefore expect nondimensionalization to reduce the number of
+        independent parameters by two. Hence we expect
+        \[
+            \boxed{4-2=2}
+        \]
+        independent nondimensional parameters to remain.
+
+% ------------------------------------------------------------------
+        \item
+        Nondimensionalize this equation.
+
+        As part of this process, identify the dimensionless groups and check
+        your work with another team.
+
+        There are multiple good choices for \(N_0\). What are some reasons to
+        choose one or the other?
+
+        \subsubsection*{Solution}
+
+        Introduce
+        \[
+            x=\frac{N}{N_0},
+            \qquad
+            \tau=\frac{t}{T_0}.
+        \]
+
+        Thus
+        \[
+            N=N_0x,
+            \qquad
+            t=T_0\tau.
+        \]
+
+        As before,
+        \[
+            \frac{dN}{dt}
+            =
+            \frac{N_0}{T_0}\frac{dx}{d\tau}.
+        \]
+
+        Substituting into
+        \[
+            \dot N
+            =
+            rN\left(1-\frac{N}{K}\right)
+            -
+            \frac{HN}{A+N}
+        \]
+        gives
+        \[
+            \frac{N_0}{T_0}\frac{dx}{d\tau}
+            =
+            rN_0x
+            \left(
+                1-\frac{N_0x}{K}
+            \right)
+            -
+            \frac{HN_0x}{A+N_0x}.
+        \]
+
+        Multiplying through by \(T_0/N_0\),
+        \[
+            \frac{dx}{d\tau}
+            =
+            rT_0x
+            \left(
+                1-\frac{N_0}{K}x
+            \right)
+            -
+            \frac{HT_0x}{A+N_0x}.
+        \]
+
+        Factor \(N_0\) from the denominator of the harvesting term:
+        \[
+            A+N_0x
+            =
+            N_0
+            \left(
+                \frac{A}{N_0}+x
+            \right).
+        \]
+
+        Therefore,
+        \[
+            \boxed{
+                \frac{dx}{d\tau}
+                =
+                rT_0x
+                \left(
+                    1-\frac{N_0}{K}x
+                \right)
+                -
+                \frac{HT_0}{N_0}
+                \frac{x}{A/N_0+x}.
+            }
+        \]
+
+        The dimensionless groups that arise are
+        \[
+            \boxed{
+                rT_0,\qquad
+                \frac{N_0}{K},\qquad
+                \frac{A}{N_0},\qquad
+                \frac{HT_0}{N_0}.
+            }
+        \]
+
+        These groups are not all independent because the freely chosen scales
+        \(N_0\) and \(T_0\) can be used to eliminate two of them.
+
+        A convenient time scale is
+        \[
+            \boxed{
+                T_0=\frac{1}{r}.
+            }
+        \]
+
+        For the population scale there are at least two especially natural
+        choices.
+
+        \paragraph{Choice 1: \(N_0=K\).}
+
+        If
+        \[
+            N_0=K,
+        \]
+        then \(x=N/K\) measures population relative to the carrying capacity.
+        The equation becomes
+        \[
+            \frac{dx}{d\tau}
+            =
+            x(1-x)
+            -
+            \frac{H}{rK}
+            \frac{x}{A/K+x}.
+        \]
+
+        Define
+        \[
+            \alpha=\frac{H}{rK},
+            \qquad
+            \beta=\frac{A}{K}.
+        \]
+
+        Then
+        \[
+            \boxed{
+                \frac{dx}{d\tau}
+                =
+                x(1-x)
+                -
+                \alpha\frac{x}{\beta+x}.
+            }
+        \]
+
+        This choice is useful because the carrying capacity occurs at
+        \[
+            x=1.
+        \]
+
+        \paragraph{Choice 2: \(N_0=A\).}
+
+        Alternatively, let
+        \[
+            \boxed{N_0=A}.
+        \]
+
+        This is especially convenient for studying the Monod harvesting term.
+        The equation becomes
+        \[
+            \frac{dx}{d\tau}
+            =
+            x
+            \left(
+                1-\frac{A}{K}x
+            \right)
+            -
+            \frac{H}{rA}
+            \frac{x}{1+x}.
+        \]
+
+        Define
+        \[
+            \alpha=\frac{A}{K},
+            \qquad
+            \beta=\frac{H}{rA}.
+        \]
+
+        Then
+        \[
+            \boxed{
+                \frac{dx}{d\tau}
+                =
+                x(1-\alpha x)
+                -
+                \beta\frac{x}{1+x}.
+            }
+        \]
+
+        This form contains only two nondimensional parameters,
+        \[
+            \boxed{
+                \alpha=\frac{A}{K},
+                \qquad
+                \beta=\frac{H}{rA}.
+            }
+        \]
+
+        Thus, as predicted, four dimensional parameters have been reduced to
+        two nondimensional parameters.
+
+        Choosing \(N_0=K\) is convenient when the carrying capacity is the
+        important population scale. Choosing \(N_0=A\) is convenient when the
+        harvesting function is the primary object of interest, because the
+        Monod function then takes the particularly simple form
+        \[
+            \frac{x}{1+x}.
+        \]
+
+% ------------------------------------------------------------------
+        \item
+        Now that it is nondimensional, take another look at the expression for
+        your harvesting function. Plot it using appropriate axis ticks. How
+        did your axis tick labels change?
+
+        \subsubsection*{Solution}
+
+        Using the choice
+        \[
+            N_0=A,
+        \]
+        we have
+        \[
+            x=\frac{N}{A}.
+        \]
+
+        The original harvesting function is
+        \[
+            F(N)=\frac{HN}{A+N}.
+        \]
+
+        Divide the harvesting rate by its natural scale \(H\). Define
+        \[
+            f(x)=\frac{F(N)}{H}.
+        \]
+
+        Since \(N=Ax\),
+        \[
+            f(x)
+            =
+            \frac{1}{H}
+            \frac{H(Ax)}{A+Ax}.
+        \]
+
+        Therefore,
+        \[
+            f(x)
+            =
+            \frac{Ax}{A(1+x)}
+            =
+            \boxed{
+                \frac{x}{1+x}
+            }.
+        \]
+
+        The dimensional function
+        \[
+            F(N)=\frac{HN}{A+N}
+        \]
+        has the important point
+        \[
+            \left(A,\frac{H}{2}\right)
+        \]
+        and horizontal asymptote
+        \[
+            F=H.
+        \]
+
+        After nondimensionalization these become
+        \[
+            \boxed{
+                \left(1,\frac{1}{2}\right)
+            }
+        \]
+        and
+        \[
+            \boxed{
+                f=1.
+            }
+        \]
+
+        Thus all of the dimensional labels \(A\) and \(H\) disappear from the
+        axes.
+
+        The nondimensional plot is:
+
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    width=11cm,
+                    height=6.5cm,
+                    axis lines=middle,
+                    xlabel={$x=N/A$},
+                ylabel={$f(x)=F/H$},
+                xmin=0,
+                xmax=5,
+                ymin=0,
+                ymax=1.2,
+                xtick={0,1,2,3,4},
+                ytick={0,0.5,1},
+                yticklabels={$0$,$\frac12$,$1$},
+                samples=200,
+                domain=0:5,
+                clip=false
+                ]
+
+                    \addplot[thick] {x/(1+x)};
+
+                    \addplot[dashed,domain=0:5] {1};
+
+                    \addplot[only marks,mark=*]
+                    coordinates {(1,0.5)};
+
+                    \node at (axis cs:1.45,0.43)
+                        {$\left(1,\frac12\right)$};
+
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+
+        Originally, increments on the horizontal axis were measured in units
+        of \(A\):
+        \[
+            0,\ A,\ 2A,\ 3A,\ldots
+        \]
+        and vertical values were measured in units of \(H\).
+
+        After nondimensionalization, the corresponding horizontal ticks are
+        simply
+        \[
+            0,\ 1,\ 2,\ 3,\ldots
+        \]
+        and the vertical asymptote value changes from the dimensional value
+        \(H\) to the dimensionless value
+        \[
+            1.
+        \]
+
+        In particular,
+        \[
+            \boxed{
+                N=A
+                \quad\longrightarrow\quad
+                x=1
+            }
+        \]
+        and
+        \[
+            \boxed{
+                F(A)=\frac{H}{2}
+                \quad\longrightarrow\quad
+                f(1)=\frac12.
+            }
+        \]
+
+    \end{enumerate}
+
+\end{document}

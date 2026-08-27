@@ -1,0 +1,325 @@
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{microtype}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\newcommand{\sectionrule}{%
+    \vspace{0.3em}
+    \hrule
+    \vspace{0.8em}
+}
+
+\title{Dynamical Systems:\\Class August 27, 2026\\ 3.a Nondimensionalization.}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+
+    \textbf{Extra vocabulary / extra facts:}
+
+    \begin{tcolorbox}[
+        colback=white,
+        colframe=black!70,
+        boxrule=0.8pt,
+        arc=2mm,
+        left=3mm,
+        right=3mm,
+        top=2mm,
+        bottom=2mm
+    ]
+        \begin{itemize}
+            \item A \textbf{nondimensional group} is a group of parameters or constants that together are
+            dimensionless but that have the property that any factor of the group has dimension.
+
+            \item A \textbf{Monod function} is a type of switching function (just as $\tanh x$ was an example of
+            a switching function). The Monod function has the form
+            \[
+                f(x)=r\frac{x}{a+x}.
+            \]
+
+            \item A \textbf{Hill function} is a type of switching function (compare to $\tanh x$ and to the Monod
+            function). The Hill function has the form
+            \[
+                f(x)=r\frac{x^n}{a^n+x^n}
+            \]
+            where $n$ is the \textit{Hill coefficient}.
+        \end{itemize}
+    \end{tcolorbox}
+
+    \sectionrule
+
+    {\Large\textbf{Skill check practice}}
+
+    \begin{enumerate}
+        \item Consider the differential equation
+        \[
+            \frac{dx}{d\tau}
+            =
+            rT_0\left(\frac{1}{h_v}+x\right)
+            -
+            \frac{rT_0A}{K}x.
+        \]
+
+        Assume that $x$ and $\tau$ are nondimensional variables and that $r,T_0,A,K$ are parameters with
+        dimension.
+
+        Identify two nondimensional groups from the equation above.
+    \end{enumerate}
+
+    \sectionrule
+
+    {\Large\textbf{Skill check practice solution}}
+
+    \begin{enumerate}
+        \item $x$ and $\tau$ are nondimensional variables (that info is given). Recall that quantities that are added
+        to each other or that are equal to each other must have the same dimensions.
+
+        We have
+        \[
+            \left[\frac{dx}{d\tau}\right]
+            =
+            \left[
+                rT_0\left(\frac{1}{h_v}+x\right)
+            \right]
+            =
+            \left[
+                \frac{rT_0A}{K}x
+            \right]
+        \]
+        (where $[\cdot]$ denotes ``the dimensions of'').
+
+        We have
+        \[
+            [x]=[\tau]=1.
+        \]
+        So
+        \[
+            \left[\frac{dx}{d\tau}\right]=1.
+        \]
+        That means every term in the equation is also all dimensionless.
+
+        The dimension of a product is the product of the dimensions, so
+        \[
+            1
+            =
+            [rT_0]
+            \left[
+                \left(\frac{1}{h_v}+x\right)
+            \right]
+            =
+            \left[
+                \frac{rT_0A}{K}
+            \right]
+            [x].
+        \]
+
+        The dimension of a sum is the dimension of either component of the sum, so
+        \[
+            1
+            =
+            [rT_0][x]
+            =
+            \left[
+                \frac{rT_0A}{K}
+            \right]
+            [x].
+        \]
+
+        \newpage
+
+        Using $[x]=1$, this is
+        \[
+            1=[rT_0]
+            =
+            \left[
+                \frac{rT_0A}{K}
+            \right].
+        \]
+
+        $rT_0$ is a dimensionless group.
+        \[
+            1
+            =
+            \left[
+                \frac{rT_0A}{K}
+            \right]
+            =
+            [rT_0]
+            \left[
+                \frac{A}{K}
+            \right].
+        \]
+        $\dfrac{A}{K}$ is another dimensionless group.
+
+        $h_v$ is a dimensionless parameter (but is not a group).
+    \end{enumerate}
+
+    \sectionrule
+
+    \newpage
+
+    {\Large\textbf{Teams}}
+
+    Post screenshots of your work to the course Google Drive today:Link to drive folder. Include words,
+    labels, and other short notes on your whiteboard that might make those solutions useful to you or
+    your classmates. Name your images using the format:
+
+    \begin{itemize}
+        \item \texttt{teamXX-YY.EXT}
+    \end{itemize}
+
+    where XX is your two-digit team number (e.g.\ 06 if you are team 6), YY is the two digit number of
+    image for today (e.g.\ 01 for the first image, 02 for the second, and so on.), and EXT is the extension
+    for the image filetype you used.
+
+    \sectionrule
+
+    {\LARGE\textbf{Team activity}}
+
+    \vspace{0.7em}
+
+    {\Large\textbf{Assigning roles}}
+
+    \begin{itemize}
+        \item Have a brief rock-paper-scissors tournament (best of 1).
+
+        \item The winner will be the scribe for the first problem (doing all writing for the team).
+
+        \item Re-match with the other team members. The winner will be the time-keeper (keeping the
+        team on task and making sure that team members are taking turns contributed / sharing
+        time).
+
+        \item Choose a remaining team member to be the questioner (checking in to make sure that team
+        members are asking any questions that they have).
+    \end{itemize}
+
+    \vspace{0.5em}
+
+    \textbf{Nondimensionalization}
+
+    \begin{enumerate}
+        \item Let
+        \[
+            \dot N = rN(1-N/K)-H.
+        \]
+        This is a logistic population model where there is a constant harvesting rate reducing
+        population growth.
+
+        \begin{enumerate}
+            \item For each of the variables and each of the parameters, identify its associated dimension.
+            \textit{Write this out in expressions of the form $[a]=L$.}
+
+            \item Create dimensional constants, $N_0$ and $T_0$, and use them to create nondimensional variables
+            \[
+                x=N/N_0
+                \qquad\text{and}\qquad
+                \tau=t/T_0.
+            \]
+            Substitute $x$ and $\tau$ into the equation and simplify.
+
+            \item List all nondimensional groups that arise. Consider a combination a \textit{nondimensional group}
+            if the combination is nondimensional but every piece would be dimensional if it were broken
+            apart in any way.
+
+            \item Make choices for values of the constants $T_0$ and $N_0$ that eliminate two of the nondimen-
+            sional groups.
+
+            \item Define a new nondimensional parameter (use a Greek letter such as $\alpha,\beta,\gamma,\mu$), and rewrite
+            your equation as a nondimensional one.
+
+            \item How many parameters are there in the nondimensional system? How does this compare
+            to the number in the dimensional version? Notice that each dimensional constant we
+            introduce enables us to remove a parameter, so that the nondimensional equation has
+            fewer parameters than the dimensional one.
+            \textit{This result on the reduction in the number of
+            parameters from nondimensionalization is called the Buckingham Pi theorem. It is called}
+
+            \newpage
+
+            \textit{the ``pi'' theorem because he used the symbols $\Pi_1,\Pi_2$, etc to represent the nondimensional
+            groups.}
+        \end{enumerate}
+
+        \item \textit{Rotate your roles: questioner $\rightarrow$ timekeeper $\rightarrow$ scribe}
+
+        Let
+        \[
+            \dot N = rN(1-N/K)-HN/(A+N).
+        \]
+        This is a slightly different harvesting case.
+
+        \begin{enumerate}
+            \item This harvesting term, $HN/(A+N)$, is in the form of a special function called a
+            \textbf{Monod function}. Plot an approximation of the Monod function by hand
+            \textbf{without} using any plotting tools.
+
+            \item What do you think of this function as a description of a harvesting process?
+
+            \item Identify the dimension of each of the variables and parameters. Once you nondimensionalize
+            how many parameters do you expect to remain?
+
+            \item Nondimensionalize this equation.
+
+            \begin{itemize}
+                \item As part of this process, identify the dimensionless groups and check your work with
+                another team.
+
+                \item There are multiple good choices for $N_0$. What are some reasons to choose one or the
+                other?
+            \end{itemize}
+
+            \item Now that it's nondimensional, take another look at the expression for your harvesting
+            function. Plot it using appropriate axis ticks. How did your axis tick labels change?
+        \end{enumerate}
+    \end{enumerate}
+
+    \textit{tips for plotting the monod function:}
+
+    \begin{itemize}
+        \item How does the function behave as $N\to0$?
+
+        \item How does it behave as $N\to\infty$?
+
+        \item Use a unit increment of $A$ on the horizontal axis and an increment of $H$ on the vertical
+        axis. Mark the point corresponding to an input of $N=A$.
+
+        \item Approximate the function for $N$ close to zero, using $A+N\approx A$ for $N$ small enough.
+
+        \item Draw a curve that connects up the features you have identified.
+    \end{itemize}
+
+\end{document}
