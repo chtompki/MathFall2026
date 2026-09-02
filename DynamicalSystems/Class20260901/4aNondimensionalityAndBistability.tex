@@ -188,14 +188,55 @@
         ($h$). To identify the bifurcation structure of this system, sketch $x(1-x)$ and $h$ both vs. $x$.
 
         \begin{enumerate}[label=(\alph*)]
-    \item What kind of bifurcation occurs in this system?
-    \item Let $h=h_c$ denote the bifurcation point. At $h<h_c$ and $h>h_c$, what is the long-term
-    behavior? (i.e. what is this model predicting for the fishery?)
+            \item What kind of bifurcation occurs in this system?
+            \item Let $h=h_c$ denote the bifurcation point. At $h<h_c$ and $h>h_c$, what is the long-term
+            behavior? (i.e. what is this model predicting for the fishery?)
         \end{enumerate}
 
         In the model above, it is possible for the population to become negative because the harvesting
         rate does not respond to the fish population: ``harvesting'' continues in the model even when the
         fish are gone.
+
+        \begin{solution}
+            Write $F(x)=x(1-x)-h$. Fixed points satisfy
+            \[
+                x^2-x+h=0,
+                \qquad
+                x_{\pm}=\frac{1\pm\sqrt{1-4h}}{2}.
+            \]
+            Thus the critical harvesting level is
+            \[
+                h_c=\frac14.
+            \]
+
+            \begin{enumerate}[label=(\alph*)]
+    \item At $h=h_c$, the two fixed points collide at $x=1/2$ and disappear. This is a
+    \textbf{saddle-node bifurcation}.
+
+    The same conclusion follows graphically: $x(1-x)$ is a downward-opening parabola with maximum
+    $1/4$ at $x=1/2$, whereas $h$ is a horizontal line. The line intersects the parabola twice when
+    $h<1/4$, is tangent to it when $h=1/4$, and does not intersect it when $h>1/4$.
+
+    \item Since
+    \[
+        F'(x)=1-2x,
+    \]
+    for $0\le h<h_c$ the lower fixed point $x_-$ is unstable and the upper fixed point $x_+$ is
+    stable. Consequently,
+    \[
+        x(0)>x_- \implies x(t)\longrightarrow x_+,
+    \]
+    while an initial population below $x_-$ decreases toward extinction. Mathematically, the model
+    then continues into negative populations because the constant harvesting term never switches off.
+
+    At $h=h_c$, the equilibrium $x=1/2$ is semistable: solutions starting above it approach it,
+    while solutions starting below it decrease away from it. For $h>h_c$, $F(x)<0$ for every $x$,
+    so every nonnegative initial population decreases, reaches extinction, and then becomes negative
+    in the unphysical continuation of the model. Thus harvesting above $h_c$ predicts collapse of the
+    fishery, whereas harvesting below $h_c$ permits a stable positive population only if the initial
+    population lies above the threshold $x_-$.
+            \end{enumerate}
+        \end{solution}
 
         \item Consider
         \[
@@ -204,18 +245,93 @@
         This harvesting term has a feedback: the harvesting rate now depends on $x$.
 
         \begin{enumerate}[label=(\alph*)]
-    \item Notice that $x=0$ is a fixed point of the system. Identify its stability as a function of parameters.
-    \item Identify how many fixed points the system can have and find the qualitatively different phase
-    portraits that exist at different parameter sets. \emph{To think about other fixed points, one option is
-    to follow the steps below.}
-    \begin{itemize}
-        \item Plot $1-x$ and $h\dfrac{1}{a+x}$. \emph{Do this plotting via your own reasoning, rather
-        than using a computational tool.}
-        \item Consider how the shape of $h\dfrac{1}{a+x}$ depends on $a$ and on $h$. Argue that the
-        system could have one, two, or three fixed points.
-    \end{itemize}
-    \item How did making the harvesting rate depend on the state of the system change the model predictions?
+            \item Notice that $x=0$ is a fixed point of the system. Identify its stability as a function of parameters.
+            \item Identify how many fixed points the system can have and find the qualitatively different phase
+            portraits that exist at different parameter sets. \emph{To think about other fixed points, one option is
+            to follow the steps below.}
+            \begin{itemize}
+                \item Plot $1-x$ and $h\dfrac{1}{a+x}$. \emph{Do this plotting via your own reasoning, rather
+                than using a computational tool.}
+                \item Consider how the shape of $h\dfrac{1}{a+x}$ depends on $a$ and on $h$. Argue that the
+                system could have one, two, or three fixed points.
+            \end{itemize}
+            \item How did making the harvesting rate depend on the state of the system change the model predictions?
         \end{enumerate}
-    \end{enumerate}
+        \begin{solution}
+            Assume $a>0$, $h\ge0$, and restrict attention to the physically relevant region $x\ge0$. Factor
+            the vector field as
+            \[
+                \dot{x}=x\,G(x),
+                \qquad
+                G(x)=1-x-\frac{h}{a+x}.
+            \]
 
+            \begin{enumerate}[label=(\alph*)]
+    \item The linearization at $x=0$ is
+    \[
+        F'(0)=G(0)=1-\frac{h}{a}.
+    \]
+    Therefore $x=0$ is unstable when $h<a$ and stable when $h>a$. At $h=a$ it is
+    nonhyperbolic, so the linearization alone is inconclusive. Expanding near zero gives
+    \[
+        F(x)=\left(1-\frac{h}{a}\right)x
+        +\left(\frac{h}{a^2}-1\right)x^2+O(x^3).
+    \]
+    Hence, at $h=a$, $F(x)\sim(1/a-1)x^2$. From the physical side $x>0$, the origin is
+    unstable if $0<a<1$, stable if $a>1$, and, when $a=1$, one has
+    $F(x)=-x^3/(1+x)<0$, so it is stable.
+
+    \item Besides $x=0$, positive fixed points satisfy
+    \[
+        1-x=\frac{h}{a+x},
+    \]
+    or equivalently
+    \[
+        x^2-(1-a)x+(h-a)=0.
+    \]
+    Thus
+    \[
+        x_{\pm}=\frac{1-a\pm\sqrt{(1+a)^2-4h}}{2}.
+    \]
+    The saddle-node value for the two nonzero equilibria is
+    \[
+        h_{\mathrm{SN}}=\frac{(1+a)^2}{4}.
+    \]
+
+    The regime that produces three nonnegative fixed points requires $0<a<1$. In that case the
+    phase portraits are as follows (arrows indicate the sign of $\dot{x}$):
+    \[
+        \begin{array}{c|c|c}
+            \text{parameter range} & \text{nonnegative fixed points} & \text{phase line}\\
+            \hline
+            0\le h<a & 0,\ x_+ & 0\;\longrightarrow\;x_+\;\longleftarrow\\[2pt]
+            h=a & 0,\ 1-a & 0\;\longrightarrow\;(1-a)\;\longleftarrow\\[2pt]
+            a<h<h_{\mathrm{SN}} & 0,\ x_-,\ x_+ &
+            0\;\longleftarrow\;x_-\;\longrightarrow\;x_+\;\longleftarrow\\[2pt]
+            h=h_{\mathrm{SN}} & 0,\ (1-a)/2 &
+            0\;\longleftarrow\;(1-a)/2\;\longleftarrow\\[2pt]
+            h>h_{\mathrm{SN}} & 0 & 0\;\longleftarrow
+        \end{array}
+    \]
+    Thus, for $a<h<h_{\mathrm{SN}}$, both $x=0$ and $x=x_+$ are stable, while $x=x_-$ is
+    unstable and separates their basins of attraction. This is the \textbf{bistable} regime.
+    At $h=h_{\mathrm{SN}}$, the two positive equilibria meet in a saddle-node bifurcation.
+
+    For completeness, if $a\ge1$, the three-fixed-point regime is absent: when $h<a$ there is one
+    positive equilibrium in addition to the origin, and when $h\ge a$ there is no distinct positive
+    equilibrium (apart from the degenerate coincidence at $a=h=1$).
+
+    \item Because the harvesting term contains a factor of $x$, harvesting automatically tends to
+    zero as the fish population tends to zero. Consequently, $x=0$ is an invariant state: a
+    nonnegative solution cannot cross through zero and become negative. The feedback therefore fixes
+    the most obvious unphysical prediction of the constant-harvest model.
+
+    It also creates a new qualitative possibility. For $0<a<1$ and
+    $a<h<h_{\mathrm{SN}}$, the model is bistable: a population above the threshold $x_-$ recovers to
+    the positive stable equilibrium $x_+$, while a population below $x_-$ collapses to extinction.
+    Hence the eventual outcome depends not only on the parameters but also on the initial fish
+    population, producing a tipping threshold and hysteresis-like behavior.
+            \end{enumerate}
+        \end{solution}
+    \end{enumerate}
 \end{document}
