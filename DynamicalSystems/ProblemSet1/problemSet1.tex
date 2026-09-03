@@ -1,0 +1,340 @@
+%! Author = chtompki
+%! Date = 1/14/26
+\documentclass[10pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\NewDocumentCommand{\vitem}{v}{%
+    \item[\texttt{#1}]%
+}
+
+\title{Dynamical Systems\\Problem Set 1}
+\author{Rob Tompkins}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \date{\today}
+    \begin{onehalfspace}
+        We begin by noting that all of the files referenced in this document are available at: \\
+        \underline{https://github.com/chtompki/MathFall2026/tree/main/DynamicalSystems/ProblemSet1}
+
+        \vspace{2.55em}
+        {\bfseries\large Problem Set Instructions:}
+
+        \begin{itemize}
+            \item In your first attempt of the problem set problems, you are encouraged to treat the problem
+            set as an open-notes quiz. Work through it on your own, without consulting other people,
+            internet resources, or any solutions/answers. Work on each problem, completing as much as
+            you are able to, and making a note in your work whenever you become stuck or confused.
+
+            \item After your initial individual attempt, collaboration is encouraged as you continue to work on
+            the problems. You can discuss the problem and potential approaches with your classmates,
+            and use resources from class or other sources/references (including related journal articles).
+            However, please do not look at the student solution manual or other posted solutions until
+            after you have submitted your work in Gradescope.
+
+            \item In your submission, please show all your work and include any code you create in addition the
+            output of your computations. Be sure to acknowledge any substantial help you receive. This
+            includes collaboration with others, references and online resources.
+        \end{itemize}
+
+        \vspace{2.4em}
+        {\noindent\bfseries\large Part 1:}
+
+
+            \noindent\textbf{1.} Become a student member of the Society for Industrial and Applied Mathematics (SIAM)
+            (You don't need to turn anything in). Because VCU has a SIAM Student Chapter, you can
+            become a member for free.
+
+            \begin{enumerate}
+                \item Find out more details and sign up at this link:\\
+                \url{http://siam.org/membership/individual-membership/student-membership/}
+
+                \item Look on the SIAM website for resources/events that might be of interest to you. Also
+                take a look in the SIAM News section linked below for any interesting articles related to
+                applications of dynamical systems:\\
+                \url{https://www.siam.org/publications/siam-news/}
+            \end{enumerate}
+
+            \noindent\textbf{2.} Solving ODEs and phase portrait analysis with Matlab. You don't need to turn anything in
+            for this, but use what you've learned to complete the computational aspects of the questions
+            below. You can also feel free to use Python, Mathematica, or other software/programming
+            languages instead of Matlab for your problem sets if you prefer. If you do want to use something
+            different, please discuss this with me beforehand so that we can make sure you will still be
+            able to do everything required over the course of the semester.
+
+            \begin{enumerate}
+                \item Get access to Matlab if you don't already have it. Information about downloading Matlab
+                or using the online version as a VCU student can be found at the link below:\\
+                \url{https://knowledgebase.vcu.edu/portal/app/portlets/results/viewsolution.jsp?solutionid=250303090503713}
+            \end{enumerate}
+
+
+          \begin{enumerate}[start=2]
+            \item if you are unfamiliar with Matlab, go through the Matlab onramp tutorial linked below:\\
+            \url{https://matlabacademy.mathworks.com/details/matlab-onramp/gettingstartedL}
+
+            \item Complete the ``SlopeFields.mlx'' and ``Equilibria1D.mlx'' tutorials listed at the link below.
+            In addition to reviewing some concepts related to one-dimensional dynamical systems,
+            these tutorials provide example code for numerically analyzing 1D systems in Matlab.
+            You may either download them or run them using Matlab Online.
+            Link to Tutorials Main Page:
+            \url{https://www.mathworks.com/matlabcentral/fileexchange/95513-qualitative-analysis-of-odes}
+
+            \item Complete the following tutorial for using Matlab to implement the Explicit Euler Method
+            for solving and initial value problem:\\
+            \url{https://www.mathworks.com/videos/solving-odes-in-matlab-1-euler-ode1-117526.html}
+          \end{enumerate}
+
+
+          \noindent\textbf{3.} Computing bifurcation diagrams by numerical continuation in COCO. The numerical continuation
+          package is written in Matlab, and will be useful for computing bifurcation diagrams.
+          There are other options for those who prefer alternatives to Matlab, so please talk to me if
+          that is the case.
+
+          \begin{enumerate}
+              \item download and install COCO using the instructions at the link below:\\
+              \url{https://sourceforge.net/p/cocotools/wiki/Home/}
+
+              \item Go through Sections 1--3.3 of the ``getting started'' tutorial, along with links to the re-
+              lated Matlab tutorial file, which are both linked below (You don't need to turn anything
+              in). Note that both the pdf and matlab file linked below are also included in your COCO
+              installation directory.\\
+              Tutorial: \url{https://drive.google.com/file/d/1I0Wm5p9UDiUEiFQ2IRPoUyvXF_N2w8D4/view?usp=sharing}\\
+              Matlab Files: \url{https://drive.google.com/file/d/1p6eaDWMDErjFs7B1WBEj0OZrdskQk-kK/view?usp=drive_link}
+          \end{enumerate}
+
+
+        \vspace{0.45em}
+        {\noindent\bfseries\large Part 2:}\quad from Strogatz, 2nd Edition, Chapter 2
+
+        \noindent\textbf{2.2.4} Analyze the following equation graphically.
+        Sketch the vector field on the real line find all the fixed points, classify their
+        stability, and sketch the graph of $x(t)$ for different initial conditions.
+        Then try to find the analytical solution for $x(t)$, or state that it's impossible.
+        The equation in question is:
+        \[
+            \dot{x} = e^{-x}\sin(x)
+        \]
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{2.2.7} Analyze the following equation graphically.
+        Sketch the vector field on the real line find all the fixed points, classify their
+        stability, and sketch the graph of $x(t)$ for different initial conditions.
+        Then try to find the analytical solution for $x(t)$, or state that it's impossible.
+        The equation in question is:
+        \[
+            \dot{x} = e^{x}-\cos(x)
+        \]
+        (Hint: Sketch the graphs of $e^x$ and $\cos(x)$ on the same axes, and look for
+        intersections. You won't be able to find the fixed points explicitly, but you still can
+        find the qualitative behaviour.)
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{2.2.8} (Working backwards, from flows to equations)
+        Given an equation
+        \[
+            \dot{x}=f(x),
+        \]
+        we know how to sketch the corresponding flow on the real line.
+        Here you are asked to solve the opposite problem: For the phase
+        portrait shown in Figure~1, find an equation that is consistent with
+        it. (There are an infinite number of correct answers---and wrong ones
+        too.)
+
+        \begin{figure}[h]
+            \centering
+            \begin{tikzpicture}[scale=1.25, >=stealth]
+
+                % Phase line
+                \draw (-3,0) -- (4,0);
+
+                % Flow arrows
+                \draw[->, thick] (-2.8,0) -- (-2.0,0);
+                \draw[->, thick] (-0.85,0) -- (-0.15,0);
+                \draw[->, thick] (1.35,0) -- (0.65,0);
+                \draw[->, thick] (2.25,0) -- (3.05,0);
+
+                % Half-stable fixed point at x = -1
+                \draw[fill=white, thick] (-1,0) circle (2.5pt);
+                \begin{scope}
+                    \clip (-1.1,-0.1) rectangle (-1,0.1);
+                    \fill (-1,0) circle (2.5pt);
+                \end{scope}
+                \draw[thick] (-1,0) circle (2.5pt);
+
+                % Stable fixed point at x = 0
+                \fill (0,0) circle (2.5pt);
+
+                % Unstable fixed point at x = 2
+                \draw[fill=white, thick] (2,0) circle (2.5pt);
+
+                % Labels
+                \node[below=5pt] at (-1,0) {$-1$};
+                \node[below=5pt] at (0,0) {$0$};
+                \node[below=5pt] at (2,0) {$2$};
+
+            \end{tikzpicture}
+            \caption{}
+        \end{figure}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{2.3.2} (Autocatalysis)
+        Consider the model chemical reaction
+        \[
+            A+X
+            \underset{k_{-1}}{\overset{k_1}{\rightleftarrows}}
+            2X,
+        \]
+        in which one molecule of \(X\) combines with one molecule of \(A\)
+        to form two molecules of \(X\). This means that the chemical \(X\)
+        stimulates its own production, a process called \emph{autocatalysis}.
+        This positive feedback process leads to a chain reaction, which
+        eventually is limited by a ``back reaction'' in which \(2X\) returns
+        to \(A+X\).
+
+        According to the \emph{law of mass action} of chemical kinetics, the
+        rate of an elementary reaction is proportional to the product of the
+        concentrations of the reactants. We denote the concentrations by
+        lowercase letters \(x=[X]\) and \(a=[A]\). Assume that there is an
+        enormous surplus of chemical \(A\), so that its concentration \(a\)
+        can be regarded as constant. Then the equation for the kinetics of
+        \(x\) is
+        \[
+            \dot{x}=k_1ax-k_{-1}x^2,
+        \]
+        where \(k_1\) and \(k_{-1}\) are positive parameters called
+        \emph{rate constants}.
+
+        \begin{enumerate}[label=\alph*)]
+            \item Find all the fixed points of this equation and classify
+            their stability.
+            \item Sketch the graph of \(x(t)\) for various initial values
+            \(x_0\).
+        \end{enumerate}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{2.3.3} (Tumor growth)
+        The growth of cancerous tumors can be modeled by the Gompertz law
+        \[
+            \dot{N}=-aN\ln(bN),
+        \]
+        where \(N(t)\) is proportional to the number of cells in the tumor,
+        and \(a,b>0\) are parameters.
+
+        \begin{enumerate}[label=\alph*)]
+            \item Interpret \(a\) and \(b\) biologically.
+            \item Sketch the vector field and graph \(N(t)\) for various
+            initial values.
+        \end{enumerate}
+
+        The predictions of this simple model agree surprisingly well with
+        data on tumor growth, as long as \(N\) is not too small; see
+        Aroesty et al.\ (1973) and Newton (1980) for examples.
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{2.3.5} (Dominance of the fittest) Suppose $X$ and $Y$ are two species
+        that reproduce exponentially fast: $\dot{X} = aX$ and $\dot{Y} = bY$, respectively, with
+        initial conditions $X_0,Y_0 > 0$ and growth rates $a\ge b\ge 0$.
+        Here $X$ is ``fitter'' than $Y$ in the sense that it reproduces faster, as reflected by
+        the inequality $a > b$.
+        So we'd expect $X$ to keep increasing its share of the total population $X + Y$ as
+        $t\rightarrow\infty$.
+        The goal of this exercise is to demonstrate this intuitive result, first analytically and
+        then geometrically.
+        \begin{itemize}
+            \item[(a)] Let $x(t) = X(t)/[X(t) + Y(t)]$ denote $X$'s share of the total population.
+            By solving for $X(t)$ and $Y(t)$, show that $x(t)$ increasing monotonically approaches
+            1 as $t\rightarrow\infty$.
+            \item[(b)] Alternatively, we can arrive at the same conclusions by deriving a differential
+            equation for $x(t)$.
+            To do so, take the time derivative of $x(t) = X(t)/[X(t) + Y(t)]$ using the quotient and
+            chain rules.
+            Then substitute for $X$ and $Y$ and therby show that $x(t)$ obeys the logistic equation
+            $\dot{x} = (a - b)x(1 - x)$.
+            Explain why this implies that $x(t)$ increases monotonically and approaches 1 as
+            $t\rightarrow\infty$.
+        \end{itemize}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{2.4.3} Use linear stability analysis to classify the fixed points
+        of the following system.
+        If linear stability analysis fails because $f'(x^*)=0$, use a graphical argument to decide
+        the stability.
+        \[
+            \dot{x} = \tan(x)
+        \]
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{2.4.8} using linear stability analysis, classify the fixed points of the
+        Gompertz model of tumor growth $\dot{N} = -aN\ln(bN)$.
+        (Similar to Exercise 2.3.3, $N(t)$ is proportional to the number of cells in the tumor and
+        $a,b > 0$ are parameters.)
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{2.8.2} Sketch the slope field for the following differential equations.
+        Then ``integrate'' the equation manually by drawing trajectories that are everywhere
+        parallel to the local slope.
+        \begin{itemize}
+            \item[(a)] $\dot{x} = x$
+            \item[(c)] $\dot{x} = 1 - 4x(1 - x)$
+        \end{itemize}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{2.8.6} (Analytically intractible problem) Consider the initial value
+        problem $\dot{x} = x + e^{-x}$, $x(0) = 0$.
+        \begin{itemize}
+            \item[(a)] Sketch the solution $x(t)$ for $t\ge 0$
+            \item[(b)] Using some analytical arguments, obtain rigorous bounds on the value of $x$ at
+            $t=1$.
+            In other words profe that $a < x(1) < b$, for $a,b$ to be determined.
+            By being clever, try to make $a$ and $b$ as close together as possible.
+            (Hint: Bound the given vector field by approximate vector fields that can be integrated
+            analytically.)
+            \item[(c)] Now for the numerical part: Using the Euler method, compute $x$ at $t=1$, correct
+            to three decimal places.
+            How small does the stepsize need to be to obtain the desired accuracy?
+            (Give the order of magnitude, not the exact number)
+        \end{itemize}
+
+        \begin{solution}
+        \end{solution}
+
+    \end{onehalfspace}
+\end{document}
