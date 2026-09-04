@@ -136,6 +136,129 @@
         \]
 
         \begin{solution}
+            Set
+            \[
+                f(x)=e^{-x}\sin x.
+            \]
+            Because $e^{-x}>0$ for every $x\in\mathbb R$, the sign of $f(x)$ is the
+            same as the sign of $\sin x$. The fixed points are therefore
+            \[
+                f(x_*)=0
+                \quad\Longleftrightarrow\quad
+                \sin x_*=0
+                \quad\Longleftrightarrow\quad
+                \boxed{x_*=n\pi,\qquad n\in\mathbb Z.}
+            \]
+            Moreover,
+            \[
+                \dot{x}>0 \quad\text{on }(2k\pi,(2k+1)\pi),
+                \qquad
+                \dot{x}<0 \quad\text{on }((2k-1)\pi,2k\pi).
+            \]
+            Thus a representative portion of the phase line is
+            \[
+                \begin{tikzpicture}[baseline=-0.5ex,>=stealth,scale=0.95]
+                  \draw[->] (-5.4,0)--(5.8,0) node[right] {$x$};
+                  \foreach \x/\lab in {-4.5/$-2\pi$,-2.25/$-\pi$,0/$0$,2.25/$\pi$,4.5/$2\pi$}{
+                      \fill (\x,0) circle (2pt);
+                      \node[below=5pt] at (\x,0) {\lab};
+                  }
+
+                  % Chevrons placed directly on the phase line indicate the flow direction.
+                  \node[fill=white,inner sep=0.5pt] at (-3.375,0) {$>$};
+                  \node[fill=white,inner sep=0.5pt] at (-1.125,0) {$<$};
+                  \node[fill=white,inner sep=0.5pt] at ( 1.125,0) {$>$};
+                  \node[fill=white,inner sep=0.5pt] at ( 3.375,0) {$<$};
+
+
+                \end{tikzpicture}
+            \]
+
+            For the stability classification, differentiate:
+            \[
+                f'(x)=e^{-x}(\cos x-\sin x).
+            \]
+            At a fixed point $x_*=n\pi$,
+            \[
+                f'(n\pi)=(-1)^n e^{-n\pi}.
+            \]
+            Consequently,
+            \[
+                \boxed{x=2k\pi\text{ is unstable},\qquad
+                x=(2k+1)\pi\text{ is asymptotically stable}.}
+            \]
+            All the fixed points are hyperbolic.
+
+            Now let $x(0)=x_0$. If $x_0=n\pi$, uniqueness gives the equilibrium
+            solution
+            \[
+                x(t)\equiv n\pi.
+            \]
+            If $2k\pi<x_0<(2k+1)\pi$, then $x(t)$ increases monotonically and
+            \[
+                \lim_{t\to-\infty}x(t)=2k\pi,
+                \qquad
+                \lim_{t\to\infty}x(t)=(2k+1)\pi.
+            \]
+            If $(2k-1)\pi<x_0<2k\pi$, then $x(t)$ decreases monotonically and
+            \[
+                \lim_{t\to-\infty}x(t)=2k\pi,
+                \qquad
+                \lim_{t\to\infty}x(t)=(2k-1)\pi.
+            \]
+            Thus every nonconstant orbit connects an unstable even multiple of $\pi$
+            to one of the adjacent stable odd multiples. Representative solution curves
+            near $x=0$ are shown below.
+            \[
+                \begin{tikzpicture}[>=stealth,x=0.85cm,y=0.8cm]
+                  \draw[->] (-4.8,0)--(5.2,0) node[right] {$t$};
+                  \draw[->] (0,-4.25)--(0,4.25) node[above] {$x(t)$};
+                  % Stable equilibrium solutions are solid; the unstable one is dotted.
+                  \draw[thick] (-4.7,3.14)--(5.0,3.14)
+                  node[right,align=left] {$\pi$\\[-1mm]{\scriptsize stable}};
+                  \draw[thick] (-4.7,-3.14)--(5.0,-3.14)
+                  node[right,align=left] {$-\pi$\\[-1mm]{\scriptsize stable}};
+                  \draw[very thick,dotted] (-4.7,0)--(5.0,0)
+                  node[right,align=left] {$0$\\[-1mm]{\scriptsize unstable}};
+
+                  % Representative nonconstant trajectories.
+                  \draw[thick,domain=-4.5:4.8,samples=120,smooth]
+                  plot (\x,{3.14/(1+exp(-0.85*\x))});
+                  \draw[thick,domain=-4.5:4.8,samples=120,smooth]
+                  plot (\x,{-3.14/(1+exp(-0.85*\x))});
+                  \node at (3.2,1.55) {$0<x_0<\pi$};
+                  \node at (3.2,-1.55) {$-\pi<x_0<0$};
+                \end{tikzpicture}
+            \]
+            The drawn curves are qualitative sketches; they indicate the correct
+            monotonicity and limiting equilibria, not an explicit formula for the
+            solutions.
+
+            For a nonconstant solution, separation of variables yields
+            \[
+                \frac{e^x}{\sin x}\,dx=dt.
+            \]
+            Hence, as long as $x(t)$ remains in the interval between the neighboring
+            fixed points containing $x_0$,
+            \[
+                \boxed{
+                    t=\int_{x_0}^{x(t)}\frac{e^u}{\sin u}\,du.
+                }
+            \]
+            The antiderivative $\int e^x\csc x\,dx$ is not an elementary function, so
+            there is no elementary closed-form expression for $x(t)$. If
+            \[
+                F(x)=\int^x\frac{e^u}{\sin u}\,du
+            \]
+            is defined on the interval containing $x_0$, then the solution may be
+            written implicitly, or in inverse-function form, as
+            \[
+                F(x(t))-F(x_0)=t,
+                \qquad
+                \boxed{x(t)=F^{-1}\bigl(t+F(x_0)\bigr).}
+            \]
+            Together with the constant solutions $x(t)\equiv n\pi$, this describes all
+            solutions.
         \end{solution}
 
         \noindent\textbf{2.2.7} Analyze the following equation graphically.
