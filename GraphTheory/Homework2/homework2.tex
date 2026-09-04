@@ -1,0 +1,85 @@
+%! Author = chtompki
+%! Date = 1/14/26
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\title{Graph Theory:\\Homework 2\\ Book Section 1.2.}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+    \noindent\textbf{1.} Suppose that every vertex of a simple graph $G$ has degree at least 3.
+    Prove that $G$ has a cycle of even length.
+    (Hint: Consider a maximal path $P=v_1 v_2 \cdots v_k$)
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{2.} Prove that a bipartite graph has a unique bipartition
+    (except for interchanging the two partite sets) if and only if it is connected.
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{3.} Let $v$ be a cut-vertex of a simple graph $G$.
+    Prove that $\overline{G} - v$ is connected.
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{4.} Let $G$ be a simple graph having no isolated vertex and no induced
+    subgraph with exactly two edges.
+    Prove that $G$ is a complete graph.
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{5.} Let $G$ be a connected simple graph not having $P_4$, or $C_3$ as
+    an induced sub-graph.
+    Prove that $G$ is a biclique (complete bipartite graph).
+    (Hint: Recall that the distance $d_G(u,v)$ between vertices $u$ and $v$ in $G$ is the shortest
+    path between $u$ and $v$ [assuming that $G$ is connected].
+    Fix an arbitrary vertex $v\in V(G)$.
+    Partition $V(G)$ using distances to $v$ by letting $L_i=\{u\in V(G): d_g(v,u) = i\}$
+    for $i\ge 0$.
+    Why must $L_i=\null$ for $i\ge 3$.
+    Why must $G$ be complete bipartite?)
+
+    \begin{proof}
+    \end{proof}
+
+\end{document}
