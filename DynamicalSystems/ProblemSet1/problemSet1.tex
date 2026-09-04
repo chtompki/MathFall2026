@@ -16,9 +16,11 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{tikz}
+\usepackage{listings}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepgfplotslibrary{groupplots}
+
 
 \newenvironment{solution}
 {\begin{proof}[Solution]}
@@ -1241,6 +1243,102 @@
         \end{itemize}
 
         \begin{solution}
+            Write $f(x)=x+e^{-x}$. Since $f(x)>0$ for every $x$, the solution is
+            strictly increasing. Also
+            \[
+                \ddot{x}=f'(x)\dot{x}=(1-e^{-x})(x+e^{-x}).
+            \]
+            For $t>0$ we have $x(t)>0$, so $1-e^{-x(t)}>0$ and consequently
+            $\ddot{x}(t)>0$. Thus the solution starts at the origin with slope
+            $\dot{x}(0)=1$, and is increasing and concave upward. This determines the
+            qualitative sketch in part (a).
+
+            For rigorous bounds, the alternating Taylor estimates, valid for $x\geq0$,
+            give
+            \[
+                1-x\leq e^{-x}\leq 1-x+\frac{x^2}{2}.
+            \]
+            It follows first that $\dot{x}\geq1$, hence $x(t)\geq t$. The upper
+            inequality gives
+            \[
+                \dot{x}\leq1+\frac{x^2}{2}.
+            \]
+            Let $u$ solve $u'=1+u^2/2$, $u(0)=0$. Scalar comparison and direct
+            integration yield
+            \[
+                x(t)\leq u(t)=\sqrt2\tan\left(\frac{t}{\sqrt2}\right).
+            \]
+            In particular, on $0\leq t\leq1$,
+            \[
+                x(t)\leq U:=\sqrt2\tan\left(\frac1{\sqrt2}\right)
+                \approx1.208460243.
+            \]
+
+            We can sharpen the lower bound using one more Taylor term:
+            \[
+                e^{-x}\geq1-x+\frac{x^2}{2}-\frac{x^3}{6}.
+            \]
+            Because $0\leq x(t)\leq U$ for $0\leq t\leq1$, we have $x^3\leq Ux^2$.
+            Therefore
+            \[
+                \dot{x}\geq1+cx^2,
+                \qquad c:=\frac12-\frac{U}{6}>0.
+            \]
+            If $\ell'=1+c\ell^2$ and $\ell(0)=0$, comparison gives
+            \[
+                x(t)\geq\ell(t)=\frac{1}{\sqrt c}\tan(\sqrt c\,t).
+            \]
+            At $t=1$ this produces the rigorous bracket
+            \[
+                \boxed{
+                    1.113051909
+                    <x(1)<
+                    1.208460243 }.
+            \]
+            Strict inequalities hold for $t>0$ because the relevant Taylor bounds are
+            strict away from $x=0$.
+
+            For part (c), explicit Euler uses
+            \[
+                x_{n+1}=x_n+h\bigl(x_n+e^{-x_n}\bigr),
+                \qquad x_0=0,qquad h=\frac1N.
+            \]
+            A high-accuracy computation gives
+            \[
+                x(1)\approx1.1536390027,
+            \]
+            and therefore, to three decimal places,
+            \[
+                \boxed{x(1)=1.154.}
+            \]
+            Euler's method has global error $O(h)$. Numerically, the error is about
+            $0.2825h$ for small $h$, so an absolute error below $5\times10^{-4}$
+            requires $h$ on the order of $10^{-3}$. Because the exact value lies fairly
+            close to the rounding boundary $1.1535$, obtaining the displayed rounded
+            value $1.154$ reliably requires a somewhat smaller step, approximately
+            $h\lesssim4\times10^{-4}$ (a few times $10^{-4}$).
+
+            \IfFileExists{exercise_2_8_6_matlab.png}{%
+                \begin{figure}[htbp]
+                    \centering
+                    \includegraphics[width=\textwidth]{exercise_2_8_6_matlab.png}
+                    \caption{MATLAB slope field, numerical solution, and Euler convergence.}
+                \end{figure}
+            }{%
+                \begin{center}
+                    \fbox{\parbox{0.88\textwidth}{\centering
+                    Run \texttt{exercise\_2\_8\_6.m} to create
+                    \texttt{exercise\_2\_8\_6\_matlab.png}; the exported plot will appear
+                    here automatically.}}
+                \end{center}
+            }
+
+            \clearpage
+            \subsection*{MATLAB code}
+            The following script computes the solution, tests Euler stepsizes, plots the
+            slope field and trajectory, and exports the figure used above.
+            \lstinputlisting{exercise_2_8_6.m}
+
         \end{solution}
 
     \end{onehalfspace}
