@@ -868,6 +868,96 @@
         \end{itemize}
 
         \begin{solution}
+            \begin{itemize}
+                \item[(a)] The equations for the two populations are independent
+                exponential-growth equations. Their solutions are
+                \[
+                    X(t)=X_0e^{at},
+                    \qquad
+                    Y(t)=Y_0e^{bt}.
+                \]
+                Consequently,
+                \begin{align*}
+                    x(t)
+                    &=\frac{X_0e^{at}}{X_0e^{at}+Y_0e^{bt}}\\
+                    &=\frac{1}{1+\dfrac{Y_0}{X_0}e^{-(a-b)t}}.
+                \end{align*}
+                Since \(X_0,Y_0>0\), we have
+                \[
+                    0<x(t)<1
+                \]
+                for every finite \(t\). Moreover, because \(a>b\), the function
+                \(e^{-(a-b)t}\) decreases strictly as \(t\) increases. Therefore, the
+                denominator
+                \[
+                    1+\frac{Y_0}{X_0}e^{-(a-b)t}
+                \]
+                decreases strictly, so \(x(t)\) increases strictly.
+
+                Finally, \(a-b>0\), and hence
+                \[
+                    \lim_{t\to\infty}e^{-(a-b)t}=0.
+                \]
+                It follows that
+                \[
+                    \boxed{\lim_{t\to\infty}x(t)=1.}
+                \]
+                Thus, the fitter species \(X\) monotonically increases its share of
+                the total population, and its share approaches \(100\%\).
+
+                \item[(b)] Applying the quotient rule gives
+                \begin{align*}
+                    \dot{x}
+                    &=\frac{\dot{X}(X+Y)-X(\dot{X}+\dot{Y})}
+                    {(X+Y)^2}\\
+                    &=\frac{\dot{X}Y-X\dot{Y}}{(X+Y)^2}.
+                \end{align*}
+                Substituting \(\dot{X}=aX\) and \(\dot{Y}=bY\), we obtain
+                \[
+                    \dot{x}
+                    =\frac{aXY-bXY}{(X+Y)^2}
+                    =(a-b)\frac{XY}{(X+Y)^2}.
+                \]
+                From the definition of \(x\),
+                \[
+                    x=\frac{X}{X+Y}
+                    \qquad\text{and}\qquad
+                    1-x=\frac{Y}{X+Y}.
+                \]
+                Therefore,
+                \[
+                    x(1-x)
+                    =\frac{X}{X+Y}\frac{Y}{X+Y}
+                    =\frac{XY}{(X+Y)^2}.
+                \]
+                Substitution yields the logistic equation
+                \[
+                    \boxed{\dot{x}=(a-b)x(1-x).}
+                \]
+
+                Because \(X,Y>0\), the population share satisfies \(0<x<1\).
+                Since \(a-b>0\), it follows that
+                \[
+                    \dot{x}=(a-b)x(1-x)>0
+                    \qquad\text{whenever }0<x<1.
+                \]
+                Thus, \(x(t)\) increases strictly and is bounded above by \(1\), so it
+                must approach a limit \(L\leq 1\). The equilibria of the logistic
+                equation are determined by
+                \[
+                    (a-b)L(1-L)=0,
+                \]
+                giving \(L=0\) or \(L=1\). Since \(x(t)>0\) and is increasing, it
+                cannot approach \(0\). Hence,
+                \[
+                    \boxed{\lim_{t\to\infty}x(t)=1.}
+                \]
+
+                Geometrically, the phase line for \(0<x<1\) points to the right because
+                \(\dot{x}>0\). Therefore, every solution beginning in this interval
+                moves monotonically toward the stable equilibrium \(x=1\).
+            \end{itemize}
+
         \end{solution}
 
         \noindent\textbf{2.4.3} Use linear stability analysis to classify the fixed points
