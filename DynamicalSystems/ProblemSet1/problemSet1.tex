@@ -969,6 +969,81 @@
         \]
 
         \begin{solution}
+            Let
+            \[
+                f(x)=\tan(x).
+            \]
+            The fixed points \(x^*\) satisfy
+            \[
+                f(x^*)=0.
+            \]
+            Since
+            \[
+                \tan(x)=0
+                \quad\Longleftrightarrow\quad
+                x=n\pi,
+                \qquad n\in\mathbb{Z},
+            \]
+            the system has the fixed points
+            \[
+                \boxed{x_n^*=n\pi,\qquad n\in\mathbb{Z}.}
+            \]
+
+            To classify them, we compute
+            \[
+                f'(x)=\sec^2(x).
+            \]
+            At each fixed point,
+            \[
+                f'(x_n^*)
+                =\sec^2(n\pi)
+                =1>0.
+            \]
+            For a one-dimensional autonomous system, a fixed point is unstable when
+            \(f'(x^*)>0\). Therefore, every fixed point \(x_n^*=n\pi\) is unstable:
+            \[
+                \boxed{\text{Every fixed point }x_n^*=n\pi\text{ is unstable.}}
+            \]
+
+            To see this directly, consider a small perturbation
+            \[
+                x=n\pi+\eta.
+            \]
+            The linearized equation is
+            \[
+                \dot{\eta}=f'(n\pi)\eta=\eta,
+            \]
+            whose solution is
+            \[
+                \eta(t)=\eta(0)e^t.
+            \]
+            Thus, any nonzero perturbation grows exponentially, causing the solution
+            to move away from \(n\pi\).
+
+            This classification is also evident from the phase line. Immediately to
+            the left of \(n\pi\),
+            \[
+                \tan(x)<0,
+            \]
+            so solutions move to the left. Immediately to the right of \(n\pi\),
+            \[
+                \tan(x)>0,
+            \]
+            so solutions move to the right. Hence, the arrows point away from each
+            fixed point:
+            \[
+                \longleftarrow\quad n\pi\quad\longrightarrow
+            \]
+            confirming that every \(n\pi\) is a repelling, unstable fixed point.
+
+            The points
+            \[
+                x=\frac{\pi}{2}+n\pi,
+                \qquad n\in\mathbb{Z},
+            \]
+            are not fixed points; they are singularities at which \(\tan(x)\) and the
+            differential equation are undefined.
+
         \end{solution}
 
         \noindent\textbf{2.4.8} using linear stability analysis, classify the fixed points of the
