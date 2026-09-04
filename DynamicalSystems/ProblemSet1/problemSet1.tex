@@ -711,6 +711,137 @@
         Aroesty et al.\ (1973) and Newton (1980) for examples.
 
         \begin{solution}
+            Because $N$ represents tumor size, the physically meaningful domain is
+            $N\geq0$. The displayed differential equation is defined for $N>0$; since
+            \[
+                \lim_{N\to0^+}N\ln(bN)=0,
+            \]
+            we may continuously extend its right-hand side by defining $\dot N=0$ at
+            $N=0$.
+
+            \begin{enumerate}[label=\alph*)]
+                \item Introduce the limiting tumor size
+                \[
+                    K=\frac1b.
+                \]
+                Then the Gompertz law can be written as
+                \[
+                    \dot N=aN\ln\left(\frac{K}{N}\right).
+                \]
+                The parameter $b$ therefore determines the saturation size, or carrying
+                capacity,
+                \[
+                    \boxed{N_\infty=K=\frac1b.}
+                \]
+                Thus increasing $b$ decreases the predicted limiting tumor size.
+
+                The per-capita growth rate is
+                \[
+                    \frac{\dot N}{N}=a\ln\left(\frac{K}{N}\right).
+                \]
+                Hence $a$ sets the time scale on which the tumor approaches its limiting
+                size. In fact, as shown below, the logarithmic distance from the limiting
+                size decays like $e^{-at}$, so the characteristic time is
+                \[
+                    \boxed{\tau=\frac1a.}
+                \]
+                Larger $a$ means faster growth and faster relaxation toward $K$.
+
+                \item For $N>0$, let
+                \[
+                    f(N)=-aN\ln(bN)=aN\ln\left(\frac{K}{N}\right).
+                \]
+                The fixed points on the extended physical domain are
+                \[
+                    \boxed{N^*_1=0,
+                        \qquad
+                        N^*_2=K=\frac1b.}
+                \]
+                For $0<N<K$, one has $\ln(K/N)>0$, so $\dot N>0$. For $N>K$,
+                $\ln(K/N)<0$, so $\dot N<0$. The phase line is therefore
+                \[
+                    \begin{tikzpicture}[baseline=-0.5ex,>=stealth,x=1.25cm]
+                  \draw[->] (-0.35,0)--(5.1,0) node[right] {$N$};
+                  \draw[fill=white,thick] (0,0) circle (2.5pt);
+                  \fill (3.4,0) circle (2.5pt);
+                  \node[below=5pt] at (0,0) {$0$};
+                  \node[below=5pt] at (3.4,0) {$K=1/b$};
+                  \node[above=5pt] at (0,0) {\scriptsize unstable};
+                  \node[above=5pt] at (3.4,0) {\scriptsize stable};
+                  \node[fill=white,inner sep=0.5pt] at (1.7,0) {$>$};
+                  \node[fill=white,inner sep=0.5pt] at (4.25,0) {$<$};
+                    \end{tikzpicture}
+                \]
+                Thus $N=0$ is unstable from the physically relevant side, while $N=K$ is
+                asymptotically stable. In particular,
+                \[
+                    \boxed{
+                        \begin{array}{ll}
+                            0<N_0<K &: N(t)\text{ increases toward }K,\\
+                            N_0=K &: N(t)\equiv K,\\
+                            N_0>K &: N(t)\text{ decreases toward }K.
+                        \end{array}}
+                \]
+                Also, under the continuous extension at the origin, $N_0=0$ gives
+                $N(t)\equiv0$.
+
+                Representative solution curves are shown below. The unstable equilibrium
+                is dotted and the stable equilibrium is solid.
+                \[
+                    \begin{tikzpicture}[>=stealth,x=0.83cm,y=0.82cm]
+                  \draw[->] (-4.8,0)--(5.3,0) node[right] {$t$};
+                  \draw[->] (0,-0.45)--(0,5.7) node[above] {$N(t)$};
+
+                  \draw[very thick,dotted] (-4.6,0)--(5.0,0)
+                  node[right,align=left] {$0$\\[-1mm]{\scriptsize unstable}};
+                  \draw[thick] (-4.6,3.1)--(5.0,3.1)
+                  node[right,align=left] {$K=1/b$\\[-1mm]{\scriptsize stable}};
+
+                  % Exact Gompertz profiles after scaling K=3.1 and a=0.75.
+                  \draw[thick,domain=-4.5:4.8,samples=140,smooth]
+                  plot (\x,{3.1*exp(-0.45*exp(-0.75*\x))});
+                  \draw[thick,domain=-3.0:4.8,samples=140,smooth]
+                  plot (\x,{3.1*exp(-1.25*exp(-0.75*\x))});
+                  \draw[thick,domain=-0.5:4.8,samples=120,smooth]
+                  plot (\x,{3.1*exp(0.32*exp(-0.75*\x))});
+
+                  \node at (2.7,4.15) {\scriptsize $N_0>K$};
+                  \node at (2.6,1.55) {\scriptsize $0<N_0<K$};
+                    \end{tikzpicture}
+                \]
+
+                The solution can be found explicitly. Set
+                \[
+                    y(t)=\ln(bN(t)).
+                \]
+                For $N(t)>0$,
+                \[
+                    \dot y=\frac{\dot N}{N}=-a\ln(bN)=-ay.
+                \]
+                Therefore
+                \[
+                    y(t)=y(0)e^{-at}=\ln(bN_0)e^{-at}.
+                \]
+                Exponentiating gives
+                \[
+                    \boxed{
+                        N(t)=\frac1b
+                        \exp\left(\ln(bN_0)e^{-at}\right),
+                        \qquad N_0>0.
+                    }
+                \]
+                Equivalently,
+                \[
+                    N(t)=K\exp\left(\ln\left(\frac{N_0}{K}\right)e^{-at}\right).
+                \]
+                This formula shows directly that $N(t)\to K=1/b$ as $t\to\infty$ for
+                every $N_0>0$.
+
+                For a growing solution, the curvature changes sign when $N=K/e$. Thus a
+                solution starting below $K/e$ is initially concave upward and later concave
+                downward, giving the characteristic sigmoidal Gompertz growth curve. If
+                $K/e\leq N_0<K$, it is concave downward for all $t\geq0$.
+            \end{enumerate}
         \end{solution}
 
         \noindent\textbf{2.3.5} (Dominance of the fittest) Suppose $X$ and $Y$ are two species
