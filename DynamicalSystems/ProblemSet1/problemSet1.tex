@@ -36,93 +36,6 @@
         We begin by noting that all of the files referenced in this document are available at: \\
         \underline{https://github.com/chtompki/MathFall2026/tree/main/DynamicalSystems/ProblemSet1}
 
-        \vspace{2.55em}
-        {\bfseries\large Problem Set Instructions:}
-
-        \begin{itemize}
-            \item In your first attempt of the problem set problems, you are encouraged to treat the problem
-            set as an open-notes quiz. Work through it on your own, without consulting other people,
-            internet resources, or any solutions/answers. Work on each problem, completing as much as
-            you are able to, and making a note in your work whenever you become stuck or confused.
-
-            \item After your initial individual attempt, collaboration is encouraged as you continue to work on
-            the problems. You can discuss the problem and potential approaches with your classmates,
-            and use resources from class or other sources/references (including related journal articles).
-            However, please do not look at the student solution manual or other posted solutions until
-            after you have submitted your work in Gradescope.
-
-            \item In your submission, please show all your work and include any code you create in addition the
-            output of your computations. Be sure to acknowledge any substantial help you receive. This
-            includes collaboration with others, references and online resources.
-        \end{itemize}
-
-        \vspace{2.4em}
-        {\noindent\bfseries\large Part 1:}
-
-
-            \noindent\textbf{1.} Become a student member of the Society for Industrial and Applied Mathematics (SIAM)
-            (You don't need to turn anything in). Because VCU has a SIAM Student Chapter, you can
-            become a member for free.
-
-            \begin{enumerate}
-                \item Find out more details and sign up at this link:\\
-                \url{http://siam.org/membership/individual-membership/student-membership/}
-
-                \item Look on the SIAM website for resources/events that might be of interest to you. Also
-                take a look in the SIAM News section linked below for any interesting articles related to
-                applications of dynamical systems:\\
-                \url{https://www.siam.org/publications/siam-news/}
-            \end{enumerate}
-
-            \noindent\textbf{2.} Solving ODEs and phase portrait analysis with Matlab. You don't need to turn anything in
-            for this, but use what you've learned to complete the computational aspects of the questions
-            below. You can also feel free to use Python, Mathematica, or other software/programming
-            languages instead of Matlab for your problem sets if you prefer. If you do want to use something
-            different, please discuss this with me beforehand so that we can make sure you will still be
-            able to do everything required over the course of the semester.
-
-            \begin{enumerate}
-                \item Get access to Matlab if you don't already have it. Information about downloading Matlab
-                or using the online version as a VCU student can be found at the link below:\\
-                \url{https://knowledgebase.vcu.edu/portal/app/portlets/results/viewsolution.jsp?solutionid=250303090503713}
-            \end{enumerate}
-
-
-          \begin{enumerate}[start=2]
-            \item if you are unfamiliar with Matlab, go through the Matlab onramp tutorial linked below:\\
-            \url{https://matlabacademy.mathworks.com/details/matlab-onramp/gettingstartedL}
-
-            \item Complete the ``SlopeFields.mlx'' and ``Equilibria1D.mlx'' tutorials listed at the link below.
-            In addition to reviewing some concepts related to one-dimensional dynamical systems,
-            these tutorials provide example code for numerically analyzing 1D systems in Matlab.
-            You may either download them or run them using Matlab Online.
-            Link to Tutorials Main Page:
-            \url{https://www.mathworks.com/matlabcentral/fileexchange/95513-qualitative-analysis-of-odes}
-
-            \item Complete the following tutorial for using Matlab to implement the Explicit Euler Method
-            for solving and initial value problem:\\
-            \url{https://www.mathworks.com/videos/solving-odes-in-matlab-1-euler-ode1-117526.html}
-          \end{enumerate}
-
-
-          \noindent\textbf{3.} Computing bifurcation diagrams by numerical continuation in COCO. The numerical continuation
-          package is written in Matlab, and will be useful for computing bifurcation diagrams.
-          There are other options for those who prefer alternatives to Matlab, so please talk to me if
-          that is the case.
-
-          \begin{enumerate}
-              \item download and install COCO using the instructions at the link below:\\
-              \url{https://sourceforge.net/p/cocotools/wiki/Home/}
-
-              \item Go through Sections 1--3.3 of the ``getting started'' tutorial, along with links to the re-
-              lated Matlab tutorial file, which are both linked below (You don't need to turn anything
-              in). Note that both the pdf and matlab file linked below are also included in your COCO
-              installation directory.\\
-              Tutorial: \url{https://drive.google.com/file/d/1I0Wm5p9UDiUEiFQ2IRPoUyvXF_N2w8D4/view?usp=sharing}\\
-              Matlab Files: \url{https://drive.google.com/file/d/1p6eaDWMDErjFs7B1WBEj0OZrdskQk-kK/view?usp=drive_link}
-          \end{enumerate}
-
-
         \vspace{0.45em}
         {\noindent\bfseries\large Part 2:}\quad from Strogatz, 2nd Edition, Chapter 2
 
@@ -1052,6 +965,102 @@
         $a,b > 0$ are parameters.)
 
         \begin{solution}
+
+            Let
+            \[
+                f(N)=-aN\ln(bN).
+            \]
+            For \(N>0\), a fixed point \(N^*\) satisfies
+            \[
+                -aN^*\ln(bN^*)=0.
+            \]
+            Since \(a>0\) and \(N^*>0\), this requires
+            \[
+                \ln(bN^*)=0.
+            \]
+            Therefore,
+            \[
+                bN^*=1,
+            \]
+            and the positive fixed point is
+            \[
+                \boxed{N^*=\frac{1}{b}.}
+            \]
+
+            To determine its stability, differentiate \(f\):
+            \begin{align*}
+                f'(N)
+                &=-a\frac{d}{dN}\bigl[N\ln(bN)\bigr] \\
+                &=-a\bigl[\ln(bN)+1\bigr].
+            \end{align*}
+            At \(N^*=1/b\),
+            \[
+                f'\left(\frac{1}{b}\right)
+                =-a\left[\ln(1)+1\right]
+                =-a<0.
+            \]
+            Thus, linear stability analysis shows that
+            \[
+                \boxed{N^*=\frac{1}{b}\text{ is asymptotically stable}.}
+            \]
+
+            Indeed, if \(N=1/b+\eta\), where \(\eta\) is a small perturbation, then
+            the linearized equation is
+            \[
+                \dot{\eta}
+                =f'\left(\frac{1}{b}\right)\eta
+                =-a\eta.
+            \]
+            Its solution is
+            \[
+                \eta(t)=\eta(0)e^{-at},
+            \]
+            so perturbations decay exponentially.
+
+            There is a minor issue at \(N=0\), since \(\ln(bN)\) is not defined
+            there. However,
+            \[
+                \lim_{N\to0^+}N\ln(bN)=0,
+            \]
+            so the vector field can be continuously extended by defining \(f(0)=0\).
+            Under this biologically natural extension, \(N=0\) is also a fixed point.
+
+            Linear stability analysis cannot be applied at \(N=0\), because
+            \[
+                f'(N)=-a\bigl[\ln(bN)+1\bigr]\longrightarrow+\infty
+                \qquad\text{as }N\to0^+.
+            \]
+            Instead, consider the sign of \(f(N)\). For
+            \[
+                0<N<\frac{1}{b},
+            \]
+            we have \(0<bN<1\), so \(\ln(bN)<0\). Consequently,
+            \[
+                \dot{N}=-aN\ln(bN)>0.
+            \]
+            Thus, every sufficiently small positive population moves away from
+            \(N=0\). Hence,
+            \[
+                \boxed{N^*=0\text{ is unstable from the biologically relevant side }
+                N>0.}
+            \]
+
+            The phase line is therefore
+            \[
+                0\quad\longrightarrow\quad \frac{1}{b}
+                \quad\longleftarrow,
+            \]
+            because
+            \[
+                \dot{N}
+                \begin{cases}
+                    >0, & 0<N<1/b,\\
+                    <0, & N>1/b.
+                \end{cases}
+            \]
+            Thus, all positive solutions move toward the stable tumor size
+            \(N=1/b\).
+
         \end{solution}
 
         \noindent\textbf{2.8.2} Sketch the slope field for the following differential equations.
