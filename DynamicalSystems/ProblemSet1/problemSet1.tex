@@ -274,6 +274,155 @@
         find the qualitative behaviour.)
 
         \begin{solution}
+            Set
+            \[
+                f(x)=e^x-\cos x.
+            \]
+            Fixed points are intersections of $y=e^x$ and $y=\cos x$. For $x>0$,
+            $e^x>1\geq \cos x$, while $e^0=\cos0=1$. Hence $x=0$ is the only
+            nonnegative fixed point.
+
+            For $x<0$, an intersection is possible only where $\cos x>0$. On every
+            positive cosine lobe centered at $-2n\pi$, $n\geq1$, one has
+            \[
+                f\left(-\left(2n+\tfrac12\right)\pi\right)>0,
+                \qquad f(-2n\pi)=e^{-2n\pi}-1<0,
+            \]
+            and
+            \[
+                f\left(-\left(2n-\tfrac12\right)\pi\right)>0.
+            \]
+            Therefore there are two fixed points on each such lobe. There is also one
+            fixed point in $(-\pi/2,0)$, in addition to the fixed point at $0$.
+
+            Write the negative fixed points as
+            \[
+                a_0\in\left(-\frac{\pi}{2},0\right)
+            \]
+            and, for $n\geq1$,
+            \[
+                a_n\in\left(-\left(2n+\frac12\right)\pi,-2n\pi\right),
+                \qquad
+                b_n\in\left(-2n\pi,-\left(2n-\frac12\right)\pi\right).
+            \]
+            Thus all the fixed points are
+            \[
+                \boxed{0,\quad a_0,\quad a_n,\quad b_n\ (n\geq1).}
+            \]
+            They cannot be expressed in elementary closed form. Numerically, the first
+            few are
+            \[
+                a_0\approx-1.29270,\qquad b_1\approx-4.72129,\qquad
+                a_1\approx-7.85359,\qquad b_2\approx-10.99559.
+            \]
+
+            As one moves from left to right across a positive cosine lobe, the sign of
+            $f$ changes from positive to negative at $a_n$, and from negative to
+            positive at $b_n$. The same positive-to-negative change occurs at $a_0$,
+            whereas $f$ changes from negative to positive at $0$. A representative
+            portion of the phase line is therefore
+            \[
+                \begin{tikzpicture}[baseline=-0.5ex,>=stealth,x=0.88cm]
+                  \draw[->] (-6.0,0)--(6.1,0) node[right] {$x$};
+                  \foreach \x/\lab/\kind in {
+                      -5/b_2/U,-2.5/a_1/S,0/b_1/U,2.5/a_0/S,5/0/U}{
+                      \fill (\x,0) circle (2pt);
+                      \node[below=4pt] at (\x,0) {$\lab$};
+                      \node[above=5pt] at (\x,0) {\scriptsize\kind};
+                  }
+                  \node[fill=white,inner sep=0.5pt] at (-3.75,0) {$>$};
+                  \node[fill=white,inner sep=0.5pt] at (-1.25,0) {$<$};
+                  \node[fill=white,inner sep=0.5pt] at ( 1.25,0) {$>$};
+                  \node[fill=white,inner sep=0.5pt] at ( 3.75,0) {$<$};
+                  \node[fill=white,inner sep=0.5pt] at ( 5.55,0) {$>$};
+                \end{tikzpicture}
+            \]
+            Here S denotes asymptotically stable and U denotes unstable. Consequently,
+            \[
+                \boxed{a_n\text{ is asymptotically stable for every }n\geq0,}
+            \]
+            whereas
+            \[
+                \boxed{b_n\text{ is unstable for every }n\geq1,
+                    \quad\text{and }x=0\text{ is unstable}.}
+            \]
+            In particular, $f'(0)=e^0+\sin0=1>0$, confirming directly that $0$ is
+            unstable.
+
+            The phase line determines all the solution behavior. Between any unstable
+            fixed point and the stable fixed point immediately to its right, solutions
+            increase toward that stable point. Between a stable fixed point and the
+            unstable fixed point immediately to its right, solutions decrease toward
+            the stable point. For example,
+            \[
+                \begin{aligned}
+                    b_1<x_0<a_0 &: &x(t)&\nearrow a_0 &&(t\to\infty),
+                    &x(t)&\to b_1 &&(t\to-\infty),\\
+                    a_0<x_0<0 &: &x(t)&\searrow a_0 &&(t\to\infty),
+                    &x(t)&\to0 &&(t\to-\infty).
+                \end{aligned}
+            \]
+            Initial data at a fixed point give a constant solution. Representative
+            solution curves are shown below; solid horizontal lines are stable
+            equilibria and dotted horizontal lines are unstable equilibria.
+            \[
+                \begin{tikzpicture}[>=stealth,x=0.82cm,y=0.82cm]
+                  \draw[->] (-5.2,0)--(5.4,0) node[right] {$t$};
+                  \draw[->] (0,-5.05)--(0,3.6) node[above] {$x(t)$};
+
+                  \draw[very thick,dotted] (-5.0,2.3)--(5.0,2.3)
+                  node[right,align=left] {$0$\\[-1mm]{\scriptsize unstable}};
+                  \draw[thick] (-5.0,0)--(5.0,0)
+                  node[right,align=left] {$a_0$\\[-1mm]{\scriptsize stable}};
+                  \draw[very thick,dotted] (-5.0,-3.7)--(5.0,-3.7)
+                  node[right,align=left] {$b_1$\\[-1mm]{\scriptsize unstable}};
+
+                  % Qualitative trajectories approaching a_0 from above and below.
+                  \draw[thick,domain=-4.8:4.8,samples=120,smooth]
+                  plot (\x,{2.3/(1+exp(0.9*\x))});
+                  \draw[thick,domain=-4.8:4.8,samples=120,smooth]
+                  plot (\x,{-3.7/(1+exp(0.9*\x))});
+
+                  % Qualitative finite-time escape for initial data above zero.
+                  \draw[thick,domain=-4.7:3.75,samples=120,smooth]
+                  plot (\x,{2.55+0.16*exp(0.48*(\x+2.0))});
+                  \draw[dashed] (4.15,2.3)--(4.15,3.45);
+                  \node[above left] at (4.15,3.35) {\scriptsize $t=T$};
+                  \node at (1.9,3.0) {\scriptsize $x_0>0$};
+                \end{tikzpicture}
+            \]
+            The curves are qualitative sketches rather than exact solution formulas.
+            For $x_0>0$, $f(x)>0$, so the solution increases without bound. In fact it
+            reaches $+\infty$ in finite forward time because, for sufficiently large
+            $x$,
+            \[
+                e^x-\cos x\geq \frac12e^x,
+                \qquad
+                \int^{\infty}\frac{dx}{e^x-\cos x}<\infty.
+            \]
+            Thus $x(t)\to+\infty$ as $t\uparrow T$ for some finite $T$.
+
+            Finally, every nonconstant solution is separable:
+            \[
+                \frac{dx}{e^x-\cos x}=dt.
+            \]
+            With $x(0)=x_0$, its exact implicit form is
+            \[
+                \boxed{
+                    t=\int_{x_0}^{x(t)}\frac{du}{e^u-\cos u}.
+                }
+            \]
+            The antiderivative is not elementary, so no elementary explicit formula for
+            $x(t)$ is available. On any interval that contains no fixed point, define
+            \[
+                F(x)=\int^x\frac{du}{e^u-\cos u}.
+            \]
+            Then the solution can equivalently be written in inverse-function form as
+            \[
+                \boxed{x(t)=F^{-1}\bigl(t+F(x_0)\bigr).}
+            \]
+            Together with the constant solutions at all the fixed points, this describes
+            all solutions.
         \end{solution}
 
         \noindent\textbf{2.2.8} (Working backwards, from flows to equations)
@@ -324,6 +473,62 @@
         \end{figure}
 
         \begin{solution}
+            The fixed points in the portrait are
+            \[
+                x=-1,\qquad x=0,
+                \qquad\text{and}\qquad x=2.
+            \]
+            The arrows prescribe the following sign pattern for $f$:
+            \[
+                \begin{array}{c|cccc}
+                    x&(-\infty,-1)&(-1,0)&(0,2)&(2,\infty)\\ \hline
+                    f(x)&+&+&-&+
+                \end{array}
+            \]
+
+            At $x=-1$, the sign does not change. Thus the simplest polynomial should
+            have a zero of even multiplicity there; we choose the factor $(x+1)^2$.
+            At both $x=0$ and $x=2$, the sign changes, so we choose simple factors $x$
+            and $(x-2)$. This suggests
+            \[
+                f(x)=(x+1)^2x(x-2).
+            \]
+            Indeed, $(x+1)^2\geq0$, so away from $x=-1$ the sign of $f$ is determined
+            by $x(x-2)$. Therefore
+            \[
+                \begin{aligned}
+                    x<0 &: &x(x-2)&>0,\\
+                    0<x<2 &: &x(x-2)&<0,\\
+                    x>2 &: &x(x-2)&>0.
+                \end{aligned}
+            \]
+            This gives precisely the required arrows on every interval, including the
+            positive sign on both sides of $x=-1$. Hence one equation consistent with
+            the portrait is
+            \[
+                \boxed{\dot{x}=(x+1)^2x(x-2).}
+            \]
+
+            The stability shown by this equation also agrees with the portrait:
+            \begin{itemize}
+                \item At $x=-1$, solutions move toward the fixed point from the left and
+                away from it on the right. Thus $x=-1$ is half-stable
+                (stable from the left and unstable from the right).
+                \item At $x=0$, arrows point toward the fixed point from both sides, so
+                $x=0$ is asymptotically stable.
+                \item At $x=2$, arrows point away from the fixed point on both sides, so
+                $x=2$ is unstable.
+            \end{itemize}
+
+            The answer is not unique. More generally, for any continuous function
+            $g(x)>0$ on $\mathbb R$,
+            \[
+                \boxed{\dot{x}=g(x)(x+1)^2x(x-2)}
+            \]
+            has the same fixed points and the same phase portrait. One could also use
+            higher odd multiplicities at $0$ or $2$, or a higher even multiplicity at
+            $-1$, provided no additional zeros are introduced and the required sign
+            pattern is preserved.
         \end{solution}
 
         \noindent\textbf{2.3.2} (Autocatalysis)
