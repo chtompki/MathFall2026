@@ -566,6 +566,130 @@
         \end{enumerate}
 
         \begin{solution}
+            It is convenient to introduce
+            \[
+                r=k_1a>0,
+                \qquad
+                K=\frac{k_1a}{k_{-1}}>0.
+            \]
+            Then the equation becomes the logistic equation
+            \[
+                \dot{x}=rx\left(1-\frac{x}{K}\right).
+            \]
+
+            \begin{enumerate}[label=\alph*)]
+                \item The fixed points satisfy
+                \[
+                    rx\left(1-\frac{x}{K}\right)=0.
+                \]
+                Therefore
+                \[
+                    \boxed{x_1^*=0,
+                        \qquad
+                        x_2^*=K=\frac{k_1a}{k_{-1}}.}
+                \]
+                Let
+                \[
+                    f(x)=k_1ax-k_{-1}x^2.
+                \]
+                Its derivative is
+                \[
+                    f'(x)=k_1a-2k_{-1}x.
+                \]
+                At the fixed points,
+                \[
+                    f'(0)=k_1a>0,
+                    \qquad
+                    f'(K)=k_1a-2k_{-1}\frac{k_1a}{k_{-1}}
+                    =-k_1a<0.
+                \]
+                Hence
+                \[
+                    \boxed{x=0\text{ is unstable},
+                        \qquad
+                        x=K\text{ is asymptotically stable}.}
+                \]
+                The corresponding phase line is
+                \[
+                    \begin{tikzpicture}[baseline=-0.5ex,>=stealth,x=1.15cm]
+                  \draw[->] (-3.1,0)--(4.4,0) node[right] {$x$};
+                  \draw[fill=white,thick] (0,0) circle (2.5pt);
+                  \fill (3,0) circle (2.5pt);
+                  \node[below=5pt] at (0,0) {$0$};
+                  \node[below=5pt] at (3,0) {$K$};
+                  \node[above=5pt] at (0,0) {\scriptsize unstable};
+                  \node[above=5pt] at (3,0) {\scriptsize stable};
+                  \node[fill=white,inner sep=0.5pt] at (-1.5,0) {$<$};
+                  \node[fill=white,inner sep=0.5pt] at ( 1.5,0) {$>$};
+                  \node[fill=white,inner sep=0.5pt] at ( 3.7,0) {$<$};
+                    \end{tikzpicture}
+                \]
+                Only $x\geq0$ is physically meaningful because $x$ is a concentration.
+                On this physical domain, solutions move away from $0$ and toward $K$.
+
+                \item Let $x(0)=x_0$. The qualitative behavior is as follows:
+                \[
+                    \begin{array}{c|c}
+                        \text{Initial value}&\text{Behavior as }t\to\infty\\ \hline
+                        x_0=0&x(t)\equiv0,\\
+                        0<x_0<K&x(t)\text{ increases monotonically to }K,\\
+                        x_0=K&x(t)\equiv K,\\
+                        x_0>K&x(t)\text{ decreases monotonically to }K.
+                    \end{array}
+                \]
+                Representative solution curves are shown below. The stable equilibrium is
+                solid and the unstable equilibrium is dotted.
+                \[
+                    \begin{tikzpicture}[>=stealth,x=0.86cm,y=0.88cm]
+                  \draw[->] (-4.8,0)--(5.2,0) node[right] {$t$};
+                  \draw[->] (0,-0.5)--(0,5.2) node[above] {$x(t)$};
+
+                  \draw[very thick,dotted] (-4.6,0)--(5.0,0)
+                  node[right,align=left] {$0$\\[-1mm]{\scriptsize unstable}};
+                  \draw[thick] (-4.6,3.1)--(5.0,3.1)
+                  node[right,align=left] {$K$\\[-1mm]{\scriptsize stable}};
+
+                  % Solutions with 0<x_0<K.
+                  \draw[thick,domain=-4.5:4.8,samples=120,smooth]
+                  plot (\x,{3.1/(1+2.5*exp(-0.8*\x))});
+                  \draw[thick,domain=-4.5:4.8,samples=120,smooth]
+                  plot (\x,{3.1/(1+0.75*exp(-0.8*\x))});
+
+                  % Solutions with x_0>K.
+                  \draw[thick,domain=-0.7:4.8,samples=120,smooth]
+                  plot (\x,{3.1/(1-0.28*exp(-0.8*\x))});
+                  \node at (2.7,4.1) {\scriptsize $x_0>K$};
+                  \node at (2.7,1.55) {\scriptsize $0<x_0<K$};
+                    \end{tikzpicture}
+                \]
+
+                For completeness, the equation can also be solved analytically. Separating
+                variables gives
+                \[
+                    \frac{dx}{x(1-x/K)}=r\,dt.
+                \]
+                Since
+                \[
+                    \frac{1}{x(1-x/K)}=\frac1x+\frac{1}{K-x},
+                \]
+                integration yields
+                \[
+                    \ln\left|\frac{x}{K-x}\right|=rt+C.
+                \]
+                For $x_0\ne0$, solving for $x(t)$ gives
+                \[
+                    \boxed{
+                        x(t)=\frac{K}{1+\left(\dfrac{K}{x_0}-1\right)e^{-rt}}
+                        =\frac{\dfrac{k_1a}{k_{-1}}}
+                        {1+\left(\dfrac{k_1a}{k_{-1}x_0}-1\right)e^{-k_1at}}.
+                    }
+                \]
+                The case $x_0=0$ must be included separately and gives $x(t)\equiv0$.
+
+                Mathematically, if $x_0<0$, then $\dot{x}<0$ and the solution decreases
+                toward $-\infty$ in finite forward time. Such solutions are not chemically
+                meaningful, since a concentration cannot be negative.
+            \end{enumerate}
         \end{solution}
 
         \noindent\textbf{2.3.3} (Tumor growth)
