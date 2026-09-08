@@ -1,0 +1,79 @@
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\newcommand{\sectionrule}{%
+    \vspace{0.3em}
+    \hrule
+    \vspace{0.8em}
+}
+
+\newcommand{\phaseplot}[1]{%
+    \par\medskip
+    \noindent\begin{minipage}{\linewidth}
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    width=0.61\linewidth,height=4.75cm,
+    axis lines=middle,
+    xmin=-3.3,xmax=3.3,ymin=-1.12,ymax=1.16,
+    xtick={-3,-2,-1,1,2,3},ytick={-1,-0.5,0.5,1},
+    minor tick num=4,
+    xlabel={$x$},ylabel={},
+    title={\small functions},title style={yshift=-0.6em},
+    tick label style={font=\small},
+    every axis x label/.style={at={(ticklabel* cs:1)},anchor=west},
+    axis line style={gray!70},tick style={gray!70},
+    clip=false]
+    \addplot[blue!55!gray,thick,domain=-3.3:3.3,samples=150]{sin(deg(x))};
+    \addplot[orange!85!yellow!70!black,thick,domain=-3.2:3.2]{#1};
+    \end{axis}
+    \end{tikzpicture}
+    \end{minipage}
+    \par\medskip}
+
+\title{Dynamical Systems:\\Class September 8, 2026\\ 5a. 2D linear systems: Phase plane}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+
+
+\end{document}
