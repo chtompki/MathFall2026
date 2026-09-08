@@ -42,6 +42,10 @@
     \vspace{0.8em}
 }
 
+\newcommand{\vct}[1]{\underline{#1}}
+\newcommand{\sys}[2]{\begin{aligned}#1\\#2\end{aligned}}
+\newcommand{\rulehead}[1]{\vspace{2pt}\hrule\vspace{5pt}{\large\bfseries #1}\par}
+
 \newcommand{\phaseplot}[1]{%
     \par\medskip
     \noindent\begin{minipage}{\linewidth}
@@ -74,6 +78,97 @@
 \begin{document}
 
     \maketitle
+    {\large\bfseries Teams}
 
+    Post screenshots of your work to the course Google Drive today: Link to drive folder. Include words, labels, and other short notes on your whiteboard that might make those solutions useful to you or your classmates. Name your images using the format:
+    \begin{itemize}\item \texttt{teamXX-YY.EXT}\end{itemize}
+    where XX is your two-digit team number (e.g. 06 if you are team 6), YY is the two digit number of image for today (e.g. 01 for the first image, 02 for the second, and so on.), and EXT is the extension for the image filetype you used.
+
+    \rulehead{Assigning roles}
+    \begin{itemize}
+        \item The person who has most recently traveled outside of Richmond will be the time-keeper (keeping the team on task and making sure that team members are taking turns contributed / sharing time).
+        \item The next-most-recent person will be scribe the first problem (doing all writing for the team).
+        \item Choose a remaining team member to be the questioner (checking in to make sure that team members are asking any questions that they have).
+    \end{itemize}
+
+    \begin{enumerate}
+        \item (1d vs 2d)
+        \begin{enumerate}
+            \item Consider the dynamical system $\dot x=f(x)$ with $f(x)=x-x^2$.
+
+            Here is a plot of the vector field. The vector field is an assignment of the vector $f(x)\vec i$ to the point $x$.
+            \begin{center}\includegraphics[width=.79\textwidth]{phase-lines.png}\end{center}
+            \begin{itemize}
+                \item Sketch the phase portrait (drawn on the phase line) for this system on the axis below.
+                \item Identify how the phase portrait is similar to or different from the vector field.
+                \item How do trajectories appear in the 1d phase portrait?
+            \end{itemize}
+            \item Now consider the dynamical system $\sys{\dot x=f(x,y)}{\dot y=g(x,y)}$. The vector field is an assignment of the vector $f(x,y)\vec i+g(x,y)\vec j$ to the point $(x,y)$. Let $f(x,y)=x-2y$, $g(x,y)=3x+y$. Consider the two images below. Which one is the vector field (plotted in the phase plane), and which one is the phase portrait (drawn on the phase plane)?
+        \end{enumerate}
+    \end{enumerate}
+
+    \begin{center}\includegraphics[width=.88\textwidth]{vector-vs-phase.png}\end{center}
+    Identify how the phase portrait is similar to or different from the vector field.
+
+    \begin{enumerate}\setcounter{enumi}{1}
+        \item (Generic 2d system of linear differential equations)
+
+        \emph{Rotate roles: questioner $\to$ timekeeper $\to$ scribe}
+
+        Consider the system
+        \[\sys{\dfrac{dx}{dt}=ax+by}{\dfrac{dy}{dt}=cx+dy}\]
+        with fixed point at the origin.
+        \begin{enumerate}
+            \item Rewrite this in matrix / vector form (let $\vct{x}=\binom{x}{y}$.)
+            \item Let $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$. Recall that the eigenvalues of $A$, $\lambda_1$ and $\lambda_2$, are given by $\lambda^2-\tau\lambda+\Delta=0$ where $\tau=a+d$ is the trace of the matrix $A$ and $\Delta=ad-bc$ is the determinant of the matrix $A$. In addition, $(\lambda-\lambda_1)(\lambda-\lambda_2)=0$. Why?
+            \item Use this second fact (and match terms in the two equations) to show that $\lambda_1+\lambda_2=\tau$ and $\lambda_1\lambda_2=\Delta$.
+            \item Consider the $\Delta\tau$-plane (with $\Delta$ on the horizontal axis). Identify regions of the $\Delta\tau$ plane where the matrix has two negative eigenvalues, regions where it has one positive eigenvalue and one negative one, and regions where it has two positive eigenvalues.
+            \item Consider $\vct{v}e^{\lambda_1t}$, where $\lambda_1$ is an eigenvalue of $A$ and $\vct{v}$ is the associated eigenvector. Show that this is a solution of the differential equation (Hint. refer back to the example in Lecture 5 on linear systems). Think about plotting this solution as a trajectory in the $xy$-plane. For $\lambda_1$ a real number, why is it a straight-line solution?
+            \item General solutions to this differential equation are of the form $\vct{x}(t)=c_1\vct{v}_1e^{\lambda_1t}+c_2\vct{v}_2e^{\lambda_2t}$. We might have $\lambda_1$ and $\lambda_2$ both real. Or they could be a complex conjugate pair, where
+        \end{enumerate}
+    \end{enumerate}
+
+    $\lambda_1=\lambda+i\omega$ and $\lambda_2=\lambda-i\omega$. When they are a complex conjugate pair, we require the solution to the differential equation to be real, so we require $c_1$ and $c_2$ to be a complex conjugate pair as well.
+
+    For the systems
+    \[
+        \sys{\dot x=x}{\dot y=x-y}\qquad
+        \sys{\dot x=-x-y}{\dot y=x-2y}\qquad
+        \sys{\dot x=x}{\dot y=-y}\qquad
+        \sys{\dot x=x+y}{\dot y=-2x+y}
+    \]
+    find their trace and their determinant. Which have real eigenvalues and which have eigenvalues that are a complex conjugate pair?
+
+    \hspace{2em}(g)\quad Attempt to match the systems above to the phase portraits below.
+    \begin{center}\includegraphics[width=.76\textwidth]{four-portraits.png}\end{center}
+
+    \textbf{Answers:} 2a: $\vct{x}=\binom{x}{y}$, $\dot{\vct{x}}=\dfrac d{dt}\binom{x}{y}$, $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$. The equation becomes $\dot{\vct{x}}=A\vct{x}$.
+
+    2b: $(\lambda-\lambda_1)(\lambda-\lambda_2)=0$ because the eigenvalues $\lambda_1$ and $\lambda_2$ are the roots of the characteristic equation.
+
+    2c: Expanding, $\lambda^2-(\lambda_1+\lambda_2)\lambda+\lambda_1\lambda_2=0$. We have $\lambda^2-\tau\lambda+\Delta$ and $\lambda^2-(\lambda_1+\lambda_2)\lambda+\lambda_1\lambda_2$. These polynomials have the same roots and the same leading coefficient: they are the same polynomial. So $\tau=\lambda_1+\lambda_2$ and $\Delta=\lambda_1\lambda_2$.
+
+    2d: The left side has $\Delta<0$ so one positive and one negative. The first quadrant has two positive eigenvalues. The fourth quadrant has two negative.
+
+    \scriptsize
+    2e: $\vct{x}=\vct{v}e^{\lambda_1t}$. $\dot{\vct{x}}=\vct{v}\lambda_1e^{\lambda_1t}$. $A\vct{x}=A\vct{v}e^{\lambda_1t}$. $\vct{v}$ is an eigenvector of $A$ so $A\vct{v}=\lambda_1\vct{v}$. The sides match. This is a straight line solution because the solution is a constant multiple of a single vector direction, so we move along that direction (either exponential growth, or exponential decay) as time increases.
+
+    2f:
+    \[
+        \begin{array}{c|l|l}
+            A&\tau&\Delta\text{ and eigenvalues}\\\hline
+            \begin{pmatrix}1&0\\1&-1\end{pmatrix}&1+(-1)=0&1(-1)-0(1)=-1<0,\ \text{real}\\[6pt]
+            \begin{pmatrix}-1&-1\\1&-2\end{pmatrix}&-1+(-2)=-3&2-(-1)=3,\ \tau^2-4\Delta=-3,\ \text{complex}\\[6pt]
+            \begin{pmatrix}1&0\\0&-1\end{pmatrix}&1+(-1)=0&1(-1)-0(0)=-1<0,\ \text{real}\\[6pt]
+            \begin{pmatrix}1&1\\-2&1\end{pmatrix}&1+1=2&1(1)-1(-2)=3,\ \tau^2-4\Delta=-8,\ \text{complex}
+        \end{array}
+    \]
+    where $\lambda_\pm=\tau/2\pm\frac12\sqrt{\tau^2-4\Delta}$.
+
+    2g: $\sys{\dot x=x}{\dot y=-y}$ has eigenvectors along the axes so matches to the upper left plot.
+
+    $\sys{\dot x=x}{\dot y=x-y}$ is the other saddle point so matches to the upper right plot.
+
+    \textbf{Hint.} For the remaining two with complex conjugate eigenvalues, think about the sign of the real part. Also, how does a (relatively) larger imaginary component influence the shape of the trajectory?
 
 \end{document}
