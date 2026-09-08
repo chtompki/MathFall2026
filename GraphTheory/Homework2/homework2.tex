@@ -47,18 +47,68 @@
     (Hint: Consider a maximal path $P=v_1 v_2 \cdots v_k$)
 
     \begin{proof}
+        Let $P=v_1v_2\cdots v_k$ be a maximal path in $G$.  By maximality,
+        every neighbor of $v_k$ lies on $P$; otherwise, a neighbor outside $P$
+        could be appended to obtain a longer path.  Since $d(v_k)\geq 3$, the
+        vertex $v_k$ has at least two neighbors on $P$ other than $v_{k-1}$.
+        Choose two of them, say $v_i$ and $v_j$, with $i<j<k-1$.
+
+        If either $k-i+1$ or $k-j+1$ is even, then the corresponding cycle
+        \[
+            v_i v_{i+1}\cdots v_kv_i
+            \quad\text{or}\quad
+            v_j v_{j+1}\cdots v_kv_j
+        \]
+        has even length.  Otherwise both of these numbers are odd, so $i$ and
+        $j$ have the same parity.  In that case
+        \[
+            v_i v_{i+1}\cdots v_jv_kv_i
+        \]
+        is a cycle of length $(j-i)+2$, which is even because $j-i$ is even.
+        Thus $G$ contains a cycle of even length.
     \end{proof}
 
     \noindent\textbf{2.} Prove that a bipartite graph has a unique bipartition
     (except for interchanging the two partite sets) if and only if it is connected.
 
     \begin{proof}
+        First suppose that $G$ is connected, and let $(A,B)$ be a bipartition.
+        Fix a vertex $r\in A$.  For every vertex $x$, any $r$--$x$ path
+        alternates between $A$ and $B$.  Consequently, $x\in A$ exactly when
+        $d(r,x)$ is even, and $x\in B$ exactly when $d(r,x)$ is odd.  Thus the
+        choice of the part containing $r$ determines the entire bipartition.
+        The only other choice interchanges $A$ and $B$, so the bipartition is
+        unique up to interchange.
+
+        Conversely, suppose that $G$ is disconnected and let $(A,B)$ be a
+        bipartition.  Choose one connected component $H$ of $G$ and interchange
+        the two partite sets only on $H$; that is, set
+        \[
+            A'=(A\setminus V(H))\cup(B\cap V(H)),\qquad
+            B'=(B\setminus V(H))\cup(A\cap V(H)).
+        \]
+        There are no edges between $H$ and the other components, so $(A',B')$
+        is also a bipartition.  Since at least one component was not switched,
+        $(A',B')$ is neither $(A,B)$ nor $(B,A)$.  Hence a disconnected
+        bipartite graph does not have a unique bipartition up to interchange.
     \end{proof}
 
     \noindent\textbf{3.} Let $v$ be a cut-vertex of a simple graph $G$.
     Prove that $\overline{G} - v$ is connected.
 
     \begin{proof}
+        Because $v$ is a cut-vertex, $G-v$ has at least two connected
+        components.  Let $x$ and $y$ be arbitrary vertices of $G-v$.  If they
+        belong to different components of $G-v$, then $xy\notin E(G)$, and
+        hence $xy\in E(\overline{G})$.  Thus they are adjacent in
+        $\overline{G}-v$.
+
+
+        If $x$ and $y$ belong to the same component of $G-v$, choose a vertex
+        $z$ in a different component.  Neither $xz$ nor $yz$ is an edge of
+        $G$, so both are edges of $\overline{G}$.  Therefore $xzy$ is a path
+        in $\overline{G}-v$.  Every two vertices of $\overline{G}-v$ are thus
+        joined by a path, so $\overline{G}-v$ is connected.
     \end{proof}
 
     \noindent\textbf{4.} Let $G$ be a simple graph having no isolated vertex and no induced
@@ -66,6 +116,22 @@
     Prove that $G$ is a complete graph.
 
     \begin{proof}
+        We first show that $G$ is connected.  If it were disconnected, choose
+        an edge $x_1x_2$ in one component and an edge $y_1y_2$ in another.
+        Such edges exist because $G$ has no isolated vertices.  The subgraph
+        induced by $\{x_1,x_2,y_1,y_2\}$ would have exactly the two edges
+        $x_1x_2$ and $y_1y_2$, a contradiction.
+
+        Now suppose that $G$ is not complete.  Choose two nonadjacent vertices
+        $u$ and $w$.  Since $G$ is connected, there is a shortest
+        $u$--$w$ path
+        \[
+            u=v_0,v_1,\ldots,v_m=w,
+        \]
+        where $m\geq 2$.  By the minimality of this path, $v_0v_2$ is not an
+        edge.  Hence the subgraph induced by $\{v_0,v_1,v_2\}$ has exactly the
+        two edges $v_0v_1$ and $v_1v_2$, again a contradiction.  Therefore
+        $G$ must be complete.
     \end{proof}
 
     \noindent\textbf{5.} Let $G$ be a connected simple graph not having $P_4$, or $C_3$ as
@@ -80,6 +146,38 @@
     Why must $G$ be complete bipartite?)
 
     \begin{proof}
+        Fix a vertex $v\in V(G)$ and, for each $i\geq 0$, let
+        \[
+            L_i=\{u\in V(G):d_G(v,u)=i\}.
+        \]
+        We first claim that $L_i=\varnothing$ for every $i\geq 3$.  Indeed, if
+        $u\in L_i$ for some $i\geq 3$, then the first four vertices
+        $v_0=v,v_1,v_2,v_3$ of a shortest $v$--$u$ path induce a $P_4$.
+        There can be no edge joining two nonconsecutive vertices among them,
+        because such an edge would give a shorter path from $v$ to $v_2$ or
+        $v_3$.  This contradicts the hypothesis.  Therefore
+        \[
+            V(G)=L_0\cup L_1\cup L_2.
+        \]
+
+        The set $L_1$ is independent: an edge between two of its vertices,
+        together with $v$, would induce a triangle.  The set $L_2$ is also
+        independent.  To see this, suppose $x,y\in L_2$ and $xy$ is an edge.
+        Choose $a\in L_1$ adjacent to $x$.  If $ay$ is an edge, then
+        $a,x,y$ form a triangle.  If $ay$ is not an edge, then
+        $v,a,x,y$ induce a $P_4$.  Both alternatives are impossible.
+
+        Finally, every vertex of $L_1$ is adjacent to every vertex of $L_2$.
+        Let $y\in L_2$, and choose $a\in L_1$ adjacent to $y$.  If some
+        $b\in L_1$ were not adjacent to $y$, then $b,v,a,y$ would induce a
+        $P_4$: the only possible additional edges are excluded because $L_1$
+        is independent and because $y\notin L_1$.  This is impossible.
+
+        Let $A=L_1$ and $B=L_0\cup L_2$.  Both $A$ and $B$ are independent,
+        and every vertex of $A$ is adjacent to every vertex of $B$: vertices
+        of $L_1$ are adjacent to $v$, and, as just proved, to every vertex of
+        $L_2$.  Hence $G$ is the complete bipartite graph with partite sets
+        $A$ and $B$.
     \end{proof}
 
 \end{document}
