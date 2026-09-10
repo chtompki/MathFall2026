@@ -146,6 +146,616 @@
     \end{itemize}
 
     \begin{solution}
+        We are given the nonlinear system
+        \[
+            \dot{x}=f(x,y)=xy-1,
+            \qquad
+            \dot{y}=g(x,y)=x-y^3.
+        \]
+
+        \textbf{(a)} We first verify that $(-1,-1)$ and $(1,1)$ are fixed
+        points.
+
+        At $(-1,-1)$,
+        \[
+            f(-1,-1)=(-1)(-1)-1=1-1=0
+        \]
+        and
+        \[
+            g(-1,-1)=-1-(-1)^3=-1+1=0.
+        \]
+        Therefore $(-1,-1)$ is a fixed point.
+
+        Similarly, at $(1,1)$,
+        \[
+            f(1,1)=(1)(1)-1=0
+        \]
+        and
+        \[
+            g(1,1)=1-1^3=0.
+        \]
+        Therefore $(1,1)$ is also a fixed point.
+
+        \bigskip
+
+        \textbf{(b)} We now construct a second-order Taylor approximation
+        about the fixed point $(-1,-1)$.
+
+        Define
+        \[
+            u=x-(-1)=x+1,
+            \qquad
+            v=y-(-1)=y+1,
+        \]
+        so that
+        \[
+            x=-1+u,
+            \qquad
+            y=-1+v.
+        \]
+        Since $u$ and $v$ differ from $x$ and $y$ only by constants,
+        \[
+            \dot{u}=\dot{x},
+            \qquad
+            \dot{v}=\dot{y}.
+        \]
+
+        Substituting into the first equation gives
+        \begin{align*}
+            \dot{u}
+            &=(-1+u)(-1+v)-1\\
+            &=1-u-v+uv-1\\
+            &=-u-v+uv.
+        \end{align*}
+        Thus the second-order Taylor polynomial for the first component is
+        actually exact:
+        \[
+            \boxed{\dot{u}=-u-v+uv.}
+        \]
+
+        For the second equation,
+        \begin{align*}
+            \dot{v}
+            &=(-1+u)-(-1+v)^3.
+        \end{align*}
+        Since
+        \[
+            (-1+v)^3=-1+3v-3v^2+v^3,
+        \]
+        we obtain
+        \begin{align*}
+            \dot{v}
+            &=(-1+u)-(-1+3v-3v^2+v^3)\\
+            &=u-3v+3v^2-v^3.
+        \end{align*}
+        Keeping terms through second order gives
+        \[
+            \boxed{\dot{v}\approx u-3v+3v^2.}
+        \]
+
+        Hence the second-order approximation about $(-1,-1)$ is
+        \[
+            \boxed{
+                \begin{aligned}
+                    \dot{u}&=-u-v+uv,\\
+                    \dot{v}&=u-3v+3v^2.
+                \end{aligned}}
+        \]
+
+        This can also be obtained directly from the Taylor derivatives.  The
+        Jacobian of the original system is
+        \[
+            J(x,y)
+            =
+            \begin{pmatrix}
+                f_x & f_y\\
+                g_x & g_y
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                y & x\\
+                1 & -3y^2
+            \end{pmatrix}.
+        \]
+        At $(-1,-1)$,
+        \[
+            J(-1,-1)
+            =
+            \begin{pmatrix}
+                -1 & -1\\
+                1 & -3
+            \end{pmatrix}.
+        \]
+
+        \bigskip
+
+        \textbf{(c)} Sufficiently close to the fixed point, $|u|,|v|\ll 1$,
+        and therefore the quadratic and higher-order terms are small compared
+        with the linear terms.  Dropping $uv$, $3v^2$, and all higher-order
+        terms gives
+        \[
+            \begin{aligned}
+                \dot{u}&=-u-v,\\
+                \dot{v}&=u-3v.
+            \end{aligned}
+        \]
+        Thus
+        \[
+            \boxed{
+                \begin{pmatrix}
+                    \dot{u}\\
+                    \dot{v}
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                    -1 & -1\\
+                    1 & -3
+                \end{pmatrix}
+                \begin{pmatrix}
+                    u\\
+                    v
+                \end{pmatrix}.}
+        \]
+
+        In the notation
+        \[
+            \underline{u}
+            =
+            \begin{pmatrix}
+                u\\
+                v
+            \end{pmatrix},
+            \qquad
+            A=
+            \begin{pmatrix}
+                -1 & -1\\
+                1 & -3
+            \end{pmatrix},
+        \]
+        this is
+        \[
+            \boxed{\underline{\dot{u}}=A\underline{u}.}
+        \]
+
+        The reason that the linearization has the homogeneous form
+        \[
+            \underline{\dot{u}}=A\underline{u}
+        \]
+        is that we are expanding about a fixed point.  For a general nonlinear
+        system
+        \[
+            \dot{\mathbf{x}}=\mathbf{F}(\mathbf{x}),
+        \]
+        and a point $\mathbf{x}_0$, let
+        \[
+            \mathbf{u}=\mathbf{x}-\mathbf{x}_0.
+        \]
+        The first-order Taylor approximation is
+        \[
+            \dot{\mathbf{u}}
+            \approx
+            \mathbf{F}(\mathbf{x}_0)
+            +
+            D\mathbf{F}(\mathbf{x}_0)\mathbf{u}.
+        \]
+        At a fixed point,
+        \[
+            \mathbf{F}(\mathbf{x}_0)=\mathbf{0},
+        \]
+        so the constant term disappears, leaving
+        \[
+            \dot{\mathbf{u}}
+            =
+            D\mathbf{F}(\mathbf{x}_0)\mathbf{u}.
+        \]
+        Away from a fixed point, the linearized system is instead an
+        \emph{affine} system of the form
+        \[
+            \boxed{
+                \dot{\mathbf{u}}
+                =
+                \mathbf{F}(\mathbf{x}_0)
+                +
+                D\mathbf{F}(\mathbf{x}_0)\mathbf{u}.}
+        \]
+
+        \bigskip
+
+        \textbf{(d)} We now linearize about the other fixed point $(1,1)$.
+
+        Let
+        \[
+            u=x-1,
+            \qquad
+            v=y-1,
+        \]
+        so that
+        \[
+            x=1+u,
+            \qquad
+            y=1+v.
+        \]
+        Then
+        \begin{align*}
+            \dot{u}
+            &=(1+u)(1+v)-1\\
+            &=u+v+uv,
+        \end{align*}
+        while
+        \begin{align*}
+            \dot{v}
+            &=(1+u)-(1+v)^3\\
+            &=(1+u)-(1+3v+3v^2+v^3)\\
+            &=u-3v-3v^2-v^3.
+        \end{align*}
+
+        Dropping quadratic and higher-order terms gives
+        \[
+            \boxed{
+                \begin{aligned}
+                    \dot{u}&=u+v,\\
+                    \dot{v}&=u-3v.
+                \end{aligned}}
+        \]
+        Therefore the linearized system at $(1,1)$ is
+        \[
+            \boxed{
+                \begin{pmatrix}
+                    \dot{u}\\
+                    \dot{v}
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                    1 & 1\\
+                    1 & -3
+                \end{pmatrix}
+                \begin{pmatrix}
+                    u\\
+                    v
+                \end{pmatrix}.}
+        \]
+
+        Notice that this agrees with the Jacobian evaluated at $(1,1)$:
+        \[
+            J(1,1)
+            =
+            \begin{pmatrix}
+                1 & 1\\
+                1 & -3
+            \end{pmatrix}.
+        \]
+
+        \bigskip
+
+        \textbf{(e)} We classify the two fixed points using the eigenvalues
+        of their linearizations.
+
+        \medskip
+        \underline{At $(-1,-1)$:}
+
+        We have
+        \[
+            A_-=
+            \begin{pmatrix}
+                -1 & -1\\
+                1 & -3
+            \end{pmatrix}.
+        \]
+        The trace and determinant are
+        \[
+            \uptau=-1-3=-4,
+            \qquad
+            \Delta=(-1)(-3)-(-1)(1)=4.
+        \]
+        The characteristic polynomial is
+        \begin{align*}
+            \det(A_- -\lambda I)
+            &=
+            \begin{vmatrix}
+                -1-\lambda & -1\\
+                1 & -3-\lambda
+            \end{vmatrix}\\
+            &=(-1-\lambda)(-3-\lambda)+1\\
+            &=\lambda^2+4\lambda+4\\
+            &=(\lambda+2)^2.
+        \end{align*}
+        Therefore
+        \[
+            \boxed{\lambda_1=\lambda_2=-2.}
+        \]
+        Both eigenvalues have strictly negative real part, so $(-1,-1)$ is
+        \[
+            \boxed{\text{hyperbolic}.}
+        \]
+        Because both eigenvalues are negative, trajectories sufficiently
+        close to the fixed point move toward it as $t\to\infty$.  Therefore
+        $(-1,-1)$ is an
+        \[
+            \boxed{\text{attracting, asymptotically stable fixed point}.}
+        \]
+
+        Because the repeated eigenvalue has only one linearly independent
+        eigenvector, the fixed point is more specifically a
+        \[
+            \boxed{\text{stable improper node}.}
+        \]
+
+        To see this, solve
+        \[
+            (A_-+2I)\mathbf{q}=0.
+        \]
+        Since
+        \[
+            A_-+2I
+            =
+            \begin{pmatrix}
+                1 & -1\\
+                1 & -1
+            \end{pmatrix},
+        \]
+        we obtain
+        \[
+            q_1=q_2.
+        \]
+        Thus an eigenvector is
+        \[
+            \boxed{
+                \mathbf{q}
+                =
+                \begin{pmatrix}
+                    1\\
+                    1
+                \end{pmatrix}.}
+        \]
+
+        \medskip
+        \underline{At $(1,1)$:}
+
+        Here
+        \[
+            A_+=
+            \begin{pmatrix}
+                1 & 1\\
+                1 & -3
+            \end{pmatrix}.
+        \]
+        Its trace and determinant are
+        \[
+            \uptau=1-3=-2,
+            \qquad
+            \Delta=(1)(-3)-(1)(1)=-4.
+        \]
+        Its characteristic polynomial is
+        \begin{align*}
+            \det(A_+-\lambda I)
+            &=
+            \begin{vmatrix}
+                1-\lambda & 1\\
+                1 & -3-\lambda
+            \end{vmatrix}\\
+            &=(1-\lambda)(-3-\lambda)-1\\
+            &=\lambda^2+2\lambda-4.
+        \end{align*}
+        Hence
+        \[
+            \lambda
+            =
+            \frac{-2\pm\sqrt{4+16}}{2}
+            =
+            -1\pm\sqrt{5}.
+        \]
+        Thus
+        \[
+            \boxed{
+                \lambda_1=-1+\sqrt{5}>0,
+                \qquad
+                \lambda_2=-1-\sqrt{5}<0.}
+        \]
+        Neither eigenvalue has zero real part, so $(1,1)$ is also
+        \[
+            \boxed{\text{hyperbolic}.}
+        \]
+        Since one eigenvalue is positive and the other is negative, $(1,1)$
+        is a
+        \[
+            \boxed{\text{saddle point and therefore unstable}.}
+        \]
+
+        For completeness, if a two-dimensional system has a complex
+        conjugate pair with zero real part, then
+        \[
+            \lambda_{1,2}=\pm i\omega.
+        \]
+        Their product is
+        \[
+            \lambda_1\lambda_2
+            =(i\omega)(-i\omega)=\omega^2>0.
+        \]
+        Therefore, when the eigenvalues are a nonzero pure imaginary
+        conjugate pair,
+        \[
+            \boxed{\uptau=0,\qquad \Delta>0.}
+        \]
+
+        \bigskip
+
+        \textbf{(f)} We use the eigenvectors to determine the local phase
+        portrait.
+
+        \medskip
+        \underline{Near $(-1,-1)$:}
+
+        The repeated eigenvalue is
+        \[
+            \lambda=-2
+        \]
+        with eigenvector
+        \[
+            \mathbf{q}
+            =
+            \begin{pmatrix}
+                1\\
+                1
+            \end{pmatrix}.
+        \]
+        Thus the eigendirection in $(u,v)$ coordinates is
+        \[
+            v=u.
+        \]
+        Since
+        \[
+            u=x+1,\qquad v=y+1,
+        \]
+        this corresponds to
+        \[
+            y+1=x+1,
+        \]
+        or simply
+        \[
+            \boxed{y=x.}
+        \]
+        Because the eigenvalue is negative, arrows along this eigendirection
+        point \emph{toward} $(-1,-1)$.  Since the matrix has only one
+        independent eigenvector, nearby trajectories curve into the fixed
+        point and become tangent to the line $y=x$ as they approach it.
+        Thus $(-1,-1)$ appears as an attracting improper node.
+
+        \medskip
+        \underline{Near $(1,1)$:}
+
+        For the positive eigenvalue
+        \[
+            \lambda_u=-1+\sqrt{5},
+        \]
+        solve
+        \[
+            (1-\lambda_u)u+v=0.
+        \]
+        Hence
+        \[
+            v=(\lambda_u-1)u
+            =
+            (\sqrt{5}-2)u.
+        \]
+        An unstable eigenvector is therefore
+        \[
+            \boxed{
+                \mathbf{q}_u=
+                \begin{pmatrix}
+                    1\\
+                    \sqrt{5}-2
+                \end{pmatrix}.}
+        \]
+        Since $\lambda_u>0$, trajectories move \emph{away} from the saddle
+        along this direction.
+
+        For the negative eigenvalue
+        \[
+            \lambda_s=-1-\sqrt{5},
+        \]
+        we obtain
+        \[
+            v=(\lambda_s-1)u
+            =
+            -(2+\sqrt{5})u.
+        \]
+        Thus a stable eigenvector is
+        \[
+            \boxed{
+                \mathbf{q}_s=
+                \begin{pmatrix}
+                    1\\
+                    -2-\sqrt{5}
+                \end{pmatrix}.}
+        \]
+        Since $\lambda_s<0$, trajectories move \emph{toward} $(1,1)$ along
+        this eigendirection.
+
+        Therefore the approximate stable and unstable lines through $(1,1)$
+        are
+        \[
+            \boxed{
+                y-1=-(2+\sqrt{5})(x-1)
+                \qquad\text{(stable)}}
+        \]
+        and
+        \[
+            \boxed{
+                y-1=(\sqrt{5}-2)(x-1)
+                \qquad\text{(unstable)}.}
+        \]
+
+        These lines give the local saddle geometry.
+
+        To fill in the remainder of the nonlinear phase portrait, consider
+        the nullclines.  The $x$-nullcline is
+        \[
+            \dot{x}=0
+            \quad\Longleftrightarrow\quad
+            xy=1
+            \quad\Longleftrightarrow\quad
+            \boxed{x=\frac{1}{y}},
+        \]
+        while the $y$-nullcline is
+        \[
+            \dot{y}=0
+            \quad\Longleftrightarrow\quad
+            x=y^3,
+        \]
+        so
+        \[
+            \boxed{x=y^3.}
+        \]
+        Their intersections satisfy
+        \[
+            y^3y=1,
+        \]
+        and hence
+        \[
+            y^4=1.
+        \]
+        The real intersections are exactly
+        \[
+            (-1,-1)
+            \qquad\text{and}\qquad
+            (1,1).
+        \]
+
+        The direction of the vector field in the regions separated by the
+        nullclines is determined from
+        \[
+            \dot{x}=xy-1
+            \begin{cases}
+                >0,&xy>1,\\
+                <0,&xy<1,
+            \end{cases}
+        \]
+        and
+        \[
+            \dot{y}=x-y^3
+            \begin{cases}
+                >0,&x>y^3,\\
+                <0,&x<y^3.
+            \end{cases}
+        \]
+        These sign rules, together with the eigendirections above, can be
+        used to sketch the complete phase portrait.
+
+        In summary,
+        \[
+            \boxed{
+                \begin{array}{c|c|c|c}
+                    \text{Fixed point} & \text{Eigenvalues} & \text{Type}
+                    & \text{Stability}\\ \hline
+                    (-1,-1) & -2,-2
+                    & \text{improper node}
+                    & \text{attracting/stable}\\[2mm]
+                    (1,1) & -1+\sqrt5,\,-1-\sqrt5
+                    & \text{saddle}
+                    & \text{unstable}
+                \end{array}}
+        \]
+        and both fixed points are hyperbolic.
     \end{solution}
 
 
