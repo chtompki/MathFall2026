@@ -97,7 +97,7 @@
             \item Consider the dynamical system $\dot x=f(x)$ with $f(x)=x-x^2$.
 
             Here is a plot of the vector field. The vector field is an assignment of the vector $f(x)\vec i$ to the point $x$.
-            \begin{center}\includegraphics[width=.79\textwidth]{phase-lines.png}\end{center}
+            \begin{center}\includegraphics[width=.79\textwidth]{phase-lines-1.png}\end{center}
             \begin{itemize}
                 \item Sketch the phase portrait (drawn on the phase line) for this system on the axis below.
                 \item Identify how the phase portrait is similar to or different from the vector field.
@@ -109,6 +109,73 @@
 
     \begin{center}\includegraphics[width=.88\textwidth]{vector-vs-phase.png}\end{center}
     Identify how the phase portrait is similar to or different from the vector field.
+
+    \begin{solution}
+        \begin{enumerate}
+            \item[(a)] We factor the right-hand side:
+            \[
+                \dot x=x-x^2=x(1-x).
+            \]
+            Thus the equilibria are $x=0$ and $x=1$. The sign of $\dot x$ on the
+            three complementary intervals is
+            \[
+                \begin{array}{c|ccc}
+                    x&(-\infty,0)&(0,1)&(1,\infty)\\ \hline
+                    x(1-x)&-&+&-
+                \end{array}.
+            \]
+            Therefore the phase line is
+            \[
+                \textstyle
+                (-\infty)\ \longleftarrow\ \boxed{0}\ \longrightarrow\
+                \boxed{1}\ \longleftarrow\ (+\infty).
+            \]
+            The equilibrium $x=0$ is unstable because arrows point away from it,
+            while $x=1$ is asymptotically stable because arrows point toward it.
+
+            The vector field and the phase portrait contain the same directional
+            information: the sign of $f(x)$ tells whether motion is to the left or
+            right, and the zeros of $f$ give the equilibria. The vector-field plot
+            displays a vector at each sampled point, often with its length reflecting
+            $|f(x)|$. The phase portrait emphasizes the solution orbits and their
+            direction, so arrow lengths are not essential.
+
+            In one dimension, trajectories lie on the phase line. A solution beginning
+            in $0<x<1$ moves monotonically right toward $1$, and a solution beginning
+            with $x>1$ moves monotonically left toward $1$. A solution beginning with
+            $x<0$ moves left, away from $0$. The two equilibrium trajectories remain
+            fixed at $x=0$ and $x=1$. Non-equilibrium trajectories cannot cross either
+            one. For initial value $x(0)=x_0$, the non-equilibrium solutions can also be
+            written
+            \[
+                x(t)=\frac{x_0e^t}{1+x_0(e^t-1)}
+            \]
+            on their maximal intervals of existence.
+
+            \item[(b)] In the displayed pair, the \textbf{left-hand image is the
+            vector field}: it consists of many individual arrows showing the velocity
+            assigned at sampled points. The \textbf{right-hand image is the phase
+            portrait}: it shows solution curves whose tangent vectors agree with the
+            vector field.
+
+            To verify the qualitative shape, write the system as
+            \[
+                \binom{\dot x}{\dot y}
+                =A\binom{x}{y},
+                \qquad
+                A=\begin{pmatrix}1&-2\\3&1\end{pmatrix}.
+            \]
+            Its characteristic polynomial and eigenvalues are
+            \[
+                \det(A-\lambda I)=(1-\lambda)^2+6,
+                \qquad \lambda=1\pm i\sqrt6.
+            \]
+            Because the real part is positive, the origin is an unstable spiral: nearby
+            nonzero trajectories spiral outward as time increases. At $(1,0)$ the
+            velocity is $(1,3)$, which points upward, so the rotation is
+            counterclockwise. This agrees with the right-hand phase portrait.
+        \end{enumerate}
+    \end{solution}
 
     \begin{enumerate}\setcounter{enumi}{1}
         \item (Generic 2d system of linear differential equations)
@@ -141,6 +208,116 @@
 
     \hspace{2em}(g)\quad Attempt to match the systems above to the phase portraits below.
     \begin{center}\includegraphics[width=.76\textwidth]{four-portraits.png}\end{center}
+
+    \begin{solution}
+        Write
+        \[
+            \vct{x}=\binom{x}{y},\qquad
+            A=\begin{pmatrix}a&b\\c&d\end{pmatrix}.
+        \]
+
+        \begin{enumerate}
+            \item[(a)] The two scalar equations combine into
+            \[
+                \boxed{\frac{d\vct{x}}{dt}=A\vct{x}},\qquad
+                \frac{d}{dt}\binom{x}{y}
+                =\begin{pmatrix}a&b\\c&d\end{pmatrix}\binom{x}{y}.
+            \]
+
+            \item[(b)] An eigenvalue is, by definition, a value of $\lambda$ for
+            which $A-\lambda I$ is singular. Therefore the eigenvalues are precisely
+            the roots of the characteristic polynomial
+            \[
+                p(\lambda)=\det(\lambda I-A)
+                =\lambda^2-\tau\lambda+\Delta.
+            \]
+            A monic quadratic with roots $\lambda_1$ and $\lambda_2$ factors as
+            \[
+                p(\lambda)=(\lambda-\lambda_1)(\lambda-\lambda_2),
+            \]
+            so the equation $p(\lambda)=0$ is equivalently
+            $(\lambda-\lambda_1)(\lambda-\lambda_2)=0$.
+
+            \item[(c)] Expanding the factored form gives
+            \[
+                (\lambda-\lambda_1)(\lambda-\lambda_2)
+                =\lambda^2-(\lambda_1+\lambda_2)\lambda
+                +\lambda_1\lambda_2.
+            \]
+            Comparing this with $\lambda^2-\tau\lambda+\Delta$ yields
+            \[
+                \boxed{\lambda_1+\lambda_2=\tau},\qquad
+                \boxed{\lambda_1\lambda_2=\Delta}.
+            \]
+
+            \item[(d)] The eigenvalues are
+            \[
+                \lambda_{1,2}=\frac{\tau\pm\sqrt{\tau^2-4\Delta}}{2}.
+            \]
+            Thus the parabola $\Delta=\tau^2/4$ separates real eigenvalues from
+            complex conjugate eigenvalues. The requested real-eigenvalue regions are
+            \[
+                \begin{array}{c|c}
+                    \text{region in the }(\Delta,\tau)\text{-plane}&\text{eigenvalue signs}\\ \hline
+                    \Delta<0&\text{one positive and one negative}\\
+                    0<\Delta\leq \tau^2/4,\ \tau>0&\text{two positive}\\
+                    0<\Delta\leq \tau^2/4,\ \tau<0&\text{two negative}
+                \end{array}
+            \]
+            On $\Delta=0$, one eigenvalue is zero. Above the parabola,
+            $\Delta>\tau^2/4$, the eigenvalues are complex and have real part
+            $\tau/2$. Equality on the parabola gives a repeated real eigenvalue.
+
+            \item[(e)] Since $A\vct{v}=\lambda_1\vct{v}$,
+            \[
+                \frac{d}{dt}\left(\vct{v}e^{\lambda_1t}\right)
+                =\lambda_1\vct{v}e^{\lambda_1t}
+                =(A\vct{v})e^{\lambda_1t}
+                =A\left(\vct{v}e^{\lambda_1t}\right).
+            \]
+            Hence $\vct{x}(t)=\vct{v}e^{\lambda_1t}$ solves
+            $\dot{\vct{x}}=A\vct{x}$. If $\lambda_1$ is real, every point of the
+            solution is a scalar multiple of the fixed vector $\vct{v}$. Its trajectory
+            therefore lies on the straight line $\operatorname{span}\{\vct{v}\}$.
+            When $\lambda_1<0$ it approaches the origin in forward time; when
+            $\lambda_1>0$ it moves away from the origin.
+
+            \item[(f)] For each displayed system, form its coefficient matrix and use
+            $D=\tau^2-4\Delta$:
+            \[
+                \begin{array}{c|c|c|c|c}
+                    \text{system}&A&\tau&\Delta&\lambda_{1,2}\\ \hline
+                    1&\begin{pmatrix}1&0\\1&-1\end{pmatrix}&0&-1&1,-1\\[6pt]
+                    2&\begin{pmatrix}-1&-1\\1&-2\end{pmatrix}&-3&3&
+                    \dfrac{-3\pm i\sqrt3}{2}\\[8pt]
+                    3&\begin{pmatrix}1&0\\0&-1\end{pmatrix}&0&-1&1,-1\\[6pt]
+                    4&\begin{pmatrix}1&1\\-2&1\end{pmatrix}&2&3&1\pm i\sqrt2
+                \end{array}
+            \]
+            Systems 1 and 3 have real eigenvalues of opposite sign, so both are
+            saddles. System 2 has a complex conjugate pair with negative real part, so
+            it is a stable spiral. System 4 has a complex conjugate pair with positive
+            real part, so it is an unstable spiral.
+
+            \item[(g)] The matches, reading the portraits from left to right and then
+            top to bottom, are
+            \[
+                \begin{array}{c|c|l}
+                    \text{portrait}&\text{system}&\text{reason}\\ \hline
+                    \text{upper left}&3&\text{axis-aligned saddle}\\
+                    \text{upper right}&1&\text{tilted saddle; unstable line }y=x/2\\
+                    \text{lower left}&4&\text{clockwise unstable spiral}\\
+                    \text{lower right}&2&\text{counterclockwise stable spiral}
+                \end{array}
+            \]
+            For system 1, the stable eigendirection is the $y$-axis and the unstable
+            eigendirection is $y=x/2$, producing the tilted saddle. For system 3, both
+            eigendirections are coordinate axes. To distinguish the spirals, examine
+            the vector at $(1,0)$: system 2 gives $(-1,1)$, which points inward and
+            counterclockwise, while system 4 gives $(1,-2)$, which points outward and
+            clockwise.
+        \end{enumerate}
+    \end{solution}
 
     \textbf{Answers:} 2a: $\vct{x}=\binom{x}{y}$, $\dot{\vct{x}}=\dfrac d{dt}\binom{x}{y}$, $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$. The equation becomes $\dot{\vct{x}}=A\vct{x}$.
 
