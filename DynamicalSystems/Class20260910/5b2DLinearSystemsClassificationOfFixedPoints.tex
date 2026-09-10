@@ -18,7 +18,7 @@
 \usepackage{array}
 \usepackage{microtype}
 \usepackage{hyperref}
-
+\usepackage{upgreek}
 
 \theoremstyle{conjecture}
 \newtheorem{conjecture}{Conjecture}
@@ -83,6 +83,70 @@
     Post screenshots of your work to the course Google Drive today: Link to drive folder. Include words, labels, and other short notes on your whiteboard that might make those solutions useful to you or your classmates. Name your images using the format:
     \begin{itemize}\item \texttt{teamXX-YY.EXT}\end{itemize}
     where XX is your two-digit team number (e.g. 06 if you are team 6), YY is the two digit number of image for today (e.g. 01 for the first image, 02 for the second, and so on.), and EXT is the extension for the image filetype you used.
+    \qquad\\
+    \qquad\\
+    {\large\bfseries Team Activity}
+
+    \noindent\textbf{1.} Starting with your roles at the end of last time, rotate.
+    \qquad\\
+    \begin{itemize}
+        \item[(6.3.6)] Consider the system
+            \begin{eqnarray*}
+                \dot{x} & = & f(x,y) = xy - 1\\
+                \dot{y} & = & x - y^3
+            \end{eqnarray*}
+        \item[(a)] Use \textbf{substitution} to show that $(-1,-1)$ and $(1,1)$ are both fixed points of the system
+        (i.e. is $f(x,y) = 0 $ and $g(x,y) = 0$ at these points?)
+        \item[(b)] Use Taylor polynomials to approximate the dynamical system to the second order about the
+        fixed point $(-1,-1)$.
+        Let $u = x - (-1)$, $v = y - (-1)$ and use this to simplify your expressions.\\
+        \emph{I am asking you to approzimate to second order as a review of Taylor approximation}.
+        \begin{quote}
+            \textbf{Extra note on Taylor polynomials:}\\
+            A linear approximation to a function at a point $Q$ has the same value as the function of interest
+            at $Q$ ah has the same first derivatives as the original function at $Q$.
+            A higher order approximation, of order $p$ has the same value and derivatives, up to the order $p$
+            derivative, as the original function at $Q$.
+            It may be helpful to recall that $f(x,y) \approx f(a,b) + (x-a)f_x(a,b) + (y-b)f_y(a,b) +
+            \frac{1}{2}(x-a)^2 f_{xx}(a,b)
+            + (x-a)(y-b)f_{xy}(a,b) + \frac{1}{2}(y-b)^2 f_{yy}(a,b) + h.o.t $
+        \end{quote}
+        \item[(c)] Sufficiently close to (-1, -1), we have $|u|,|v| \ll 1$ and $u^2 \ll |u|$, $v^2 \ll |v|$,
+        so quadratic order ahd higher terms are small relative to the linear terms.
+        \begin{itemize}
+            \item[$\centerdot$] Drop these higher order terms to generate a linearization of the system/
+            \item[$\centerdot$] Use your linearization to write a dynamical system of the form
+            \[
+                \underline{\dot{u}} = A\underline{u}
+            \]
+            giving definitions for $\underline{u}, A$.
+            \item[$\centerdot$] Explain why the linearization leads to this kind of matrix equation only
+            at a fixed point.
+            What would the form of the linearized system away from a fixed point?
+        \end{itemize}
+        \item[(d)] Create a linearized system about the fixed point $(1,1)$ as well.
+        \item[(e)] Classify your points as \textbf{hyperbolic} (\emph{no eigenvalues have zero real part}) or
+        \textbf{nonhyperbolic} (\emph{at least one eigenvalue has zero real part}).
+
+        \emph{Since $\Delta=\lambda_1\lambda_2$}, there must be a zero eigenvalue when $\Delta=0$.
+        If $\uptau = 0$ there may be a complex conjugate pair of eigenvalues with zero real part, the
+        eigenvalues might both be real and sum to zero, or the eigenvalues might both be zero.
+        In the case where a c.c. pari with zero real part, find the sign of the determinant.
+
+        The Hartman-Grobman theorem tells us that stability information from the linearization
+        can be used to classify hyperbolic fixed points.
+        When a fixed point is non-hyperbolic the stability information from linearization is not so useful.
+
+        Identify the stability of any hyperbolix fixed points.
+        (Classify them as attracting, repelling, or saddle points, and identify whether they are stable or unstable).
+
+        \item[(f)] use eigenvalues and eigenvectors to sketch neighbouring trajectories to any
+        fixed points with real eigenvalues.
+        Try to fill in the rest of the phase portrait.
+    \end{itemize}
+
+    \begin{solution}
+    \end{solution}
 
 
 \end{document}
