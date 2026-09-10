@@ -1,5 +1,6 @@
 .idea
 temp
+out
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
