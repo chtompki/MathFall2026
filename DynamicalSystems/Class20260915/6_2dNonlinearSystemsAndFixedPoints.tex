@@ -87,6 +87,426 @@
     \qquad\\
     {\large\bfseries Team Activity}
 
+    \begin{enumerate}[leftmargin=2em]
+      \item[(1.)] (6.4.2) Consider the system
+      \[
+          \dot{x}=x(3-2x-y),
+          \qquad
+          \dot{y}=y(2-x-y),
+          \qquad x,y\geq 0.
+      \]
+      \begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+        \item Find the fixed points.
+        \item Draw the nullclines on the $xy$-plane.
+        \item Add a representative vector in each region of phase space.
+        \item Compute the Jacobian matrix.
+        \item Classify the fixed points. Compare your classification to the behavior
+        of the vector field near each fixed point in your diagram from part (c).
+        \item Sketch a plausible phase portrait for the system. Compare your sketch
+        to a numerically computed phase portrait.
+      \end{enumerate}
+
+      \begin{solution}
+          Write
+          \[
+              f(x,y)=x(3-2x-y),\qquad g(x,y)=y(2-x-y).
+          \]
+
+          \begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+        \item The fixed points are the intersections of
+        \[
+            x=0\quad\hbox{or}\quad 3-2x-y=0
+        \]
+        with
+        \[
+            y=0\quad\hbox{or}\quad 2-x-y=0.
+        \]
+        Thus
+        \[
+            \boxed{(0,0),\quad(0,2),\quad
+            \left(\frac32,0\right),\quad(1,1)}.
+        \]
+        For the interior point, subtracting
+        $2x+y=3$ and $x+y=2$ gives $x=1$, hence $y=1$.
+
+        \item The $x$-nullclines are
+        \[
+            x=0,\qquad y=3-2x,
+        \]
+        and the $y$-nullclines are
+        \[
+            y=0,\qquad y=2-x.
+        \]
+        In the first quadrant the oblique $x$-nullcline runs from $(0,3)$
+        to $(3/2,0)$, while the oblique $y$-nullcline runs from $(0,2)$ to
+        $(2,0)$.  They cross at $(1,1)$.
+
+        \item Away from the axes, the signs are determined by
+        \[
+            \begin{array}{c|c}
+                \text{condition}&\text{sign}\rule{0pt}{2.4ex}\\ \hline
+                y<3-2x&\dot x>0\\
+                y>3-2x&\dot x<0\\
+                y<2-x&\dot y>0\\
+                y>2-x&\dot y<0
+            \end{array}
+        \]
+        Therefore the four possible directions are
+        $\nearrow$ for $(+,+)$, $\searrow$ for $(+,-)$,
+        $\nwarrow$ for $(-,+)$, and $\swarrow$ for $(-,-)$.
+        For example, representatives are
+        \[
+            \begin{array}{c|c|c}
+                (x,y)&(\operatorname{sgn}\dot x,\operatorname{sgn}\dot y)&
+                \text{direction}\\ \hline
+                (1/2,1/2)&(+,+)&\nearrow\\
+                (1/2,7/4)&(+,-)&\searrow\\
+                (5/4,3/5)&(-,+)&\nwarrow\\
+                (1/2,5/2)&(-,-)&\swarrow
+            \end{array}
+        \]
+
+        \item Differentiating $f$ and $g$ gives
+        \[
+            \boxed{J(x,y)=
+                \begin{bmatrix}
+                    3-4x-y&-x\\
+                    -y&2-x-2y
+                \end{bmatrix}}.
+        \]
+
+        \item Evaluation at the fixed points gives
+        \[
+            \begin{array}{c|c|c|c}
+                (x,y)&J(x,y)&\text{eigenvalues}&\text{classification}\\ \hline
+            (0,0)&\begin{bmatrix}3&0\\0&2\end{bmatrix}
+                &3,2&\text{unstable node}\\[1.2ex]
+                (0,2)&\begin{bmatrix}1&0\\-2&-2\end{bmatrix}
+                &1,-2&\text{saddle}\\[1.2ex]
+                (3/2,0)&\begin{bmatrix}-3&-3/2\\0&1/2\end{bmatrix}
+                &-3,1/2&\text{saddle}\\[1.2ex]
+                (1,1)&\begin{bmatrix}-2&-1\\-1&-1\end{bmatrix}
+                &\dfrac{-3\pm\sqrt5}{2}&\text{stable node}
+            \end{array}
+        \]
+        These classifications agree with the local arrow directions from
+        part (c): arrows leave $(0,0)$, enter and leave each saddle along
+        different directions, and point toward $(1,1)$ from all nearby
+        sectors.
+
+        \item The coordinate axes are invariant.  On the positive $x$-axis,
+        solutions approach $(3/2,0)$; on the positive $y$-axis, solutions
+        approach $(0,2)$.  Interior trajectories cannot cross either axis
+        and are directed toward the stable coexistence equilibrium $(1,1)$.
+        A numerical phase portrait should therefore show the two boundary
+        saddles, their invariant-axis trajectories, and interior trajectories
+        curving into $(1,1)$.
+          \end{enumerate}
+      \end{solution}
+
+      \item[(2.)] \textbf{Analyzing a 2D System:} Consider a 2D red fox--coyote
+      system (let ``1'' denote red foxes and ``2'' denote coyotes):
+      \begin{align*}
+          \frac{dN_1}{dt}
+          &=r_1N_1\left(1-\frac{N_1}{K_1}\right)-\alpha_1N_1N_2,\\
+          \frac{dN_2}{dt}
+          &=r_2N_2\left(1-\frac{N_2}{K_2}\right)-\alpha_2N_1N_2.
+      \end{align*}
+
+      \begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+        \item Using $N_1=A_1x$, $N_2=A_2y$, and $t=T\tau$, show that the
+        system can be nondimensionalized to give
+        \begin{align*}
+            \frac{dx}{d\tau}&=x(1-x)-\beta_1xy,\\
+            \frac{dy}{d\tau}&=\rho y(1-y)-\beta_2xy,
+        \end{align*}
+        where
+        \[
+            \rho=\frac{r_2}{r_1},
+            \qquad
+            \beta_1=\frac{\alpha_1K_2}{r_1},
+            \qquad
+            \beta_2=\frac{\alpha_2K_1}{r_1}.
+        \]
+        \begin{enumerate}[label=\roman*.,leftmargin=2em]
+            \item Show that the nullclines of this nondimensional system are
+            \begin{align*}
+                x\text{ nullclines:}&\quad x=0,
+                &y&=\frac{1}{\beta_1}(1-x),\\
+                y\text{ nullclines:}&\quad y=0,
+                &y&=1-\frac{\beta_2}{\rho}x.
+            \end{align*}
+            \item There are three equilibria whose locations are unaffected by the
+            parameters. What are they? Interpret these equilibria in terms of
+            foxes and coyotes.
+            \item Find conditions to ensure that there is exactly one crossing of
+            the nullclines in the first quadrant (not on the axes). How would you
+            interpret these conditions in terms of foxes and coyotes?
+        \end{enumerate}
+
+        \item Show that the Jacobian for the dimensionless system is
+        \[
+            J=
+            \begin{bmatrix}
+                1-2x-\beta_1y & -\beta_1x\\
+                -\beta_2y & \rho(1-2y)-\beta_2x
+            \end{bmatrix}.
+        \]
+        \begin{enumerate}[label=\roman*.,leftmargin=2em]
+            \item Determine the linear stability of equilibrium $e_1=(1,0)$ and
+            sketch the phase portraits nearby. Are there any cases where the
+            linear stability cannot tell us about the nonlinear stability of this
+            equilibrium? Relate your analysis back to foxes and coyotes.
+            \item Determine the linear stability of equilibrium $e_2=(0,1)$ and
+            sketch the phase portraits nearby. Are there any cases where the
+            linear stability cannot tell us about the nonlinear stability of this
+            equilibrium? Relate your analysis back to foxes and coyotes.
+            \item Determining the linear stability of equilibrium $e_4$ (the
+            crossing point) is messy without a computer. Instead, use the
+            nullclines around this point to determine the stability when
+            $\beta_1<1$ and $\beta_2<\rho$, and when $\beta_1>1$ and
+            $\beta_2>\rho$.
+        \end{enumerate}
+
+        \item Conceptual questions about the model:
+        \begin{enumerate}[label=\roman*.,leftmargin=2em]
+            \item What are some assumptions that are explicit or implicit in this
+            model?
+            \item Briefly describe each of the terms in the model. Which terms give
+            the intraspecies competition? Which give the interspecies
+            competition?
+            \item Which parameters are likely to be hard to measure/constrain?
+            Which would be easy to measure/constrain?
+        \end{enumerate}
+
+        \item Conceptual questions about results/analysis:
+            \begin{enumerate}[label=\roman*.,leftmargin=2em]
+                \item In New York's Adirondack region, coyotes prey on red foxes and the
+                NYS Department of Environmental Conservation reports that red foxes
+                ``avoid coyote territories completely or reside on the periphery of
+                established coyote territories.'' Is there any inconsistency with
+                this fact and the model we just analyzed? If no, explain why. If yes,
+                can you adjust the model to fix it?
+                \item What in the above analysis would you change if we replaced the red
+                foxes with bobcats? The Adirondack Ecological Center site on bobcats
+                will be helpful:
+                \url{https://www.esf.edu/aec/adks/mammals/bobcat.htm}.
+                \item What in the above analysis would you change if we replaced the
+                coyotes with gray foxes? The Adirondack Ecological Center site on gray
+                foxes will be helpful:
+                \url{https://www.esf.edu/aec/adks/mammals/gray_fox.htm}.
+            \end{enumerate}
+        \end{enumerate}
+
+      \begin{solution}
+          Put
+          \[
+              F(x,y)=x(1-x)-\beta_1xy,
+              \qquad
+              G(x,y)=\rho y(1-y)-\beta_2xy.
+          \]
+
+          \begin{enumerate}[label=(\alph*),leftmargin=2.2em]
+          \item Since $N_1=A_1x$, $N_2=A_2y$, and $t=T\tau$,
+          \[
+              \frac{dN_1}{dt}=\frac{A_1}{T}\frac{dx}{d\tau},
+              \qquad
+              \frac{dN_2}{dt}=\frac{A_2}{T}\frac{dy}{d\tau}.
+          \]
+          Substitution into the dimensional equations and division by $A_1/T$
+          and $A_2/T$, respectively, yields
+          \begin{align*}
+              \frac{dx}{d\tau}
+              &=Tr_1x\left(1-\frac{A_1}{K_1}x\right)
+              -T\alpha_1A_2xy,\\
+              \frac{dy}{d\tau}
+              &=Tr_2y\left(1-\frac{A_2}{K_2}y\right)
+              -T\alpha_2A_1xy.
+          \end{align*}
+          Choose
+          \[
+              A_1=K_1,\qquad A_2=K_2,
+              \qquad T=\frac1{r_1}.
+          \]
+          Then
+          \[
+              \frac{dx}{d\tau}=x(1-x)-\beta_1xy,
+              \qquad
+              \frac{dy}{d\tau}=\rho y(1-y)-\beta_2xy,
+          \]
+          with the stated definitions of $\rho$, $\beta_1$, and $\beta_2$.
+
+          \begin{enumerate}[label=\roman*.,leftmargin=2em]
+            \item Factoring gives
+            \[
+                F=x(1-x-\beta_1y),
+                \qquad
+                G=y\bigl(\rho(1-y)-\beta_2x\bigr).
+            \]
+            Hence
+            \[
+                \boxed{x=0\ \text{or}\ y=\frac{1-x}{\beta_1}},
+                \qquad
+                \boxed{y=0\ \text{or}\ y=1-\frac{\beta_2}{\rho}x}.
+            \]
+
+            \item The parameter-independent equilibria are
+            \[
+                e_0=(0,0),\qquad e_1=(1,0),\qquad e_2=(0,1).
+            \]
+            They represent extinction of both species, foxes alone at their
+            carrying capacity $N_1=K_1$, and coyotes alone at their carrying
+            capacity $N_2=K_2$, respectively.
+
+            \item Solving the two oblique-nullcline equations gives
+            \[
+                e_4=(x_*,y_*),\qquad
+                x_*=\frac{\rho(1-\beta_1)}{\rho-\beta_1\beta_2},
+                \qquad
+                y_*=\frac{\rho-\beta_2}{\rho-\beta_1\beta_2}.
+            \]
+            This point is strictly in the first quadrant precisely when
+            \[
+                \boxed{\beta_1<1\ \text{and}\ \beta_2<\rho}
+                \quad\text{or}\quad
+                \boxed{\beta_1>1\ \text{and}\ \beta_2>\rho}.
+            \]
+            In the first regime, each species limits itself more strongly than
+            it limits the other species, so stable coexistence is possible.  In
+            the second, interspecific effects are relatively stronger; the
+            crossing still exists, but it separates the basins in a competitive
+            exclusion regime.  If $\beta_1=1$ and $\beta_2=\rho$, the oblique
+            nullclines coincide and there is a continuum of equilibria rather
+            than exactly one crossing.
+          \end{enumerate}
+
+          \item Direct differentiation gives
+          \[
+              \boxed{J(x,y)=
+                  \begin{bmatrix}
+                      1-2x-\beta_1y&-\beta_1x\\
+                      -\beta_2y&\rho(1-2y)-\beta_2x
+                  \end{bmatrix}}.
+          \]
+
+          \begin{enumerate}[label=\roman*.,leftmargin=2em]
+            \item At $e_1=(1,0)$,
+            \[
+                J(e_1)=\begin{bmatrix}-1&-\beta_1\\0&\rho-\beta_2\end{bmatrix},
+                \qquad \lambda_1=-1,\qquad \lambda_2=\rho-\beta_2.
+            \]
+            Thus $e_1$ is a stable node if $\beta_2>\rho$ and a saddle if
+            $\beta_2<\rho$.  Biologically, a rare coyote population cannot
+            invade the fox-only state when $\beta_2>\rho$, but can invade when
+            $\beta_2<\rho$.  When $\beta_2=\rho$, one eigenvalue is zero and
+            linearization is inconclusive.  A center-manifold calculation gives
+            $y'=\rho(\beta_1-1)y^2+O(y^3)$ in the biologically relevant side:
+            $e_1$ is attracting from the interior if $\beta_1<1$, repelling in
+            the center direction if $\beta_1>1$, and belongs to a line of
+            equilibria if also $\beta_1=1$.
+
+            \item At $e_2=(0,1)$,
+            \[
+                J(e_2)=\begin{bmatrix}1-\beta_1&0\\-\beta_2&-\rho\end{bmatrix},
+                \qquad \lambda_1=1-\beta_1,\qquad \lambda_2=-\rho.
+            \]
+            Hence $e_2$ is a stable node if $\beta_1>1$ and a saddle if
+            $\beta_1<1$.  A rare fox population cannot invade the coyote-only
+            state when $\beta_1>1$, but can invade when $\beta_1<1$.  For
+            $\beta_1=1$, linearization is inconclusive.  Near the center
+            direction, $x'=(\beta_2/\rho-1)x^2+O(x^3)$, so the point attracts
+            from the interior if $\beta_2<\rho$, repels in that direction if
+            $\beta_2>\rho$, and lies on a line of equilibria when
+            $\beta_2=\rho$ as well.
+
+            \item At the interior equilibrium, the nullcline identities reduce
+            the Jacobian to
+            \[
+                J(e_4)=\begin{bmatrix}
+                           -x_*&-\beta_1x_*\\
+                           -\beta_2y_*&-\rho y_*
+                \end{bmatrix}.
+            \]
+            Therefore
+            \[
+                \operatorname{tr}J(e_4)=-(x_*+\rho y_*)<0,
+                \qquad
+                \det J(e_4)=x_*y_*(\rho-\beta_1\beta_2).
+            \]
+            If $\beta_1<1$ and $\beta_2<\rho$, the determinant is positive,
+            so $e_4$ is asymptotically stable.  If $\beta_1>1$ and
+            $\beta_2>\rho$, the determinant is negative, so $e_4$ is a saddle;
+            its stable manifold separates initial conditions leading to fox
+            exclusion from those leading to coyote exclusion.
+          \end{enumerate}
+
+          \item
+          \begin{enumerate}[label=\roman*.,leftmargin=2em]
+            \item The model assumes a closed, well-mixed, spatially homogeneous
+            system; continuous deterministic populations; constant parameters;
+            logistic growth for each species in isolation; instantaneous,
+            pairwise, density-dependent competition; no age or sex structure;
+            no migration, time delay, seasonality, disease, prey dynamics, or
+            environmental noise; and fixed carrying capacities.
+
+            \item In
+            \[
+                r_iN_i\left(1-\frac{N_i}{K_i}\right)
+                =r_iN_i-\frac{r_i}{K_i}N_i^2,
+            \]
+            $r_iN_i$ is density-independent growth and
+            $-(r_i/K_i)N_i^2$ is intraspecific competition.  The terms
+            $-\alpha_1N_1N_2$ and $-\alpha_2N_1N_2$ are the effects of
+            interspecific encounters on foxes and coyotes, respectively.
+
+            \item Abundance data and approximate low-density growth rates may be
+            comparatively accessible, while carrying capacities remain
+            habitat- and season-dependent.  The interaction coefficients
+            $\alpha_1$ and $\alpha_2$ are usually hardest to identify because
+            they require separating interspecific effects from habitat,
+            resources, predation, and intraspecific density dependence.  The
+            dimensionless parameters inherit this uncertainty.
+          \end{enumerate}
+
+          \item
+          \begin{enumerate}[label=\roman*.,leftmargin=2em]
+            \item There is a modeling mismatch if the equations are interpreted
+            literally as a spatial description: a well-mixed ODE has no
+            territories and cannot represent avoidance.  It can still describe
+            average abundance effects after spatial behavior has been folded
+            into the $\alpha_i$.  Also, coyote predation is not the same as
+            symmetric competition: a predator--prey formulation would typically
+            reduce fox growth but increase coyote growth, for example replacing
+            the second interaction term by $+\gamma N_1N_2$ together with an
+            appropriate coyote mortality/resource model.  Territories can be
+            represented using spatial patches, diffusion/advection, or
+            density-dependent encounter rates.
+
+            \item Replacing red foxes by bobcats changes the parameter values and
+            weakens the justification for a simple well-mixed competition model.
+            Bobcats are solitary, use very large home ranges, are almost entirely
+            carnivorous, and show strong habitat and seasonal effects; coyote
+            interactions may also be important.  A better model could include
+            spatial habitat classes, seasonal carrying capacities, shared-prey
+            dynamics, and asymmetric competition.  The algebraic stability
+            analysis is unchanged only if one retains the same two-species
+            competition equations.
+
+            \item Replacing coyotes by gray foxes also preserves the algebra only
+            under the same modeling assumptions.  Gray foxes use brushy and
+            deciduous woodland more than the open habitats preferred by red
+            foxes, and their opportunistic diet overlaps only partly with that of
+            red foxes.  Habitat partitioning should therefore reduce effective
+            encounter rates or require separate patches.  Because coyotes may
+            prey on young gray foxes, any retained coyote effect would be
+            asymmetric rather than pure competition.  Thus one should
+            re-estimate $r_2,K_2,\alpha_1,\alpha_2$ and consider explicit habitat
+            and predation terms.
+          \end{enumerate}
+          \end{enumerate}
+      \end{solution}
+    \end{enumerate}
+
 
 
 \end{document}
