@@ -1,0 +1,91 @@
+%! Author = chtompki
+%! Date = 1/14/26
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\title{Graph Theory:\\Homework 4\\ Book Section 2.1.}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+    \noindent\textbf{1.} Prove that every tree with maximum degree $\Delta > 1$ has at least $\Delta$
+    vertices of degree 1.
+    Show that this is the best possible by constructing an $n$-vertex tree with exactly $\Delta$ leaves,
+    for each choice of $n$, $\Delta$ with $n > \Delta \ge 2$.
+
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{2.} Prove that every graph with diameter $d$ has an independent set of size
+    at least $\lceil (1 + d)/2 \rceil$.
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{3.} Let $d_1,\ldots, d_n$ be positive integers with $n\ge 2$.
+    Prove that there exists a tree with vertex degrees $d_1,\ldots,d_n$ if and only if
+    $\sum d_i = 2n - 2$.
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{4.}
+    \begin{itemize}
+        \item[(a)] Prove that every tree is bipartite.
+        \item[(b)] Prove that every tree $T$ has a leaf in its larger partite set (in both if they
+        have equal size).
+    \end{itemize}
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{5.}
+    \begin{itemize}
+        \item[(a)] Prove that the distance function $d(u,v)$ on pairs of vertices of a graph satisfies
+        the \emph{triangle inequality}: $d(u,v) + d(v,w) \ge d(u,w)$.
+        \item[(b)] Use (a) to prove that $\text{diam}(G) \le 2 \cdot \text{rad}(G)$ for every graph $G$.
+        \item[(c)] For all positive integers $r$ and $d$ that satisfy $r\le d \le 2r$, construct a simple
+        graph with radius $r$ and diameter $d$.
+        (Hint: Build a suitable graph with one cycle.)
+    \end{itemize}
+
+    \begin{proof}
+    \end{proof}
+
+
+\end{document}
