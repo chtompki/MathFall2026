@@ -49,12 +49,39 @@
 
 
     \begin{proof}
+        Let $v$ be a vertex of degree $\Delta$.  Deleting $v$ from the tree
+        leaves exactly $\Delta$ components, one containing each neighbor of $v$:
+        two such neighbors cannot lie in the same component, since a path
+        between them avoiding $v$ would give a cycle.
+        In each component choose a vertex $x$ whose distance from $v$ is largest.
+        The unique $v$--$x$ path gives $x$ one neighbor toward $v$.
+        Any other neighbor would be farther from $v$, contradicting the choice
+        of $x$.  Thus $x$ has degree $1$ in the original tree.
+        The components are disjoint, so these give at least $\Delta$ leaves.
+
+        For sharpness, start with the star $K_{1,\Delta}$, which has
+        $\Delta+1$ vertices and exactly $\Delta$ leaves.  Subdivide one edge
+        $n-\Delta-1$ times.  Each subdivision adds one vertex of degree $2$
+        and preserves all existing vertex degrees.  The resulting tree has
+        $n$ vertices, maximum degree $\Delta$, and exactly $\Delta$ leaves.
     \end{proof}
 
     \noindent\textbf{2.} Prove that every graph with diameter $d$ has an independent set of size
     at least $\lceil (1 + d)/2 \rceil$.
 
     \begin{proof}
+        Choose vertices at distance $d$, and let
+        $v_0,v_1,\ldots,v_d$ be a shortest path between them.
+        No two nonconsecutive vertices of this path are adjacent: an edge
+        $v_iv_j$ with $j\ge i+2$ would replace a segment of length $j-i$
+        by one edge and give a shorter $v_0$--$v_d$ path.
+        Consequently,
+        \[
+            \{v_0,v_2,v_4,\ldots,v_{2\lfloor d/2\rfloor}\}
+        \]
+        is independent.  Its size is
+        $\lfloor d/2\rfloor+1=\lceil(1+d)/2\rceil$, as required.
+        Here, as usual, the diameter is assumed to be finite.
     \end{proof}
 
     \noindent\textbf{3.} Let $d_1,\ldots, d_n$ be positive integers with $n\ge 2$.
@@ -62,6 +89,28 @@
     $\sum d_i = 2n - 2$.
 
     \begin{proof}
+        If a tree has $n$ vertices, then it has $n-1$ edges.  The handshaking
+        lemma therefore gives
+        \[
+            \sum_{i=1}^{n}d_i=2|E|=2n-2.
+        \]
+
+        Conversely, suppose the positive integers $d_1,\ldots,d_n$ sum to
+        $2n-2$.  We use induction on $n$.  When $n=2$, positivity forces
+        $d_1=d_2=1$, and the single-edge tree has these degrees.
+
+        Suppose $n\ge3$.  At least one $d_i$ is $1$, since otherwise the
+        sum would be at least $2n$.  At least one other entry is at least
+        $2$, since $2n-2>n$.  Relabel so that $d_n=1$ and $d_1\ge2$.
+        The $n-1$ positive integers
+        \[
+            d_1-1,d_2,\ldots,d_{n-1}
+        \]
+        have sum $2n-4=2(n-1)-2$.  By induction there is a tree on vertices
+        $v_1,\ldots,v_{n-1}$ with these degrees.  Add a new vertex $v_n$
+        and the single edge $v_1v_n$.  Adding a leaf preserves connectedness
+        and creates no cycle, so the result is a tree.  Its degrees are
+        precisely $d_1,\ldots,d_n$.
     \end{proof}
 
     \noindent\textbf{4.}
@@ -72,6 +121,31 @@
     \end{itemize}
 
     \begin{proof}
+        \textbf{(a)} Fix a root $v$ and partition the vertices into sets
+        $A$ and $B$ according to whether their distance from $v$ is even
+        or odd.  Every edge of a tree joins a vertex to its predecessor
+        on the unique path from the root, so its endpoints have distances
+        from $v$ differing by $1$.  Thus every edge joins $A$ to $B$,
+        proving that the tree is bipartite.
+
+        \medskip
+        \noindent\textbf{(b)} Assume $T$ has at least two vertices, and let
+        $(A,B)$ be its bipartition with $|A|\ge|B|$.  All vertices have
+        positive degree.  If $A$ contained no leaf, every vertex in $A$
+        would have degree at least $2$.  Since each edge has exactly one
+        endpoint in $A$, this would imply
+        \[
+            |A|+|B|-1=|E(T)|
+            =\sum_{x\in A}\deg(x)
+            \ge2|A|\ge|A|+|B|,
+        \]
+        a contradiction.  Hence $A$ contains a leaf.  If $|A|=|B|$,
+        the same argument with the two sets interchanged shows that $B$
+        also contains a leaf.
+
+        \medskip
+        \noindent\emph{Remark.} The assumption of at least two vertices
+        is necessary in (b): the one-vertex tree has no vertex of degree $1$.
     \end{proof}
 
     \noindent\textbf{5.}
@@ -85,6 +159,63 @@
     \end{itemize}
 
     \begin{proof}
+        \textbf{(a)} Concatenate a shortest $u$--$v$ path and a shortest
+        $v$--$w$ path.  This gives a $u$--$w$ walk of length
+        $d(u,v)+d(v,w)$.  Deleting any closed portions of the walk leaves
+        a $u$--$w$ path of no greater length.  By the definition of distance,
+        \[
+            d(u,w)\le d(u,v)+d(v,w).
+        \]
+        This argument applies when the distances on the right are finite;
+        if either is infinite, the inequality holds with the usual
+        extended-distance convention.
+
+        \medskip
+        \noindent\textbf{(b)} For a connected graph, write
+        $e(x)=\max_y d(x,y)$ for the eccentricity of $x$, and choose a
+        vertex $c$ with $e(c)=\operatorname{rad}(G)$.  For any vertices
+        $u,w$, part (a) gives
+        \[
+            d(u,w)\le d(u,c)+d(c,w)
+            \le2e(c)=2\operatorname{rad}(G).
+        \]
+        Taking the maximum over $u,w$ proves
+        $\operatorname{diam}(G)\le2\operatorname{rad}(G)$.
+        If disconnected graphs are allowed with infinite distances,
+        both radius and diameter are infinite, and the inequality also
+        holds in that convention.
+
+        \medskip
+        \noindent\textbf{(c)} Set $\ell=d-r$, so $0\le\ell\le r$.
+        Start with the cycle $C_{2r+1}$ and choose a vertex $c$ on it.
+        Attach a path of length $\ell$ at $c$, using new vertices
+        $x_1,\ldots,x_\ell$ and edges $cx_1,x_1x_2,\ldots,
+        x_{\ell-1}x_\ell$.  When $\ell=0$, attach nothing.
+        Since $r\ge1$, the cycle has at least three vertices; hence this
+        is a simple graph with exactly one cycle.
+
+        Distances between cycle vertices are unchanged by the attached
+        path, and every cycle vertex has a cycle vertex at distance $r$.
+        Also, for a cycle vertex $y$ and $1\le i\le\ell$,
+        \[
+            d(x_i,y)=i+d(c,y),
+        \]
+        because every path from the attached path to the cycle passes
+        through $c$.  Thus every cycle vertex has eccentricity at least
+        $r$, and every new vertex $x_i$ has eccentricity at least $i+r$.
+        Meanwhile,
+        \[
+            e(c)=\max\{r,\ell\}=r.
+        \]
+        Therefore the radius is exactly $r$.
+
+        Two cycle vertices are at distance at most $r$, two vertices
+        of the attached path (including $c$) are at distance at most
+        $\ell$, and a new vertex and a cycle vertex are at distance at
+        most $\ell+r=d$.  If $\ell>0$, choose a cycle vertex $y$ at
+        distance $r$ from $c$; then $d(x_\ell,y)=\ell+r=d$.
+        If $\ell=0$, the cycle itself has diameter $r=d$.
+        Hence the constructed graph has diameter exactly $d$.
     \end{proof}
 
 
