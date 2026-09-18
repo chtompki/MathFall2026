@@ -1,0 +1,186 @@
+%! Author = chtompki
+%! Date = 1/14/26
+\documentclass[10pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\NewDocumentCommand{\vitem}{v}{%
+    \item[\texttt{#1}]%
+}
+
+\newcommand{\slopeelement}[3]{%
+    \pgfmathsetmacro{\slopeDX}{0.14/sqrt(1+(#3)^2)}%
+    \pgfmathsetmacro{\slopeDY}{(#3)*\slopeDX}%
+    \pgfmathsetmacro{\slopeXA}{(#1)-\slopeDX}%
+    \pgfmathsetmacro{\slopeYA}{(#2)-\slopeDY}%
+    \pgfmathsetmacro{\slopeXB}{(#1)+\slopeDX}%
+    \pgfmathsetmacro{\slopeYB}{(#2)+\slopeDY}%
+    \edef\slopecommand{%
+        \noexpand\draw[gray,thin]
+        (axis cs:\slopeXA,\slopeYA)
+        --
+        (axis cs:\slopeXB,\slopeYB);%
+    }%
+    \slopecommand
+}
+
+\title{Dynamical Systems\\Problem Set 2}
+\author{Rob Tompkins}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \date{\today}
+    \begin{onehalfspace}
+        We begin by noting that all of the files referenced in this document are available at: \\
+        \underline{https://github.com/chtompki/MathFall2026/tree/main/DynamicalSystems/ProblemSet2}
+
+        The next exercises (3.4.5, 3.5.7, and 3.4.9) are designed to test your ability to distinguish among the various
+        types of bifurcations --- its easy to confuse them!
+        In each case, fine the values of $r$ at which bifurcations occur, and classify those as: saddle-node,
+        transcritical, supercritical pitchfork, or subcritical pitchfork.
+        Finally sketch the bifurcation diagram of fixed points $x^*$ vs $r$.
+
+        \noindent\textbf{3.4.5} $\dot{x} = r - 3x^2$
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{3.4.7} $\dot{x} = 5 - re^{-x^2}$
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{3.4.9} $\dot{x} = x = \tanh{(rx)}$
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{3.4.11} (An interesting bifurcation diagram) Consider $\dot{x} = rx - \sin{(x)}$
+        \begin{itemize}
+            \item[a)] For the case $r = 0$, find and classify all the fixed points, and sketch the vector field.
+            \item[b)] Show that when $r > 1$, there is only one fixed point.
+            What kind of fixed point is it?
+            \item[c)] As $r$ decreases from $\infty$ to $0$, classify \emph{all} the bifurcations that occur.
+            \item[d)] For $0 < r \ll 1$, find an approximate formula for all values of $r$ at which bifurcations occur.
+            \item[e)] Now classify all the bifurcations that occur as $r$ decreases from $0$ to $-\infty$.
+            \item[f)] Plot the bifurcation diagram for $-\infty < r < \infty$, and indicate the stability of the various
+            fixed points.
+        \end{itemize}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{3.4.14} (Subcritical pitchfork) Consider the system $\dot{x} = rx + x^3 -x^5$, which
+        exhibits a subcritical pitchfork bifurcation.
+        \begin{itemize}
+            \item[a)] Find algebraic expressions for the all the fixed points at $r$ varies.
+            \item[b)] Sketch the vector fields as $r$ varies.
+            Be sure to indicate all the fixed points and their stability.
+            \item[c)] Calculate $r_s$, the parameter value at which the nonzero fixed points are born in a saddle-node
+            bifurcation.
+        \end{itemize}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{3.4.16} (Potentials) In parts (a)-(c) let $V(x)$ be the potential, in the sense that
+        $\dot{x} = -dV/dx$.
+        Sketch the potential as a function of $r$.
+        Show all qualitatively different cases including bifurcation values of $r$.
+        \begin{itemize}
+            \item[a)] (Saddle-node) $\dot{x} = r - x^2$
+            \item[b)] (Transcritical) $\dot{x} = rx - x^2$
+            \item[c)] (Subcritical pitchfork) $\dot{x} = rx + x^3 - x^5$.
+        \end{itemize}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{3.5.4} (Bead on a horizontal wire) A bead of mass $m$  is constrained to slide along
+        a straight horizontal wire.
+        A spring of relaxed length $L_0$ and spring constant $k$ is attached to the mass and to a support point
+        distance $h$ from the wire given in Figure \ref{figure1} below.
+
+        \begin{figure}[htbp]
+            \centering
+            \includegraphics[width=\textwidth]{figure1.jpeg}
+            \caption{}
+            \label{figure1}
+        \end{figure}
+
+        \noindent Finally suppose that the motion of the bead is opposed by a viscous damping force $b\dot{x}$.
+        \begin{itemize}
+            \item[a)] Write Newton's law for the motion of the fixed bead.
+            \item[b)] Find all possible equilibria, i.e. fixed points, as functions of $k$, $h$, $m$, $b$, and $L_0$.
+            \item[c)] Suppose $m = 0$.
+            Classify the stability of all the fixed points, and draw a bifurcation diagram.
+            \item[d)] If $m\neq 0$, how small must $m$ be, to be considered negligible?
+            In what sense is it negligible?
+        \end{itemize}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{3.6.2} (Imperfect transcritical bifurcation) Consider the system $\dot{x} = h + rx - x^2$.
+        When $h = 0$, this system undergoes a transcritical bifurcation at $r = 0$.
+        Our goal is to see how the bifurcation diagram of $x^*$ vs. $r$ is affected by the imperfection parameter $h$.
+        \begin{itemize}
+            \item[a)] Plot the bifurcation diagram for $\dot{x} = h + rx - x^2$, for $h < 0$, $h = 0$, and $h > 0$.
+            \item[b)] Sketch the regions in the $(r,h)$ plane that correspond to qualitatively different vector fields,
+            and identify the bifurcation that occur on the boundaries of those regions.
+            \item[c)] Plot the potential $V(x)$ corresponding to all the different regions in the $(r,h)$ plane.
+        \end{itemize}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{3.7.5} (A biochemical switch) Zebra stripes and butterfly wing patterns are two of the most
+        spectacular examples of biological pattern formation.
+        Explaining the development of these patterns is on of the outstanding problems of Biology; see Murray (2003)
+        for an excellent review.
+
+        %A one ingredient  in a model  of pattern formation
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{5.1.10}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{5.2.1}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{5.2.6}
+
+        \begin{solution}
+        \end{solution}
+
+    \end{onehalfspace}
+\end{document}
