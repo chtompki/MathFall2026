@@ -162,22 +162,101 @@
         Explaining the development of these patterns is on of the outstanding problems of Biology; see Murray (2003)
         for an excellent review.
 
-        %A one ingredient  in a model  of pattern formation
+        As one ingredient in a model of pattern formation, Lewis et al. (1977) considered a simple example of a
+        biochemical switch, in which a gene $G$ is activated by a biochemical signal substance $S$.
+        For example, the gene may normally be inactive but can be ``switched on'' to produce a pigment or other gene
+        product when concentration of $S$ exceeds a certain threshold.
+        Let $g(t)$ denote the concentration of the gene product, and assume that the concentration $s_0$ of $S$ is
+        fixed.
+        The model is
+        \[
+            \dot{g} = k_1 s_0 - k_2 g + \frac{k_3 g^2}{k_4^2 + g^2},
+        \]
+        where $k$'s are positive constants.
+        The production of $g$ is stimulated by $s_0$ at rate $k_1$, and by an \emph{autocatalytic} (positive feedback)
+        process, modeled by the non-linear term.
+        There is also a linear degradation of $g$ at a rate $k_2$.
+        \begin{itemize}
+            \item[a)] Show that the system can be put in the dimensionless form
+            \[
+                \frac{dx}{d\tau} = s - rx + \frac{x^2}{1+x^2},
+            \]
+            where $r > 0$ and $s\ge 0$ are dimensionless groups.
+            \item[b)] Show that if $s = 0$, there are two positibe fixed points $x^*$ if $r < r_c$, where $r_c$ is to
+            be determined.
+            \item[c)] Assume that initially there is no gene product, i.e. $g(0) = 0$, ad suppose $s$ is slowly
+            increased from $0$ (the activating signal is turned on); what happens to $g(t)$?
+            What happens if $s$ then goes back to zero?
+            Does the gene turn off again?
+            \item[d)] Find parametric equations for the bifurcation curves in $(r, s)$ space, and classify
+            the bifurcations that occur.
+            \item[e)] Compute a quantitatively accurate plot of the stability diagram in $(r, s)$ space.
+        \end{itemize}
+        For further discussion of this model, see Lewis et al. (1977); Edelstein-Kishet (1988); Section 7.5; or
+        Murray (2002), Chapter 6.
 
         \begin{solution}
         \end{solution}
 
-        \noindent\textbf{5.1.10}
+        \noindent\textbf{5.1.10} (Attracting and Liapunov stable) here are the official definitions of various
+        types of stability.
+        Consider a fixed point $\mathbf{x^*}$ of a system $\mathbf{\dot{x} = f(x)}$.
+
+        \noindent We say that $\mathbf{x^*}$ is \textbf{\emph{attracting}} if there is a $\delta >0$ such that
+        $\lim\limits_{t\rightarrow\infty} x(t) = \mathbf{x^*}$ whenever $\|\mathbf{x}(0) - \mathbf{x^*}\| < \delta$
+        within a distance of $\delta$ to $\mathbf{x^*}$ is guaranteed to converge to $\mathbf{x^*}$ \emph{eventually}.
+        As shown schematically in Figure \ref{figure2}, trajectories that start nearby are allowed to stray from
+        $\mathbf{x^*}$ in the short run, but the must approach $\mathbf{x^*}$ in the long run.
+
+        \noindent In contrast, Liapunov stability requires that nearby trajectories remain close for \emph{all} time.
+        We sayt that $\mathbf{x^*}$ is \textbf{\emph{Liapunov stable}} if for each $\varepsilon > 0$ there is a
+        $\delta > 0$ such that $\|\mathbf{x}(t) - \mathbf{x^*}\| < \varepsilon$ whenever $t \ge 0$ and
+        $\|\mathbf{x}(0) - \mathbf{x^*}\| < \delta$.
+        Thus, trajectories that start within $\delta$ of $\mathbf{x^*}$ remain within $\varepsilon$ of $\mathbf{x^*}$
+        for all positive time.
+        Figure \ref{figure2} gives a good example of this
+        \begin{figure}[htbp]
+            \centering
+            \includegraphics[width=\textwidth]{figure2.png}
+            \caption{}
+            \label{figure2}
+        \end{figure}
+        Finally $\mathbf{x^*}$ is \textbf{\emph{asymptotically stable}} if it is both attracting and Liapunov stable.
+
+        \noindent For each of the following systems, decide whether the origin is attracting, Liapunov stable,
+        asymptotically stable, or none of the above.
+        \begin{itemize}
+            \item[a)] $\dot{x} = y$, $\dot{y} = -4x$
+            \item[b)] $\dot{x} = 2y$, $\dot{y} = x$
+            \item[c)] $\dot{x} = 0$, $\dot{y} = x$
+            \item[d)] $\dot{x} = 0$, $\dot{y} = -y$
+            \item[e)] $\dot{x} = -x$, $\dot{y} = -5y$
+            \item[f)] $\dot{x} = x$, $\dot{y} = y$
+        \end{itemize}
 
         \begin{solution}
         \end{solution}
 
-        \noindent\textbf{5.2.1}
+        \noindent\textbf{5.2.1} Consider the system $\dot{x} = 4x - y$, $\dot{y} = 2x + y$.
+        \begin{itemize}
+            \item[a)] Write the system as $\mathbf{\dot{x}} = A \mathbf{x}$.
+            Show that the characteristic equation is $\lambda^2 - 5\lambda + 6 = 0$,
+            and find the eigenvalues and eigenvectors of $A$.
+            \item[b)] Find the general solution of the system.
+            \item[c)] Classify the fixed point at the origin.
+            \item[d)] Solve the system subject ot the initial condition $(x_0, y_0) = (3, 4)$.
+        \end{itemize}
 
         \begin{solution}
         \end{solution}
 
-        \noindent\textbf{5.2.6}
+        \noindent\textbf{5.2.6} Plot the phase portrait and classify the fixed point of the following
+        linear systems.
+        If the eigenvectors are real, indicate them in your sketch.
+        \begin{eqnarray*}
+            \dot{x} & = & -3x + 2y \\
+            \dot{y} & = & x - 2y
+        \end{eqnarray*}
 
         \begin{solution}
         \end{solution}
