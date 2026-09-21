@@ -1,0 +1,119 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,enumitem}
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+\title{Exam1Prep}
+\date{}
+\begin{document}\maketitle
+
+    \section*{1.1 What Is a Graph?}
+    \subsection*{1.1.1} Determine which complete bipartite graphs are complete graphs.
+    \begin{solution}$K_{m,n}$ is complete iff both partite sets have size at most one: $K_{1,1}$ and, under the book's convention, $K_{1,0}$ (or $K_{0,1}$).\end{solution}
+    \subsection*{1.1.2} Write all possible adjacency and incidence matrices for a 3-vertex path; also give adjacency matrices for $P_6$ and $C_6$.
+    \begin{solution}All arise by relabeling. Representatives for $P_3$ are
+        $A=\begin{pmatrix}0&1&0\\1&0&1\\0&1&0\end{pmatrix}$ and
+        $M=\begin{pmatrix}1&0\\1&1\\0&1\end{pmatrix}$.
+        For $P_6$, use the $6\times6$ tridiagonal matrix with ones immediately above and below the diagonal. For $C_6$, additionally put ones in positions $(1,6)$ and $(6,1)$.\end{solution}
+    \subsection*{1.1.3} Using rectangular constant blocks, write an adjacency matrix for $K_{m,n}$.
+    \begin{solution}$A(K_{m,n})=\begin{pmatrix}0&J\\J^T&0\end{pmatrix}$, with block sizes $m,n$.\end{solution}
+    \subsection*{1.1.4} Prove that $G\cong H$ iff $\overline G\cong\overline H$.
+    \begin{solution}An isomorphism preserves adjacency and therefore nonadjacency, so the same bijection is an isomorphism between the complements. Apply this again for the converse.\end{solution}
+    \subsection*{1.1.5} Prove or disprove: if every vertex of a simple graph has degree $2$, then the graph is a cycle.
+    \begin{solution}False. A disjoint union of two cycles is 2-regular but is not one cycle.\end{solution}
+    \subsection*{1.1.6} Determine whether the pictured graph decomposes into copies of $P_4$.
+    \begin{solution}Yes. Its edges partition into 3-edge paths as shown in the solution-manual drawing.\end{solution}
+    \subsection*{1.1.7} Prove that a graph with more than six odd-degree vertices cannot be decomposed into three paths.
+    \begin{solution}Every odd-degree vertex must be an endpoint of a path in a path decomposition. Three paths provide only six endpoint occurrences.\end{solution}
+    \subsection*{1.1.8} Show that the pictured 8-vertex graph decomposes into copies of $K_{1,3}$ and into copies of $P_4$.
+    \begin{solution}For the claw decomposition, use the indicated degree-3 centers and their incident edges. A second partition of the same edge set into 3-edge paths gives the $P_4$ decomposition displayed in the manual.\end{solution}
+    \subsection*{1.1.9} Prove that the graph on the right is isomorphic to the complement of the graph on the left.
+    \begin{solution}Under the correspondence shown in the text, two vertices are adjacent on the right exactly when they are nonadjacent on the left.\end{solution}
+    \subsection*{1.1.10} Prove or disprove: the complement of a simple disconnected graph is connected.
+    \begin{solution}True. Choose $x,y$ in distinct components. Then $xy$ is an edge of the complement. Every other vertex is adjacent in the complement to at least one of $x,y$; otherwise it would connect their components in $G$.\end{solution}
+
+    \section*{1.2 Paths, Cycles, and Trails}
+    \subsection*{1.2.1} Determine whether: (a) every disconnected graph has an isolated vertex; (b) a graph is connected iff some vertex is connected to all others; (c) every closed trail's edge set partitions into cycles; (d) endpoints of a nonclosed maximal trail have odd degree.
+    \begin{solution}(a) False: two disjoint edges. (b) True, by transitivity of connection. (c) True: the used-edge subgraph is even and decomposes into cycles. (d) True: an endpoint uses an odd number of incident edges; if its degree were even an unused edge would extend the trail.\end{solution}
+    \subsection*{1.2.2} Determine whether $K_4$ contains (a) a walk that is not a trail, (b) a nonclosed trail that is not a path, (c) a closed trail that is not a cycle.
+    \begin{solution}(a) Yes, repeat an edge. (b) Yes, traverse a triangle and then one unused edge. (c) No nontrivial example; the length-zero closed trail at a vertex is the exception under the book's convention.\end{solution}
+    \subsection*{1.2.3} On $\{1,\ldots,15\}$ join $i,j$ iff $\gcd(i,j)>1$. Count components and find the maximum path length.
+    \begin{solution}$1,11,13$ are isolated; the remaining vertices form one component. The path
+        $7,14,10,5,15,3,9,12,8,6,4,2$ spans it. Thus there are four components and maximum path length $11$.\end{solution}
+    \subsection*{1.2.4} Describe the adjacency and incidence matrices after deleting an edge or a vertex.
+    \begin{solution}Deleting an edge deletes its incidence-matrix column and removes its two symmetric adjacency entries. Deleting vertex $v_i$ deletes row $i$ and all incident-edge columns from the incidence matrix, and row/column $i$ from the adjacency matrix.\end{solution}
+    \subsection*{1.2.5} If $v$ is in connected $G$, prove that $v$ has a neighbor in every component of $G-v$. Conclude that no cut-vertex has degree $1$.
+    \begin{solution}A path from a component of $G-v$ to outside it must pass through $v$, so $v$ has a neighbor in that component. A cut-vertex leaves at least two components, hence has degree at least $2$.\end{solution}
+    \subsection*{1.2.6} In the paw, find all maximal paths, maximal cliques, and maximal independent sets.
+    \begin{solution}With the book's labels: maximal paths are $acb,abcd,bacd$ (last two maximum); maximal cliques are $abc,cd$ ($abc$ maximum); maximal independent sets are $\{c\},\{b,d\},\{a,d\}$ (last two maximum).\end{solution}
+    \subsection*{1.2.7} Prove that a bipartite graph has a unique bipartition up to swapping parts iff it is connected.
+    \begin{solution}Different components may have their parts swapped independently. In a connected graph, after fixing $u$, parity of a path from $u$ determines the part containing every vertex.\end{solution}
+    \subsection*{1.2.8} Determine when $K_{m,n}$ is Eulerian.
+    \begin{solution}For $m,n>0$, it is connected and has degrees $n$ and $m$, so it is Eulerian iff both are even. If one part is empty, it has no edges and is Eulerian under the text's convention.\end{solution}
+    \subsection*{1.2.9} Find the minimum number of trails decomposing the Petersen graph. Can they all be paths?
+    \begin{solution}All ten vertices have odd degree, so at least five trails are needed; the trail-decomposition theorem gives five. Yes: in the two-5-cycles-plus-matching drawing, use five 3-edge paths, each with one edge from each 5-cycle and one matching edge.\end{solution}
+    \subsection*{1.2.10} Prove or disprove: (a) every Eulerian bipartite graph has an even number of edges; (b) every Eulerian simple graph with an even number of vertices has an even number of edges.
+    \begin{solution}(a) True: summing degrees over one part counts every edge once and gives an even sum. (b) False: an even cycle and an odd cycle sharing one vertex give a simple Eulerian graph of even order and odd size.\end{solution}
+    \subsection*{1.2.11} If Eulerian $G$ has incident edges $e,f$, must some Eulerian circuit use them consecutively?
+    \begin{solution}No. Take two edge-disjoint cycles sharing one vertex. Two edges at the common vertex belonging to the same cycle cannot be consecutive in an Eulerian circuit that also traverses the other cycle.\end{solution}
+    \subsection*{1.2.12} Convert the proof of Theorem 1.2.32 into an algorithm for finding an Eulerian circuit.
+    \begin{solution}Start with a closed trail $T$. If unused edges remain, choose a vertex $v$ of $T$ incident to one. Follow unused edges from $v$ maximally; parity forces return to $v$. Splice this closed trail into $T$ and repeat. Finiteness guarantees termination with an Eulerian circuit.\end{solution}
+
+    \section*{1.3 Vertex Degrees and Counting}
+    \subsection*{1.3.1} Prove that a graph with exactly two odd-degree vertices contains a path joining them.
+    \begin{solution}Every component has an even number of odd-degree vertices. Thus the two odd vertices lie in the same component and are joined by a path.\end{solution}
+    \subsection*{1.3.2} Nine students each send valentines to three others. Can every student send to exactly the people from whom they receive?
+    \begin{solution}No. Symmetry would yield a 3-regular undirected graph on nine vertices, whose degree sum $27$ is odd, contradicting the degree-sum formula.\end{solution}
+    \subsection*{1.3.3} If adjacent $u,v$ in an $n$-vertex simple graph satisfy $d(u)+d(v)=n+k$, prove that $uv$ lies in at least $k$ triangles.
+    \begin{solution}Let $S=N(u),T=N(v)$ and $j=|S\cap T|$. Then
+        $n\ge |S\cup T|=d(u)+d(v)-j=n+k-j$, so $j\ge k$. Each common neighbor yields a triangle through $uv$.\end{solution}
+    \subsection*{1.3.4} Prove that the pictured graph is isomorphic to $Q_4$.
+    \begin{solution}Use the binary 4-tuple labeling shown in the solution manual. Adjacent pictured vertices differ in exactly one coordinate, precisely the adjacency rule for $Q_4$.\end{solution}
+    \subsection*{1.3.5} Count the copies of $P_3$ and $C_4$ in $Q_k$.
+    \begin{solution}Choose the middle vertex of $P_3$ and two of its $k$ neighbors: $2^k\binom{k}{2}$. For a 4-cycle, choose the two varying coordinates and fix all others: $2^{k-2}\binom{k}{2}$.\end{solution}
+    \subsection*{1.3.6} Given graphs $G,H$, determine the number of components and maximum degree of $G+H$.
+    \begin{solution}If $G,H$ have $k,\ell$ components, then $G+H$ has $k+\ell$. Also $\Delta(G+H)=\max\{\Delta(G),\Delta(H)\}$.\end{solution}
+    \subsection*{1.3.7} Determine the maximum number of edges in a bipartite subgraph of $P_n$, $C_n$, and $K_n$.
+    \begin{solution}$P_n$ is bipartite, so keep all $n-1$ edges. For $C_n$, keep all $n$ edges when $n$ is even and $n-1$ when $n$ is odd. For $K_n$, the largest bipartite subgraph is $K_{\lfloor n/2\rfloor,\lceil n/2\rceil}$ with $\lfloor n^2/4\rfloor$ edges.\end{solution}
+    \subsection*{1.3.8} Decide which are graphic:
+    (a) $(5,5,4,3,2,2,2,1)$;
+    (b) $(5,5,4,4,2,2,1,1)$;
+    (c) $(5,5,5,3,2,2,1,1)$;
+    (d) $(5,5,5,4,2,1,1,1)$.
+    \begin{solution}The first three are graphic; the fourth is not. Havel--Hakimi applied to (d) eventually requires a degree-3 vertex when fewer than three other positive degrees remain.\end{solution}
+
+    \section*{2.1 Basic Properties}
+    \subsection*{2.1.1} For each $k$, list the isomorphism classes of trees with maximum degree $k$ and at most six vertices; do the same for diameter $k$.
+    \begin{solution}For maximum degree $k$, begin with $K_{1,k}$ and append leaves without creating larger degree. For diameter $k$, begin with $P_{k+1}$ and append leaves without creating a longer path. This generates exactly the classes in the text's table for orders at most six.\end{solution}
+    \subsection*{2.1.2} Let $G$ be a graph. Prove: (a) $G$ is a tree iff it is connected and every edge is a cut-edge; (b) $G$ is a tree iff adding any edge with endpoints in $V(G)$ creates exactly one cycle; (c) $G$ is a tree iff it is loopless and has exactly one spanning tree.
+    \begin{solution}(a) An edge is a cut-edge iff it lies on no cycle; connected plus acyclic is a tree. (b) In a tree there is a unique path between any two vertices, so a new edge closes exactly one cycle; conversely the condition forces connectivity and forbids a pre-existing cycle. (c) A tree is its unique spanning tree. If loopless $G$ had unique spanning tree $T$ plus an extra edge $e$, then $T+e$ has a cycle and deleting another edge of that cycle gives a second spanning tree.\end{solution}
+    \subsection*{2.1.3} Prove or disprove: every graph with fewer edges than vertices has a component that is a tree.
+    \begin{solution}True. If every component had at least as many edges as vertices, summing would give $e(G)\ge n(G)$. Hence some connected component $H$ has $e(H)<n(H)$. Every connected graph has at least $n(H)-1$ edges, so $e(H)=n(H)-1$, and $H$ is a tree.\end{solution}
+    \subsection*{2.1.4} Prove or disprove: every graph with fewer edges than vertices has a component that is a tree.
+    \begin{solution}True, by the same component-counting argument: some component has fewer edges than vertices, and a connected graph with that property must have exactly one fewer edge than vertices and hence be a tree.\end{solution}
+    \subsection*{2.1.5} Prove that a maximal acyclic subgraph of $G$ consists of a spanning tree from each component of $G$.
+    \begin{solution}Add missing vertices as isolated vertices. In a component $H$, if the forest's intersection with $H$ were disconnected, an edge of $H$ joining two of its components could be added without creating a cycle, contradicting maximality. Thus the intersection is a spanning tree of $H$.\end{solution}
+    \subsection*{2.1.6} Let $T$ be a tree with average degree $a$. Determine $n(T)$ in terms of $a$.
+    \begin{solution}If $T$ has $n$ vertices, then $e(T)=n-1$, so
+        $a=2(n-1)/n$. Solving gives $n=2/(2-a)$.\end{solution}
+    \subsection*{2.1.7} Prove that every $n$-vertex graph with $m$ edges has at least $m-n+1$ cycles.
+    \begin{solution}If $G$ has $k$ components, choose a spanning tree in each component, using $n-k$ edges. Each of the remaining $m-n+k$ edges creates a distinct cycle with the spanning forest. Since $k\ge1$, this is at least $m-n+1$.\end{solution}
+    \subsection*{2.1.8} Prove the following characterizations of forests: (a) every induced subgraph has a vertex of degree at most $1$; (b) every connected subgraph is induced; (c) the number of components equals vertices minus edges.
+    \begin{solution}(a) Every nontrivial tree has a leaf; conversely, a shortest cycle is induced and has all degrees $2$. (b) A connected noninduced subgraph plus a missing edge between its vertices contains a cycle; conversely deleting an edge from a cycle gives a connected noninduced subgraph. (c) Sum $e(T_i)=n(T_i)-1$ over tree components. Conversely, connected components each have at least $n_i-1$ edges, so equality forces every component to be a tree.\end{solution}
+    \subsection*{2.1.9} For $2\le k\le n-1$, prove that the graph formed by adding one vertex adjacent to every vertex of $P_{n-1}$ has a spanning tree of diameter $k$.
+    \begin{solution}Let $v_1,\dots,v_{n-1}$ be the path and let $x$ be universal. Use the path $v_1\cdots v_{k-1}$ together with edges $xv_{k-1},xv_k,\dots,xv_{n-1}$. This is a spanning tree of diameter $k$.\end{solution}
+    \subsection*{2.1.10} If $u,v$ are vertices in a connected simple $n$-vertex graph and $d(u,v)>2$, prove $d(u)+d(v)\le n+1-d(u,v)$. Give examples showing failure when $d(u,v)\le2$.
+    \begin{solution}Let $k=d(u,v)$. Since $k>2$, $N(u)\cap N(v)=\varnothing$. On a shortest $u,v$ path, the vertices $u,v$ and the internal vertices except the first and last are forbidden from both neighborhoods. Thus $|N(u)\cup N(v)|\le n+1-k$. For distance $2$, two vertices may have many common neighbors; the degree sum can reach $2n-4$.\end{solution}
+    \subsection*{2.1.11} If $x,y$ are adjacent, prove $|d(x,z)-d(y,z)|\le1$ for every $z$.
+    \begin{solution}Extend a shortest $z,y$ path by edge $yx$ to get $d(z,x)\le d(z,y)+1$; symmetrically $d(z,y)\le d(z,x)+1$.\end{solution}
+    \subsection*{2.1.12} Determine the diameter and radius of $K_{m,n}$.
+    \begin{solution}If $m,n\ge2$, both are $2$. For $K_{1,n}$ with $n>1$, radius $1$ and diameter $2$. For $K_{1,1}$ both are $1$. For $K_{0,n}$ with $n>1$ distances between distinct vertices are infinite; for $K_{0,1}$ both are $0$.\end{solution}
+    \subsection*{2.1.13} Prove that every graph of diameter $d$ has an independent set of size at least $\lceil(d+1)/2\rceil$.
+    \begin{solution}Take a shortest path of length $d$ between vertices at distance $d$. Every other vertex along this path forms an independent set, since an edge between nonconsecutive chosen vertices would shorten the path. The set has $\lceil(d+1)/2\rceil$ vertices.\end{solution}
+    \subsection*{2.1.14} Suppose computer processors are named by binary $k$-tuples and communicate directly iff their names are adjacent in $Q_k$. Given names $u,v$, how do you choose the first step on a shortest path from $u$ to $v$?
+    \begin{solution}Their distance is the number of coordinates in which they differ. Change any one coordinate in which $u$ and $v$ differ; this reduces that number by one and therefore begins a shortest path.\end{solution}
+    \subsection*{2.1.15} Let $G$ be simple with diameter at least $4$. Prove that $\overline G$ has diameter at most $2$.
+    \begin{solution}Use the complement-diameter theorem from the text: if a simple graph has diameter at least $3$, its complement has diameter at most $3$, and the stronger distance-$4$ hypothesis rules out complement distance $3$. Equivalently, any two nonadjacent vertices in $\overline G$ are adjacent in $G$ and must have a common neighbor in $\overline G$, or $G$ would force all routes too short.\end{solution}
+    \subsection*{2.1.16} Let $G'$ be the graph on $V(G)$ in which $x,y$ are adjacent iff $d_G(x,y)\le2$. Prove $\operatorname{diam}(G')=\lceil\operatorname{diam}(G)/2\rceil$.
+    \begin{solution}A $G$-path of length $k$ yields a $G'$-path of length $\lceil k/2\rceil$ by skipping every other vertex. Conversely, each edge of a $G'$-path replaces by a $G$-path of length at most $2$. Hence $d_{G'}(x,y)=\lceil d_G(x,y)/2\rceil$ for all $x,y$, and taking maxima gives the formula.\end{solution}
+
+\end{document}
