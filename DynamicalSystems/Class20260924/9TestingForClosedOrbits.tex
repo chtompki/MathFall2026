@@ -89,6 +89,56 @@
         \item Construct a trapping region that satisfies the conditions of the Poincar\'e--Bendixson theorem.
         \end{enumerate}
         \begin{solution}
+            \begin{enumerate}[label=(\alph*)]
+        \item The curve
+        \[
+            r=2-\sin\theta
+        \]
+        is the radial nullcline, since on this curve
+        \[
+            \dot r=r(2-\sin\theta-r)=0.
+        \]
+        However, a trajectory lying on this curve would have to remain on it as
+        $\theta$ changes. Differentiating $r=2-\sin\theta$ along such a curve gives
+        \[
+            \dot r=-\cos\theta\,\dot\theta=-\cos\theta,
+        \]
+        because $\dot\theta=1$. Except at the isolated angles for which
+        $\cos\theta=0$, this is not zero. Thus the vector field is not tangent to
+        the curve $r=2-\sin\theta$, so the curve is not itself a trajectory.
+
+        \item At $r=4$,
+        \[
+            \dot r=4(2-\sin\theta-4)=-8-4\sin\theta.
+        \]
+        Since $-1\leq\sin\theta\leq1$,
+        \[
+            -12\leq \dot r\leq -4.
+        \]
+        Hence the minimum possible value is $-12$ and the maximum possible value
+        is $-4$. In particular, the vector field points strictly inward on the
+        circle $r=4$.
+
+        \item Choose an annulus
+        \[
+            0<r_0\leq r\leq4
+        \]
+        with, for example, $r_0=\tfrac12$. On the outer boundary $r=4$, part (b)
+        shows that $\dot r<0$, so trajectories point into the annulus. On the
+        inner boundary $r=\tfrac12$,
+        \[
+            \dot r=\frac12\left(2-\sin\theta-\frac12\right)
+            =\frac12\left(\frac32-\sin\theta\right)>0,
+        \]
+        since $\sin\theta\leq1$. Thus trajectories also point into the annulus
+        across its inner boundary. Therefore
+        \[
+            \tfrac12\leq r\leq4
+        \]
+        is a compact positively invariant trapping region. It excludes the
+        equilibrium at $r=0$, so it has the form needed for an application of the
+        Poincar\'e--Bendixson theorem.
+            \end{enumerate}
         \end{solution}
 
         \item Consider the system
@@ -115,6 +165,97 @@
         \end{center}
         \end{enumerate}
         \begin{solution}
+            \begin{enumerate}[label=(\alph*)]
+        \item Put $x=r\cos\theta$ and $y=r\sin\theta$. Using
+        \[
+            \dot r=\frac{x\dot x+y\dot y}{r},
+            \qquad
+            \dot\theta=\frac{x\dot y-y\dot x}{r^2},
+        \]
+        we obtain
+        \begin{align*}
+            \dot r
+            &=\frac{xy+y[-x-y(r^2-1)]}{r}\\
+            &=-\frac{y^2}{r}(r^2-1)\\
+            &=r\sin^2\theta(1-r^2),
+        \end{align*}
+        and
+        \begin{align*}
+            \dot\theta
+            &=\frac{x[-x-y(r^2-1)]-y^2}{r^2}\\
+            &=-1-\frac{xy}{r^2}(r^2-1)\\
+            &=-1-(r^2-1)\sin\theta\cos\theta.
+        \end{align*}
+        Thus
+        \[
+            \dot r=r\sin^2\theta(1-r^2),\qquad
+            \dot\theta=-1-(r^2-1)\sin\theta\cos\theta.
+        \]
+
+        \item On $r=1$,
+        \[
+            \dot r=r\sin^2\theta(1-r^2)=0.
+        \]
+        Hence there is no radial component of the vector field across the unit
+        circle. Moreover, on $r=1$,
+        \[
+            \dot\theta=-1,
+        \]
+        so the motion continues around the circle. Therefore $r=1$ is invariant
+        (indeed, it is a periodic orbit).
+
+        \item For every $r>1$,
+        \[
+            \dot r=r\sin^2\theta(1-r^2)\leq0,
+        \]
+        but at $\theta=0$ and $\theta=\pi$ we have $\sin\theta=0$, so
+        $\dot r=0$. Thus on any circular outer boundary the vector field is only
+        weakly inward: at the two points on the $x$-axis it is tangent to the
+        circle rather than pointing strictly inward. Consequently a simple
+        strict inward-pointing test on a circular boundary does not work.
+
+        \item For the polygonal box shown, one must check the direction of the
+        vector field on \emph{each boundary segment}. If
+        \[
+            F(x,y)=\bigl(y,-x-y(x^2+y^2-1)\bigr),
+        \]
+        and $n$ denotes the outward normal to a side, the required calculation is
+        \[
+            F(x,y)\cdot n\leq0
+        \]
+        at every point of that side (strictly $<0$ wherever a strict trapping
+        condition is desired).
+
+        From the picture the six sides may be represented as
+        \[
+            \begin{array}{lll}
+                y=5, & -5\leq x\leq0, &
+                y=x+5,\quad 0\leq x\leq5,\\
+                x=5, & -5\leq y\leq0, &
+                y=-5,\quad 0\leq x\leq5,\\
+                y=-x-5, & -5\leq x\leq0, &
+                x=-5,\quad 0\leq y\leq5.
+            \end{array}
+        \]
+        For example, on the top side $y=5$ the outward normal is $(0,1)$, so one
+        checks
+        \[
+            F\cdot n=\dot y=-x-5(x^2+24)<0.
+        \]
+        On the right side $x=5$ the outward normal is $(1,0)$, and
+        \[
+            F\cdot n=\dot x=y\leq0.
+        \]
+        On the upper-right diagonal $y=x+5$, an outward normal can be chosen as
+        $(-1,1)$, so one checks
+        \[
+            F\cdot(-1,1)=-\dot x+\dot y\leq0,
+        \]
+        throughout that segment. The analogous dot-product inequalities are
+        checked on the remaining three sides. Establishing all six inequalities
+        proves that no trajectory can cross the polygon outward, and hence that
+        the box is a trapping region.
+            \end{enumerate}
         \end{solution}
 
         \medskip
@@ -175,6 +316,42 @@
         \end{enumerate}
 
         \begin{solution}
+            \begin{enumerate}[label=(\alph*)]
+        \item Since $y=\dot x$, differentiating gives $\dot y=\ddot x$. Hence
+        \[
+            \ddot x=x-x^3-\mu\dot x,
+        \]
+        or equivalently
+        \[
+            \ddot x+\mu\dot x-x+x^3=0.
+        \]
+        A conservative equation has the form
+        \[
+            \ddot x=-V'(x)
+        \]
+        with no velocity-dependent damping term. Here the term
+        $-\mu\dot x$ dissipates energy when $\mu>0$, so the system is not
+        conservative unless $\mu=0$.
+
+        \item Let
+        \[
+            f(x,y)=y,
+            \qquad
+            g(x,y)=x-x^3-\mu y.
+        \]
+        Its divergence is
+        \[
+            f_x+g_y=0-\mu=-\mu.
+        \]
+        If $\mu>0$, then
+        \[
+            f_x+g_y=-\mu<0
+        \]
+        everywhere in the plane. Since the divergence has one strict sign on the
+        simply connected plane, Bendixson's criterion rules out every nonconstant
+        closed orbit. Thus the damped Duffing oscillator has no periodic orbit for
+        $\mu>0$.
+            \end{enumerate}
         \end{solution}
 
         \item Find a restriction on $a$ and $b$ such that
@@ -189,6 +366,38 @@
         \]
 
         \begin{solution}
+            We have
+            \[
+                V(x,y)=ax^2+by^2,
+            \]
+            so $V$ is positive definite provided
+            \[
+                a>0,\qquad b>0.
+            \]
+            Along trajectories,
+            \begin{align*}
+                \dot V
+                &=2ax\dot x+2by\dot y\\
+                &=2ax(y-x^3)+2by(-x-y^3)\\
+                &=2(a-b)xy-2ax^4-2by^4.
+            \end{align*}
+            The mixed quadratic term $2(a-b)xy$ has no fixed sign. To guarantee that
+            $\dot V<0$ for every $(x,y)\neq(0,0)$, it must vanish, so we require
+            \[
+                a=b.
+            \]
+            With $a=b>0$,
+            \[
+                V=a(x^2+y^2)>0\qquad ((x,y)\neq(0,0))
+            \]
+            and
+            \[
+                \dot V=-2a(x^4+y^4)<0\qquad ((x,y)\neq(0,0)).
+            \]
+            Therefore the required restriction is
+            \[
+                a=b>0.
+            \]
         \end{solution}
     \end{enumerate}
 
