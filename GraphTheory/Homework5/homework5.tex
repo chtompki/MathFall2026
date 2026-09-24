@@ -1,0 +1,83 @@
+%! Author = chtompki
+%! Date = 1/14/26
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\title{Graph Theory:\\Homework 5\\ Book Section 3.1.}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+    \noindent\textbf{1.} let $S$ be the set of vertices saturated by a matching $M$ in a graph $G$.
+    Prove that some maximum matching also saturates all of $S$.
+    (Hint: Use Berge's Theorem to show that on can start with any matching $M$, and find a sequence of
+    ``alternating path augmentations'' that produce a maximum matching $M^*$.
+    Be careful not to conflate ``maximum'' with ``maximal.'')
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{2.} Determine the minimum size of a maximal matching in the cycle $C_n$,
+
+    \begin{solution}
+    \end{solution}
+
+    \noindent\textbf{3.} Let $M$ and $M'$ be matchings in an $X,Y$-bigraph $G$.
+    Suppsose that $M$ saturates $S\subseteq X$ and $M'$ saturates $T\subseteq Y$.
+    Prove that $G$ has a matching that saturates $S \cup T$
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{4.} When $k\ge 2$, prove that $Q_k$ has at least $2^{2^{k-2}}$ perfect matchings
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{5.} Let $G$ be the Petersen Graph.
+    \begin{itemize}
+        \item[(a)] Prove that deleting any perfect matching of $G$ leaves $C_5 + C_5$ (i.e. two disjoint 5-cycles).
+        (Hint: After you remove a perfect matching what is the degree of each vertex).
+        \item[(b)] Prove that the Petersen graph has exactly six perfect matchings.
+        (Hint: use (a) and use the fact that you already know how many 5-cycles $G$ contains.)
+    \end{itemize}
+
+    \begin{proof}
+    \end{proof}
+
+
+\end{document}
