@@ -8,6 +8,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{pgfplots}
+\usepackage{graphicx}
 \pgfplotsset{compat=1.18}
 \tikzset{orbit/.style={blue!70!black,thick},separatrix/.style={orange!85!black,very thick},field/.style={gray!65,-{Stealth[length=2pt,width=2pt]},line width=.3pt},equilibria/.style={black,very thick}}
 \usepackage{enumerate}
@@ -44,7 +45,6 @@
     \vspace{0.8em}
 }
 
-
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\dd}{\mathop{}\!\mathrm{d}}
 \newcommand{\vct}[1]{\underline{#1}}
@@ -55,20 +55,141 @@
 \author{Rob Tompkins}
 \date{September 24, 2026}
 
-
 \begin{document}
 
     \maketitle
     {\large\bfseries Teams}
 
     Post screenshots of your work to the course Google Drive today: Link to drive folder. Include words, labels, and other short notes on your whiteboard that might make those solutions useful to you or your classmates. Name your images using the format:
-    \begin{itemize}\item \texttt{teamXX-YY.EXT}\end{itemize}
+    \begin{itemize}
+        \item \texttt{teamXX-YY.EXT}
+    \end{itemize}
     where XX is your two-digit team number (e.g. 06 if you are team 6), YY is the two digit number of image for today (e.g. 01 for the first image, 02 for the second, and so on.), and EXT is the extension for the image filetype you used.
+
     \par\medskip
     {\large\bfseries Team Activity}
 
     \section*{Problems}
 
+    \begin{enumerate}
+        \item \textbf{(Constructing a trapping region in polar)}
 
+        Consider the system
+        \[
+            \dot r = r(2-\sin\theta-r),
+            \qquad
+            \dot\theta = 1.
+        \]
+
+        \begin{enumerate}[label=(\alph*)]
+        \item Argue that the curve $r=2-\sin\theta$ does not exactly correspond to a trajectory of the system.
+
+        \item For $r=4$, identify the minimum and maximum possible values of $\dot r$ that could occur.
+
+        \item Construct a trapping region that satisfies the conditions of the Poincar\'e--Bendixson theorem.
+        \end{enumerate}
+        \begin{solution}
+        \end{solution}
+
+        \item Consider the system
+        \[
+            \dot x = y,
+            \qquad
+            \dot y = -x-y(x^2+y^2-1).
+        \]
+
+        \begin{enumerate}[label=(\alph*)]
+        \item Transform the system to polar coordinates.
+
+        \item Show that there is an invariant set at
+        \[
+            r=\sqrt{x^2+y^2}=1.
+        \]
+
+        \item In polar coordinates the natural trapping regions are circles. If you try to create a circular outer trapping region, what issue arises?
+
+        \item Consider the box on the right, below. What mathematical work would you need to do to show that it is a trapping region?
+
+        \begin{center}
+            \includegraphics[width=0.95\textwidth]{problem2_trapping_region.png}
+        \end{center}
+        \end{enumerate}
+        \begin{solution}
+        \end{solution}
+
+        \medskip
+        \noindent\textbf{Liapunov functions:}\par
+        A Liapunov function for a system is a continuously differentiable function $V(x,y)$ with the following properties:
+
+        \begin{enumerate}[label=\arabic*.]
+        \item $V(x,y)>0$ for all $(x,y)$ not equilibria,
+        \item If $(x,y)$ is an equilibrium point, then $V(x,y)=0$,
+        \item $\dot V<0$ along all trajectories to an equilibrium.
+        \end{enumerate}
+
+        The existence of a Lyapunov function on a region $U$ allows us to rule out closed trajectories in that region.
+
+        \medskip
+        \noindent\textbf{Theorem:} If $L$ is a Liapunov function for an equilibrium $\mathbf{x}$ then the equilibrium is asymptotically stable: every point in $U$ will approach $\mathbf{x}^*$ as $t\to\infty$.
+
+        \medskip
+        \noindent Bendixson's criterion is a method for ruling out closed trajectories on some regions of a plane.
+
+        On regions where $f_x+g_y$ has a single sign, a closed trajectory is not possible.
+
+        \noindent\textbf{Justification:} The flux of a vector field across a closed trajectory is zero. The vector field is tangent to the closed trajectory at each point along the trajectory, so $\mathbf{F}\cdot\hat{\mathbf n}=0$ at every point along such a curve.
+
+        The divergence form of Green's theorem states that
+        \[
+            \oint_{\partial R} \mathbf{F}\cdot\hat{\mathbf n}\,ds
+            = \iint_R \nabla\cdot\mathbf{F}\,dA,
+        \]
+        where $R$ is a region in the plane and $C=\partial R$ is its boundary curve. This theorem states that the integral of the divergence over a region is equal to the flux out the boundary of the region. If
+        \[
+            \iint_R \nabla\cdot\mathbf{F}\,dA \ne 0,
+        \]
+        then
+        \[
+            \oint_{\partial R} \mathbf{F}\cdot\hat{\mathbf n}\,ds \ne 0
+        \]
+        and the boundary of $R$ is not a closed trajectory.
+
+        \item \textbf{(Ruling out closed orbits)} Let
+        \[
+            \dot x = y,
+            \qquad
+            \dot y = x-x^3-\mu y,
+            \qquad \mu\ge 0.
+        \]
+
+        This system is known as the unforced Duffing oscillator. (Duffing published work on this kind of equation in 1918, and it became a popular model in the 1970s). The $\mu y$ term is a damping term.
+
+        \begin{enumerate}[label=(\alph*)]
+        \item This system can also be written as
+        \[
+            \ddot x=x-x^3-\mu y.
+        \]
+        How does this differ from the similar form that we have seen for a conservative system?
+
+        \item Use Bendixson's criterion to show that the system has no closed orbits for $\mu>0$.
+        \end{enumerate}
+
+        \begin{solution}
+        \end{solution}
+
+        \item Find a restriction on $a$ and $b$ such that
+        \[
+            V(x,y)=ax^2+by^2
+        \]
+        is a Liapunov function for
+        \[
+            \dot x=y-x^3,
+            \qquad
+            \dot y=-x-y^3.
+        \]
+
+        \begin{solution}
+        \end{solution}
+    \end{enumerate}
 
 \end{document}
