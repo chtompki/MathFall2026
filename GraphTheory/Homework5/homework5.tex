@@ -49,11 +49,56 @@
     Be careful not to conflate ``maximum'' with ``maximal.'')
 
     \begin{proof}
+        Start with $M_0=M$. If $M_i$ is not maximum, Berge's Theorem
+        gives an $M_i$-augmenting path $P$: its edges alternate between
+        edges outside and inside $M_i$, and its two endpoints are
+        unsaturated by $M_i$. Set
+        \[
+            M_{i+1}=M_i\mathbin{\triangle}E(P).
+        \]
+        This is a matching with $|M_{i+1}|=|M_i|+1$. Every internal
+        vertex of $P$ loses one matching edge and gains one, the two
+        endpoints become saturated, and vertices outside $P$ retain
+        their matching status. Thus every vertex saturated by $M_i$
+        is also saturated by $M_{i+1}$.
+
+        Since a matching has at most $\lfloor |V(G)|/2\rfloor$ edges,
+        this process terminates. At termination there is no augmenting
+        path, so Berge's Theorem implies that the resulting matching
+        $M^*$ is maximum. Saturation is preserved at every step; hence
+        $M^*$ saturates all of $S$.
     \end{proof}
 
     \noindent\textbf{2.} Determine the minimum size of a maximal matching in the cycle $C_n$,
 
     \begin{solution}
+        For every $n\geq 3$, the minimum size is
+        \[
+            \boxed{\left\lceil\frac{n}{3}\right\rceil}.
+        \]
+        A matching is maximal precisely when no edge has two
+        unsaturated endpoints: such an edge could be added, and any
+        edge that could be added would have two unsaturated endpoints.
+        Consequently, every edge of $C_n$ either belongs to a maximal
+        matching $M$ or shares an endpoint with an edge of $M$.
+        Each matching edge accounts for at most three cycle edges
+        (itself and its two neighboring edges). Therefore
+        $n\leq 3|M|$, giving the lower bound
+        $|M|\geq\lceil n/3\rceil$.
+
+        For a construction attaining this bound, label the vertices
+        $v_1,\ldots,v_n$ in cyclic order, write $n=3q+r$ with
+        $r\in\{0,1,2\}$, and start with
+        \[
+            M_0=\{v_{3j+1}v_{3j+2}:0\leq j\leq q-1\}.
+        \]
+        If $r=0$, take $M=M_0$. If $r=1$, take
+        $M=M_0\cup\{v_{3q}v_{3q+1}\}$. If $r=2$, take
+        $M=M_0\cup\{v_{3q+1}v_{3q+2}\}$.
+        In every case these edges are pairwise disjoint and the
+        unsaturated vertices are pairwise nonadjacent, including
+        across the edge $v_nv_1$. Thus $M$ is maximal. Its size is
+        $q$ when $r=0$ and $q+1$ otherwise, as required.
     \end{solution}
 
     \noindent\textbf{3.} Let $M$ and $M'$ be matchings in an $X,Y$-bigraph $G$.
@@ -61,11 +106,57 @@
     Prove that $G$ has a matching that saturates $S \cup T$
 
     \begin{proof}
+        Consider the spanning subgraph $H$ with edge set $M\cup M'$.
+        Every vertex has degree at most two. Each edge in $M\cap M'$
+        is an isolated edge component. Every other nontrivial
+        component is a path or an even cycle whose edges alternate
+        between $M$ and $M'$.
+
+        On a cycle, either set of alternating edges saturates every
+        vertex. On an isolated common edge, choose that edge. On a
+        path component, every internal vertex is saturated by both
+        matchings, so only its endpoints can require a choice.
+        An endpoint in $S$ can require the $M$-edges, and an endpoint
+        in $T$ can require the $M'$-edges.
+
+        These requirements cannot conflict on a single path.
+        Indeed, a conflict would give an endpoint $s\in S\subseteq X$
+        incident only with an $M$-edge and another endpoint
+        $t\in T\subseteq Y$ incident only with an $M'$-edge.
+        The alternating path from $s$ to $t$ would then have even
+        length, since its first and last edges belong to different
+        matchings. An even-length path in a bipartite graph has its
+        endpoints in the same part, contradicting $s\in X$ and
+        $t\in Y$.
+
+        On each path choose the set of alternating edges satisfying
+        its endpoint requirements, choosing either set if there are
+        none. Isolated vertices belong to neither $S$ nor $T$.
+        The union of all chosen edges is a matching, since distinct
+        components are vertex-disjoint, and it saturates $S\cup T$.
     \end{proof}
 
     \noindent\textbf{4.} When $k\ge 2$, prove that $Q_k$ has at least $2^{2^{k-2}}$ perfect matchings
 
     \begin{proof}
+        Represent the vertices of $Q_k$ by binary strings of length
+        $k$, with two vertices adjacent when they differ in exactly
+        one coordinate. Fixing the last $k-2$ coordinates and varying
+        the first two gives a copy of $Q_2$, that is, a $4$-cycle.
+        The $2^{k-2}$ possible fixed strings partition $V(Q_k)$ into
+        $2^{k-2}$ vertex-disjoint $4$-cycles.
+
+        Each of these cycles has two perfect matchings. Choose one
+        independently in each cycle and take their union. The union
+        is a perfect matching of $Q_k$, since it saturates every
+        vertex exactly once. Different choices give different
+        perfect matchings: a change on any one cycle changes the
+        edges of the union. Hence $Q_k$ has at least
+        \[
+            2^{\,2^{k-2}}
+        \]
+        perfect matchings. This also covers $k=2$, when the fixed
+        string is empty and there is a single $4$-cycle.
     \end{proof}
 
     \noindent\textbf{5.} Let $G$ be the Petersen Graph.
@@ -77,6 +168,61 @@
     \end{itemize}
 
     \begin{proof}
+        Use the standard labeling of the Petersen graph with outer
+        vertices $u_i$ and inner vertices $v_i$, where
+        $i\in\mathbb Z/5\mathbb Z$, and edges
+        \[
+            u_iu_{i+1},\qquad u_iv_i,\qquad v_iv_{i+2}.
+        \]
+        Call the edges $u_iv_i$ spokes.
+
+        \smallskip
+        \noindent\textbf{(a)} Let $F$ be any perfect matching.
+        Since the Petersen graph is $3$-regular, $G-F$ is
+        $2$-regular and thus a disjoint union of cycles.
+        We determine these cycles by considering the number $r$
+        of spokes in $F$. The $5-r$ outer vertices not matched by
+        spokes must be paired by outer edges, so $5-r$ is even.
+        Hence $r\in\{1,3,5\}$.
+
+        The case $r=3$ is impossible. If $a,b$ are the two indices
+        without matching spokes, then both $u_au_b$ and $v_av_b$
+        would have to be matching edges. The first requires
+        $b-a\equiv\pm1\pmod 5$, while the second requires
+        $b-a\equiv\pm2\pmod 5$, a contradiction.
+
+        If $r=5$, deleting $F$ leaves the outer $5$-cycle and the
+        inner $5$-cycle, as desired.
+
+        If $r=1$, rotational symmetry allows us to assume that
+        the sole matching spoke is $u_0v_0$. Deleting $u_0$ from
+        the outer cycle leaves the path $u_1u_2u_3u_4$, whose
+        unique perfect matching is $\{u_1u_2,u_3u_4\}$.
+        Deleting $v_0$ from the inner cycle leaves the path
+        $v_2v_4v_1v_3$, whose unique perfect matching is
+        $\{v_2v_4,v_1v_3\}$. Thus
+        \[
+            F=\{u_0v_0,u_1u_2,u_3u_4,v_2v_4,v_1v_3\}.
+        \]
+        Its deletion leaves precisely the two cycles
+        \[
+            u_0u_1v_1v_4u_4u_0
+            \qquad\text{and}\qquad
+            u_2u_3v_3v_0v_2u_2.
+        \]
+        They are vertex-disjoint and together contain all ten
+        vertices. This proves $G-F\cong C_5+C_5$ in every case.
+
+        \smallskip
+        \noindent\textbf{(b)} The classification in part (a) also
+        counts the perfect matchings. There is one with all five
+        spokes and none with three spokes. For each of the five
+        possible choices of a sole spoke, the two remaining
+        $4$-vertex paths force a unique perfect matching, as above.
+        Each such choice does give a perfect matching, and the five
+        are distinct because their sole spokes differ. Therefore
+        the Petersen graph has exactly $1+5=\boxed{6}$ perfect
+        matchings.
     \end{proof}
 
 

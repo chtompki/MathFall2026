@@ -1,0 +1,57 @@
+%! Author = chtompki
+%! Date = 1/14/26
+\documentclass[10pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\NewDocumentCommand{\vitem}{v}{%
+    \item[\texttt{#1}]%
+}
+
+\newcommand{\slopeelement}[3]{%
+    \pgfmathsetmacro{\slopeDX}{0.14/sqrt(1+(#3)^2)}%
+    \pgfmathsetmacro{\slopeDY}{(#3)*\slopeDX}%
+    \pgfmathsetmacro{\slopeXA}{(#1)-\slopeDX}%
+    \pgfmathsetmacro{\slopeYA}{(#2)-\slopeDY}%
+    \pgfmathsetmacro{\slopeXB}{(#1)+\slopeDX}%
+    \pgfmathsetmacro{\slopeYB}{(#2)+\slopeDY}%
+    \edef\slopecommand{%
+        \noexpand\draw[gray,thin]
+        (axis cs:\slopeXA,\slopeYA)
+        --
+        (axis cs:\slopeXB,\slopeYB);%
+    }%
+    \slopecommand
+}
+
+\title{Dynamical Systems\\Midterm Preparation}
+\author{Rob Tompkins}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \date{\today}
+
+\end{document}
