@@ -76,7 +76,12 @@ Write $f(u;r)=r+u-u^3$. Equilibria satisfy $r=u^3-u$, and
 \]
 Let $R=2/(3\sqrt3)$. Since $f_r=1$ and $f_{uu}=-6u\ne0$ at either collision, both are \textbf{saddle-node bifurcations}. For $|r|<R$ the three ordered roots $u_1<u_2<u_3$ have stability attracting, repelling, attracting; for $|r|>R$ there is a single attracting root. At $r=-R$ the double positive root attracts from the right only; at $r=R$ the double negative root attracts from the left only. The other root is attracting.
 
-In the diagrams, solid blue branches are attracting and dashed red branches are repelling. Filled phase-line dots are attracting; open dots are repelling or nonhyperbolic (as specified in the text). Arrows give the direction of increasing time.\begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
+In the diagrams, solid blue branches are attracting and dashed red branches are repelling. Filled phase-line dots are attracting; open dots are repelling or nonhyperbolic (as specified in the text). Arrows give the direction of increasing time.
+To see why the derivative determines stability, write $u=u^*+\eta$ with $|\eta|$ small. Then $\eta'=f_u(u^*;r)\eta+O(\eta^2)$, so a negative derivative makes small displacements decay and a positive derivative makes them grow. Here this says that roots with $|u^*|>1/\sqrt3$ attract, whereas roots with $|u^*|<1/\sqrt3$ repel. At equality the linear term vanishes and we must inspect the sign of the full vector field instead.
+
+The equation $r=u^3-u$ is particularly useful because it draws the entire bifurcation diagram without solving a cubic for each $r$. Its turning points satisfy $dr/du=3u^2-1=0$. A vertical slice through this diagram counts the fixed points at a chosen parameter. As the slice passes a fold, an attracting and a repelling root meet and disappear: this is the geometric meaning of a saddle-node. On each phase line, start with $f(u;r)>0$ far to the left and $f(u;r)<0$ far to the right. The sign changes across a simple root, but not across a double root. This produces all five rows shown below and explains the one-sided attraction at the two critical parameters.
+
+\begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
 \node[anchor=east] at (1.7,0) {$r<-R$};\draw[gray] (2,0)--(7,0);
 \draw[->,thick] (3.030,0)--(3.470,0);
 \draw[->,thick] (5.970,0)--(5.530,0);
@@ -133,6 +138,11 @@ Factor $f(u;r)=(u-1)(r-u^2)$. The branches and their derivatives are
 \end{array}
 \]
 At $(u,r)=(0,0)$, $f_r=-1$ and $f_{uu}=2$, so a \textbf{saddle-node} creates the two square-root branches. At $(1,1)$, putting $u=1+v$, $r=1+\mu$ gives $v'=v(\mu-2v-v^2)$: a \textbf{transcritical} exchange of stability. At $r=0$, $u=0$ attracts from the left only; at $r=1$, $u=1$ attracts from the right only.
+
+The factorization is also a direct way to construct the phase lines. The factor $u-1$ changes sign at $1$. When $r>0$, $r-u^2$ is positive between $-\sqrt r$ and $\sqrt r$ and negative outside; when $r<0$ it is negative everywhere. Multiplying these signs determines the direction of motion on every interval. For example, when $0<r<1$ the order is $-\sqrt r<\sqrt r<1$, and the four interval signs are $+,-,+,-$. Thus trajectories on either side of $-\sqrt r$ move toward it, those beside $\sqrt r$ move away, and those near $1$ move toward $1$.
+
+The two events have different meanings. At $r=0$, two equilibria are born where previously none existed near zero. At $r=1$, the branch $u=1$ exists on both sides and crosses the positive square-root branch; neither branch is destroyed, but their stability is exchanged. At the exceptional parameter values, substitute directly: $f(u;0)=u^2(1-u)$ is positive near zero, while $f(u;1)=-(u-1)^2(u+1)$ is negative near one. These signs explain the semistable points without applying the inconclusive zero-derivative test.
+
 \begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
 \node[anchor=east] at (1.7,0) {$r<0$};\draw[gray] (2,0)--(7,0);
 \draw[->,thick] (3.030,0)--(3.470,0);
@@ -192,6 +202,11 @@ Here $f(x;b)=b^2x-bx^3$. For $b\ne0$, the origin has $f_x(0;b)=b^2>0$, hence is 
 At $b=0$, $f\equiv0$: \emph{every real number is an equilibrium}, each Lyapunov stable but none asymptotically stable. Thus $b=0$ is a degenerate bifurcation, \textbf{not one of the four generic normal forms listed in the question}. The square-root branches resemble a supercritical pitchfork, but a generic pitchfork would change the stability of the central branch and would not have an entire line of equilibria at its critical parameter.
 
 For $b=1$, the basins of $-1$ and $1$ are respectively $(-\infty,0)$ and $(0,\infty)$; $x=0$ stays fixed.
+
+The extra factor $b$ is essential. For a fixed $b>0$, rescaling time by $s=bt$ gives $dx/ds=x(b-x^2)$, which resembles the usual supercritical pitchfork. For $b<0$, however, that change reverses the direction of time, so it cannot be used to preserve stability across zero. At $b=0$ it is not even invertible. This is why simply recognizing the square-root branches would give an incomplete classification.
+
+For $b<0$, both $b$ and $b-x^2$ are negative, so $f$ has the same sign as $x$: all nonzero points move away from zero. For $b>0$, the signs on the four intervals cut out by $-\sqrt b,0,\sqrt b$ are $+,-,+,-$. At $b=1$, a positive initial value below $1$ increases toward $1$, while one above $1$ decreases toward it. Uniqueness prevents a trajectory from crossing an equilibrium. These monotone, bounded trajectories therefore converge to $1$; the corresponding negative trajectories converge to $-1$. At $b=0$, a nearby initial value stays where it starts, which explains stability without attraction. The vertical dotted line in the bifurcation diagram represents this entire continuum of equilibria.
+
 \begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
 \node[anchor=east] at (1.7,0) {$b<0$};\draw[gray] (2,0)--(7,0);
 \draw[->,thick] (3.470,0)--(3.030,0);
@@ -234,6 +249,11 @@ f_x(x_1;r)=e^{1-r}-r,\qquad f_x(x_2;r)=r(r-1+\log r).
 Both expressions vanish only at $r=1$. For $0<r<1$, $x_2<x_1$, with $x_2$ attracting and $x_1$ repelling. For $r>1$, $x_1<x_2$, and the stability reverses. With $\mu=r-1$, the leading terms near zero are $x'=x^2-\mu^2+\text{higher-order terms}$; shifting to the persistent branch $z=x+\mu$ gives $z'=z(z-2\mu)+\text{higher-order terms}$. This is a \textbf{transcritical bifurcation at $r=1$}.
 
 For $r\le0$, only the repelling equilibrium $1-r$ remains. The logarithmic branch escapes to $-\infty$ as $r\downarrow0$; this is not a finite local bifurcation. At $r=1$, $x'=x(e^x-1)>0$ for $x\ne0$. Therefore zero attracts from the left and repels from the right: it is semistable, not a two-sided stable fixed point. Its set of forward-convergent initial values is $(-\infty,0]$; there is no asymptotically stable fixed point at this parameter.
+
+Each factor supplies one branch: $r-1+x=0$ gives $x_1=1-r$, while $e^x-r=0$ gives $x_2=\log r$ only when $r>0$. To compare the branches, consider $h(r)=\log r+r-1$. Since $h'(r)=1/r+1>0$ and $h(1)=0$, their order changes exactly once. Both factors are increasing functions of $x$, so with two distinct roots the product is positive outside the roots and negative between them. The smaller root consequently attracts and the larger one repels, regardless of which formula names it.
+
+The derivative at the merged root is zero, so the assertion about $r=1$ requires a separate argument. For $x<0$, both $x$ and $e^x-1$ are negative; for $x>0$, both are positive. The product is positive on both sides. A solution starting left of zero therefore increases and is bounded above by zero, since it cannot cross an equilibrium. Its limit must be a zero of the vector field, so its limit is zero. A positive initial value moves away instead. This distinguishes a one-sided basin of convergence from the usual neighborhood of attraction required for asymptotic stability.
+
 \begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
 \node[anchor=east] at (1.7,0) {$r\le0$};\draw[gray] (2,0)--(7,0);
 \draw[->,thick] (3.470,0)--(3.030,0);
@@ -279,6 +299,13 @@ x_\pm=\frac{1\pm\sqrt{1-4a}}2\quad(a\le1/4),\qquad f_x(0)=a,\quad f_x(x_\pm)=x_\
 For $a<0$, $x_-<0<x_+$, the outer roots repel and zero attracts. For $0<a<1/4$, $0<x_-<x_+$, zero and $x_+$ repel while $x_-$ attracts. At $a=0$, $f=x^2(x-1)$, so zero attracts from the right only. The branches zero and $x_-$ exchange stability in a \textbf{transcritical bifurcation}. At $a=1/4$, $f=x(x-1/2)^2$ and $x=1/2$ attracts from the left only. Since $f_a=1/2$ and $f_{xx}=1$ there, this is a \textbf{saddle-node}. For $a>1/4$, only the repelling origin remains.
 
 There is \textbf{no standard quasistatic hysteresis loop between attracting equilibria}: no parameter interval has two attracting equilibria. Loss of the attracting branch at $1/4$ instead permits escape toward $+\infty$; it does not produce a second stable state and a return switch.
+
+There are two ways the number or stability of roots can change. The quadratic factor has discriminant $1-4a$, so its two roots merge at $a=1/4$. Separately, a quadratic root meets the persistent root $x=0$ when $a=0$. These observations identify the two candidates before any stability calculation. At a nonzero equilibrium, use $a=x-x^2$ in $f_x=a-2x+3x^2$ to obtain the simpler expression $x(2x-1)$ used above.
+
+The leading term is $x^3$, so the vector field is negative far to the left and positive far to the right. Across each simple root its sign changes. This gives the interval arrows once the roots have been ordered. At the double roots the sign does not change, which accounts for their one-sided attraction. In the bifurcation diagram, the two curved branches can be plotted together as $a=x-x^2$; they form a fold at $(a,x)=(1/4,1/2)$.
+
+Hysteresis would require a range of parameters with two competing attracting states, so that the observed state depends on which branch was followed previously. Here the attracting equilibrium passes from zero to $x_-$ at the transcritical crossing, and then ends at the fold. There is no second attracting equilibrium available for a switch-and-return loop.
+
 \begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
 \node[anchor=east] at (1.7,0) {$a<0$};\draw[gray] (2,0)--(7,0);
 \draw[->,thick] (2.845,0)--(2.405,0);
@@ -330,6 +357,11 @@ There is \textbf{no standard quasistatic hysteresis loop between attracting equi
 
     \begin{solution}
 We have $f=x[(1-a)-ax]$. Zero is always fixed; for $a\ne0$ the other branch is $q=1/a-1$. Their derivatives are $f_x(0)=1-a$ and $f_x(q)=a-1$. Thus zero repels for $a<1$ and attracts for $a>1$, while $q$ has the opposite stability. At $a=1$, $f=-x^2$, so zero attracts from the right only. Setting $\mu=a-1$ gives $x'=-\mu x-(1+\mu)x^2$, a \textbf{transcritical bifurcation at $a=1$}. At $a=0$, $x'=x$; the nonzero branch has escaped to infinity, not collided at a finite point.
+
+The order of the roots is needed as well as their stability. For $a<0$, $q<0$; for $0<a<1$, $q>0$; for $a>1$, $-1<q<0$. When $a\ne0$, write $f=-ax(x-q)$. If $a<0$, this quadratic opens upward and is positive outside its roots. If $a>0$, it opens downward and is negative outside its roots. These observations generate the different phase-line rows without choosing arbitrary test points.
+
+At $a=1$, a positive displacement obeys $x'=-x^2<0$ and decreases toward zero, whereas a negative displacement moves farther left. Explicitly, $x(t)=x_0/(1+x_0t)$ at this parameter: for $x_0>0$ the convergence is algebraic, while $x_0<0$ leads away from zero. At $a=0$, the exact equation $x'=x$ has only a repeller. Although the picture on the whole real line changes as the branch $q$ passes through infinity, there is no loss of hyperbolicity of the finite equilibrium there. Only $a=1$ is a finite local bifurcation.
+
 \begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
 \node[anchor=east] at (1.7,0) {$a<0$};\draw[gray] (2,0)--(7,0);
 \draw[->,thick] (2.613,0)--(3.053,0);
@@ -395,6 +427,44 @@ are eigenvalues and corresponding eigenvectors when the eigenvalues are distinct
 \end{array}
 \]
 At $\alpha=3$ the eigenspace is spanned by $(3,-1)^T$, and $(1,0)^T$ is a generalized eigenvector since $(A+I)(1,0)^T=(3,-1)^T$. The requested critical values are $\sqrt8$ and $3$. Only the former loses hyperbolicity; the latter is a node-to-focus change. Clockwise rotation follows from $y'=-x<0$ on the positive $x$-axis. The four plots sample just below and above each critical value. Gray arrows show the vector field; blue curves are representative trajectories; dashed lines are eigendirections when real.
+
+The characteristic polynomial makes the two thresholds transparent:
+\[
+\det(A-\lambda I)=(2-\lambda)(-4-\lambda)+\alpha^2
+=\lambda^2+2\lambda+\alpha^2-8.
+\]
+Setting the determinant to zero gives $\alpha=\sqrt8$, where one eigenvalue crosses zero. Setting the discriminant $4(9-\alpha^2)$ to zero gives $\alpha=3$, where two real eigenvalues become a conjugate pair. These are different mechanisms: crossing zero changes attraction versus repulsion in one direction; becoming complex changes the shape of approach to the origin.
+
+For distinct real eigenvalues a solution is $\mathbf x(t)=c_-e^{\lambda_-t}v_-+c_+e^{\lambda_+t}v_+$. In the saddle case, only points on the stable eigenline approach zero; any nonzero unstable component eventually grows. In the node case both terms decay, and a generic trajectory approaches tangent to the slower direction $v_+$. At $\alpha=\sqrt8$, the zero-eigenvalue component is constant, while the other decays, so trajectories approach possibly different points on the equilibrium line. At $\alpha=3$, solutions contain $e^{-t}(tv+w)$ as well as $e^{-t}v$, which still decay despite the factor $t$. Above $3$, the negative real part produces decay and the imaginary part produces rotation. The sampled portraits illustrate these conclusions; their trajectories do not establish the classification by themselves.
+
+
+\medskip\noindent\textbf{Eigenvalue and eigenvector calculation, step by step.}
+For a linear system $\mathbf x'=A\mathbf x$, try a solution $\mathbf x=e^{\lambda t}v$ with $v\ne0$. Substitution gives $Av=\lambda v$, or $(A-\lambda I)v=0$. A nonzero solution exists exactly when this matrix is singular, which is why we first solve its determinant equation. In this problem,
+\[
+A-\lambda I=\begin{pmatrix}2-\lambda&\alpha^2\\-1&-4-\lambda\end{pmatrix},
+\qquad \lambda^2+2\lambda+\alpha^2-8=0.
+\]
+The quadratic formula yields
+\[
+\lambda=\frac{-2\pm\sqrt{4-4(\alpha^2-8)}}2=-1\pm\sqrt{9-\alpha^2}.
+\]
+Next fix one of these roots and write $v=(p,q)^T$. The second row is
+\[
+-p-(4+\lambda)q=0,\quad\text{so}\quad p=-(4+\lambda)q.
+\]
+Choosing $q=-1$ gives $p=4+\lambda$. The first row then becomes
+\[
+(2-\lambda)(4+\lambda)-\alpha^2
+=8-2\lambda-\lambda^2-\alpha^2=0,
+\]
+precisely the characteristic equation. Thus both rows are satisfied. Any nonzero multiple of this vector is the same eigendirection; unit length is unnecessary for a phase portrait.
+
+For example, at $\alpha=\sqrt8$ the eigenvalues are $0$ and $-2$ with vectors $(4,-1)^T$ and $(2,-1)^T$. The first spans $x=-4y$, the equilibrium line. At $\alpha=3$, both roots are $-1$, but
+\[
+A+I=\begin{pmatrix}3&9\\-1&-3\end{pmatrix}
+\]
+has nullspace $p=-3q$, only one independent eigendirection. Repeating an eigenvalue does not automatically provide two eigenvectors. For $\alpha>3$, the same algebra gives complex eigenvectors; the real and imaginary parts of the resulting complex exponential solution combine to give real spiraling trajectories.
+
 \begin{center}\begin{tikzpicture}\begin{axis}[width=0.78\linewidth,height=6.0cm,axis lines=middle,xlabel={$x$},ylabel={$y$},xmin=-3,xmax=3,ymin=-2,ymax=2,title={$\alpha=2.75$},samples=100,clip=true, tick label style={font=\scriptsize},title style={font=\small}]
 \addplot[red,dashed,thin,domain=-3:3] {-x/1.8010421191718202};
 \addplot[red,dashed,thin,domain=-3:3] {-x/4.19895788082818};
@@ -1059,6 +1129,32 @@ v_\pm=\begin{pmatrix}1\\a-\lambda_\pm\end{pmatrix}.
 The eigenvalues are always distinct and real and $v_+\perp v_-$. For $ab<1$, $\lambda_-<0<\lambda_+$, giving a \textbf{saddle} with stable line $\mathbb Rv_-$ and unstable line $\mathbb Rv_+$. For $ab>1$, both eigenvalues are positive, giving a \textbf{repelling node}. Its two invariant eigendirections both point away from zero.
 
 On $ab=1$, the eigenvalues are $0$ and $a+b$. The entire line $y=ax$ consists of equilibria; transverse to it solutions grow exponentially. Thus the origin is nonisolated and unstable. In orthonormal eigenvector coordinates $(\xi,\eta)$, the exact general solution is $\xi(t)=\xi_0e^{\lambda_-t}$, $\eta(t)=\eta_0e^{\lambda_+t}$, with $\xi$ constant on the boundary. The following representative portraits use $a=b$; red dashed lines are the eigenvectors $v_-=(1,1)^T$, $v_+=(1,-1)^T$.
+
+For a real $2\times2$ matrix, the eigenvalues satisfy $\lambda_++\lambda_-=T$ and $\lambda_+\lambda_-=D$. A negative determinant forces opposite signs, hence a saddle. A positive determinant forces the same sign when the roots are real; the positive trace then forces both to be positive. Here the discriminant is strictly positive for all permitted $a,b$, so no repeated-root or spiral cases have been missed.
+
+To find a real eigendirection, the first row of $(A-\lambda I)v=0$ gives $v_2=(a-\lambda)v_1$. Taking $v_1=1$ yields the vectors above. Draw these lines first, then arrows inward along the negative-eigenvalue direction and outward along positive-eigenvalue directions. For a repelling node, generic trajectories leave a small neighborhood approximately tangent to the slower eigenvector when traced from times far in the past, and bend toward the faster direction as time increases.
+
+The boundary curve in parameter space is $b=1/a$, not either coordinate axis: both parameters are assumed strictly positive. Below that hyperbola $ab<1$; above it $ab>1$. Exactly on it, solving $A\mathbf x=0$ gives $y=ax$. A point on this line stays fixed, whereas any transverse perturbation grows. A zero eigenvalue therefore does not mean that every nearby point stays close to the origin.
+
+
+\medskip\noindent\textbf{Deriving the eigenpairs.}
+Start with
+\[
+A-\lambda I=\begin{pmatrix}a-\lambda&-1\\-1&b-\lambda\end{pmatrix}.
+\]
+Its determinant is $(a-\lambda)(b-\lambda)-1$, so expansion and the quadratic formula give
+\[
+\lambda^2-(a+b)\lambda+ab-1=0,\qquad
+\lambda_\pm=\frac{a+b\pm\sqrt{(a+b)^2-4(ab-1)}}2.
+\]
+Simplifying the radicand gives $(a-b)^2+4$. For either root, the two equations for an eigenvector $(p,q)^T$ are
+\[
+(a-\lambda)p-q=0,\qquad -p+(b-\lambda)q=0.
+\]
+The first gives $q=(a-\lambda)p$. Here $p$ cannot be zero unless $q$ is also zero, so choosing $p=1$ loses no eigenvectors. The second equation becomes $-1+(b-\lambda)(a-\lambda)=0$, already guaranteed by the determinant equation. This gives the displayed $v_\pm$.
+
+As a check, $v_+\cdot v_-=1+(a-\lambda_+)(a-\lambda_-)=0$, using the eigenvalue sum and product. For the representative case $a=b=c$, the roots reduce to $c-1,c+1$, with eigenvectors $(1,1)^T$ and $(1,-1)^T$. At $c=1/2$ one direction contracts and the other expands; at $c=2$ both expand. The eigenvectors must be drawn through the fixed point, and their arrows come from the corresponding eigenvalues, not from the sign of their components.
+
 \begin{center}\begin{tikzpicture}\begin{axis}[width=0.78\linewidth,height=6.0cm,axis lines=middle,xlabel={$x$},ylabel={$y$},xmin=-2,xmax=2,ymin=-2,ymax=2,title={Saddle: $a=b=1/2$},samples=100,clip=true, tick label style={font=\scriptsize},title style={font=\small}]
 \addplot[red,dashed,domain=-2:2] {x};
 \addplot[red,dashed,domain=-2:2] {-x};
@@ -1556,6 +1652,36 @@ At $(0,0)$ the eigenvalues are $\pm i$: the linearization is a center, but these
 At $(-1/2,1)$ the eigenpairs are $\lambda=1$, $v=(-2,1)^T$ (unstable), and $\lambda=-2$, $v=(1,1)^T$ (stable). At $(-1/2,-1)$ they are $\lambda=2$, $v=(-1,1)^T$ (unstable), and $\lambda=-1$, $v=(2,1)^T$ (stable). Both points are \textbf{saddles}.
 
 For the global sketch, $x'>0$ for $y<-1$ or $0<y<1$, and $x'<0$ for $-1<y<0$ or $y>1$. Also $y'>0$ to the left of $x=-y^2/2$ and $y'<0$ to its right. Orange dotted curves are nullclines; numerical trajectories and the direction field give a plausible portrait.
+
+A nullcline only sets one component of velocity to zero. On $y=0,\pm1$, motion is vertical unless the second component also vanishes; on $x=-y^2/2$, motion is horizontal unless the first also vanishes. Only intersections are fixed points. Substitution at $y=1$ gives the characteristic polynomial $\lambda^2+\lambda-2=(\lambda-1)(\lambda+2)$; at $y=-1$ it is $\lambda^2-\lambda-2=(\lambda-2)(\lambda+1)$. The eigenvectors describe tangents to the local saddle separatrices, not necessarily globally straight trajectories.
+
+Here is more detail on the center argument. Let $R(x,y)=(x,-y)$ and write the vector field as $F$. Direct substitution gives $F(Rz)=-RF(z)$, so reflecting a trajectory reverses its time direction. A small trajectory starting on the positive $x$-axis reaches the negative $x$-axis after roughly half a rotation; the nonzero angular speed ensures the crossing. Both endpoints are fixed by $R$. If the segment takes time $T$, reflection and time reversal of that segment is, by uniqueness, the next segment of the same solution. At time $2T$ it returns to its starting point. Nearby trajectories remain small over this bounded time interval, so this constructs a neighborhood of periodic orbits. The origin is stable but not attracting: a solution on one of these closed curves keeps circulating instead of converging to zero.
+
+
+\medskip\noindent\textbf{Computing the linearizations and eigenvectors.}
+For a nonlinear system, first translate to a fixed point $z^*$ by writing $z=z^*+\eta$. Taylor expansion gives $\eta'=J(z^*)\eta+O(\|\eta\|^2)$. The matrix to diagonalize is therefore the Jacobian evaluated at that particular fixed point, not the symbolic Jacobian with arbitrary $x,y$.
+
+At the origin,
+\[
+J_0-\lambda I=\begin{pmatrix}-\lambda&1\\-1&-\lambda\end{pmatrix},
+\quad\det(J_0-\lambda I)=\lambda^2+1.
+\]
+The roots are $\lambda=\pm i$. The first row says $q=\lambda p$, so the complex eigenvectors may be chosen as $(1,i)^T$ and $(1,-i)^T$. They do not define real invariant eigenlines, and their zero real parts explain why a separate nonlinear center argument is required.
+
+At $P_+=(-1/2,1)$,
+\[
+J_+=\begin{pmatrix}0&-2\\-1&-1\end{pmatrix},\quad
+\det(J_+-\lambda I)=\lambda(1+\lambda)-2=(\lambda-1)(\lambda+2).
+\]
+For $\lambda=1$, $(J_+-I)v=0$ gives $-p-2q=0$; choose $q=1$, giving $(-2,1)^T$. For $\lambda=-2$, $(J_++2I)v=0$ gives $2p-2q=0$; choose $p=q=1$. Thus the unstable tangent line is $P_++s(-2,1)$ and the stable tangent is $P_++s(1,1)$.
+
+At $P_-=(-1/2,-1)$,
+\[
+J_-=\begin{pmatrix}0&-2\\-1&1\end{pmatrix},\quad
+\det(J_--\lambda I)=\lambda^2-\lambda-2=(\lambda-2)(\lambda+1).
+\]
+For $\lambda=2$, the first row gives $-2p-2q=0$, hence $(-1,1)^T$. For $\lambda=-1$, it gives $p-2q=0$, hence $(2,1)^T$. Direct multiplication verifies $J_-(-1,1)^T=2(-1,1)^T$ and $J_-(2,1)^T=-(2,1)^T$. In each case the negative-eigenvalue direction approaches the saddle and the positive-eigenvalue direction leaves it.
+
 \begin{center}\begin{tikzpicture}\begin{axis}[width=0.78\linewidth,height=6.0cm,axis lines=middle,xlabel={$x$},ylabel={$y$},xmin=-2,xmax=1.5,ymin=-1.8,ymax=1.8,title={},samples=100,clip=true, tick label style={font=\scriptsize},title style={font=\small}]
 \addplot[orange,dotted,thick,domain=-2:1.5] {-1};
 \addplot[orange,dotted,thick,domain=-2:1.5] {0};
@@ -1752,6 +1878,33 @@ we obtain:
 \item At $(2,1)$: $\lambda=(-1\pm i\sqrt7)/2$; an attracting focus. Rotation is counterclockwise because just to its right, $x'=0$ and $y'>0$.
 \end{itemize}
 The signs $\operatorname{sgn}x'=\operatorname{sgn}[x(1-y)]$ and $\operatorname{sgn}y'=\operatorname{sgn}[y(x-1-y)]$ determine the arrows in every nullcline region. Both coordinate axes are invariant. The orange dotted nullclines, gray direction field, and blue trajectories give the portrait below.
+
+To enumerate equilibria systematically, first use $x'=x(1-y)=0$. If $x=0$, then $y'=-y(1+y)=0$, giving $y=0,-1$. If $y=1$, then $y'=x-2=0$, giving $x=2$. This case split avoids overlooking the equilibrium below the horizontal axis. At $(2,1)$, the characteristic polynomial is $\lambda^2+\lambda+2$; its negative discriminant and negative eigenvalue real parts give an attracting focus. All three equilibria are hyperbolic, so their linear classifications persist for the nonlinear system locally.
+
+The coordinate axes are invariant because the corresponding component has that coordinate as a factor. Along the $x$-axis, $x'=x$, so motion points away from the origin. Along the $y$-axis, $y'=-y(1+y)$, so points with $y>-1$ approach zero, while points below $-1$ move downward. This also explains part of the connection between the node at $(0,-1)$ and the saddle at zero. Other nullclines, such as $y=1$, need not be invariant: at a typical point on that line, the vertical component is nonzero and the solution crosses it. The focus classification is a local conclusion; the picture alone should not be read as proof that every point of the plane converges to $(2,1)$.
+
+
+\medskip\noindent\textbf{Eigenpair calculations at each fixed point.}
+At the origin $J_0=\operatorname{diag}(1,-1)$, so
+\[
+\det(J_0-\lambda I)=(1-\lambda)(-1-\lambda)=\lambda^2-1.
+\]
+For $\lambda=1$, the eigenvector equation forces $q=0$, while $p$ is free; take $(1,0)^T$. For $\lambda=-1$, it forces $p=0$, while $q$ is free; take $(0,1)^T$.
+
+At $(0,-1)$,
+\[
+J_1=\begin{pmatrix}2&0\\-1&1\end{pmatrix},\quad
+\det(J_1-\lambda I)=(2-\lambda)(1-\lambda).
+\]
+For $\lambda=2$, the nontrivial row of $(J_1-2I)v=0$ is $-p-q=0$, giving $(1,-1)^T$. For $\lambda=1$, the first row is $p=0$, giving $(0,1)^T$. Both eigenvalues are positive, even though one eigenvector has a negative component: stability concerns the exponential multiplier $e^{\lambda t}$, not the signs of coordinates.
+
+At $(2,1)$,
+\[
+J_2=\begin{pmatrix}0&-2\\1&-1\end{pmatrix},\quad
+\det(J_2-\lambda I)=\lambda^2+\lambda+2.
+\]
+The quadratic formula gives $(-1\pm i\sqrt7)/2$. If desired, the first row $-\lambda p-2q=0$ gives complex eigenvectors $(2,-\lambda)^T$. The question only requests eigenvectors for real eigenvalues, so these complex vectors need not be drawn. Their eigenvalues' real part $-1/2$ controls decay, and the imaginary parts give the angular frequency of the linearized motion. The actual rotation direction is checked from the vector field, as above.
+
 \begin{center}\begin{tikzpicture}\begin{axis}[width=0.78\linewidth,height=6.0cm,axis lines=middle,xlabel={$x$},ylabel={$y$},xmin=-1,xmax=4,ymin=-2,ymax=3,title={},samples=100,clip=true, tick label style={font=\scriptsize},title style={font=\small}]
 \addplot[orange,dotted,thick,domain=-1:4] {0};
 \addplot[orange,dotted,thick,domain=-1:4] {1};
@@ -1938,6 +2091,33 @@ J=\begin{pmatrix}2x&-1\\1&-1\end{pmatrix}.
 At the origin, $\lambda_\pm=(-1\pm i\sqrt3)/2$, with complex eigenvectors $(1,-\lambda_\pm)^T$. It is an attracting counterclockwise focus. At $(1,1)$, $\lambda_\pm=(1\pm\sqrt5)/2$, with eigenvectors $(1,2-\lambda_\pm)^T$. Since $\lambda_-<0<\lambda_+$, it is a saddle; the corresponding eigenvectors are tangent to its stable and unstable manifolds.
 
 The nullclines are the parabola $y=x^2$ and the line $y=x$. Below the parabola $x'>0$, above it $x'<0$; below the line $y'>0$, above it $y'<0$. These signs, the inward spiral at zero, and the saddle directions determine the sketch.
+
+The characteristic polynomial at zero is $\lambda^2+\lambda+1$, while at $(1,1)$ it is $\lambda^2-\lambda-1$. Their discriminants are $-3$ and $5$, respectively. Thus the first point has rotation with exponential decay, and the second has one growing and one decaying direction. For the saddle, its stable tangent has slope $2-\lambda_-=(3+\sqrt5)/2$, while its unstable tangent has slope $2-\lambda_+=(3-\sqrt5)/2$. These slopes locate the two local directions relative to the nullclines.
+
+For example, in $0<x<1$ the parabola lies below the line. In the region $x^2<y<x$, the signs are $x'<0$ and $y'>0$, so arrows point upper left. Below both curves they point upper right; above both they point lower left. Where the parabola lies above the line, the region between them instead has $x'>0$ and $y'<0$. On a nullcline one component is zero, so arrows are vertical on the parabola and horizontal on the line. Trajectories generally cross these curves; they are not solution curves. Near the saddle the true stable and unstable manifolds curve away from their eigenvector tangents, while trajectories sufficiently near the origin spiral inward.
+
+
+\medskip\noindent\textbf{How the eigenvalues and eigenvectors are obtained.}
+At zero, form
+\[
+J_0-\lambda I=\begin{pmatrix}-\lambda&-1\\1&-1-\lambda\end{pmatrix},
+\quad\det(J_0-\lambda I)=\lambda^2+\lambda+1.
+\]
+The quadratic formula gives $(-1\pm\sqrt{-3})/2$. The first row of the eigenvector equation is $-\lambda p-q=0$, so choosing $p=1$ gives $q=-\lambda$. The second row then becomes $1+(1+\lambda)\lambda=0$, exactly the characteristic polynomial. The complex pair supplies real oscillatory solutions by taking real and imaginary parts, and the negative real part makes those oscillations decay.
+
+At $(1,1)$,
+\[
+J_1-\lambda I=\begin{pmatrix}2-\lambda&-1\\1&-1-\lambda\end{pmatrix},
+\quad\det(J_1-\lambda I)=(2-\lambda)(-1-\lambda)+1
+=\lambda^2-\lambda-1.
+\]
+Thus $\lambda_\pm=(1\pm\sqrt5)/2$. The first row gives $q=(2-\lambda)p$; take $p=1$. Substituting into the second row gives $1-(1+\lambda)(2-\lambda)=\lambda^2-\lambda-1=0$, verifying consistency. The explicit vectors are
+\[
+v_+=\begin{pmatrix}1\\(3-\sqrt5)/2\end{pmatrix},\qquad
+v_-=\begin{pmatrix}1\\(3+\sqrt5)/2\end{pmatrix}.
+\]
+The straight lines $(1,1)+sv_\pm$ are the local tangent directions to the saddle's manifolds. The $+$ direction is unstable and the $-$ direction stable; the origin for drawing these vectors is the fixed point $(1,1)$, not $(0,0)$.
+
 \begin{center}\begin{tikzpicture}\begin{axis}[width=0.78\linewidth,height=6.0cm,axis lines=middle,xlabel={$x$},ylabel={$y$},xmin=-1.5,xmax=2,ymin=-1,ymax=2.5,title={},samples=100,clip=true, tick label style={font=\scriptsize},title style={font=\small}]
 \addplot[orange,dotted,thick,domain=-1.5:2] {x^2};
 \addplot[orange,dotted,thick,domain=-1.5:2] {x};
@@ -2125,6 +2305,21 @@ Since $y(t)=y_0e^{-t}$, all vertical components decay. For $x_0\ne0$ the scalar 
 x(t)=\frac{\operatorname{sgn}(x_0)}{\sqrt{1+(x_0^{-2}-1)e^{-2t}}},
 \]
 so the right half-plane tends to $(1,0)$ and the left half-plane to $(-1,0)$. The entire $y$-axis is the stable manifold of the saddle; its unstable manifold lies on the $x$-axis between the two nodes.
+
+The equations are decoupled, so the global portrait follows from two scalar problems. For the horizontal equation, $x'=x(1-x^2)$ is positive on $(-\infty,-1)$ and $(0,1)$, and negative on $(-1,0)$ and $(1,\infty)$. Vertically, $y'=-y$ always points toward the horizontal axis. Combining these two directions gives every arrow in the plane, not just the local behavior near the fixed points.
+
+One way to derive the displayed formula is to set $z=x^{-2}$ for a solution with $x\ne0$. Differentiation gives $z'=-2x^{-3}x'=2-2z$, whose solution is $z(t)=1+(x_0^{-2}-1)e^{-2t}$. Uniqueness preserves the initial sign of $x$, so taking the signed reciprocal square root gives $x(t)$. The denominator is positive for all $t\ge0$. Taking its limit proves the two basins directly. The boundary $x=0$ belongs to neither attracting node's basin: points there approach the saddle instead. At either node, the horizontal perturbation decays at rate $2$ and the vertical one at rate $1$, so generic trajectories approach with a vertical tangent; trajectories already on $y=0$ are the exception.
+
+
+\medskip\noindent\textbf{Reading eigenpairs from a diagonal Jacobian.}
+In general, for this system,
+\[
+\det(J-\lambda I)=(1-3x^2-\lambda)(-1-\lambda).
+\]
+At $x=0$, the two roots are $1$ and $-1$. Solving $(J-I)v=0$ gives $q=0$, while solving $(J+I)v=0$ gives $p=0$. Hence the standard coordinate vectors are the eigenvectors. At either $x=\pm1$, the diagonal entries are $-2,-1$. For $\lambda=-2$, $(J+2I)v=0$ gives $q=0$; for $\lambda=-1$, $(J+I)v=0$ gives $p=0$. The eigenvectors remain horizontal and vertical even though the equilibrium has moved.
+
+In local coordinates $\eta=x-x^*$ and $\zeta=y$, the node's linearized equations are $\eta'=-2\eta$, $\zeta'=-\zeta$. Their solutions are $\eta=C_1e^{-2t}$, $\zeta=C_2e^{-t}$. This explicitly connects the negative eigenvalues to attraction and explains the different approach rates. At the origin, the horizontal perturbation instead grows like $e^t$, producing the saddle.
+
 \begin{center}\begin{tikzpicture}\begin{axis}[width=0.78\linewidth,height=6.0cm,axis lines=middle,xlabel={$x$},ylabel={$y$},xmin=-1.8,xmax=1.8,ymin=-1.6,ymax=1.6,title={},samples=100,clip=true, tick label style={font=\scriptsize},title style={font=\small}]
 \addplot[orange,dotted,thick,domain=-1.8:1.8] {0};
 \addplot[orange,dotted,thick] coordinates {(-1,-1.6) (-1,1.6)};\addplot[orange,dotted,thick] coordinates {(0,-1.6) (0,1.6)};\addplot[orange,dotted,thick] coordinates {(1,-1.6) (1,1.6)};\draw[->,gray!55,thin] (axis cs:-1.7201,-1.5028)--(axis cs:-1.5799,-1.4305);
@@ -2352,6 +2547,32 @@ J=\begin{pmatrix}-d&a\\0&r(1-b/d)-1\end{pmatrix}.
 For $b<d$, its eigenvalues are $-d$ and $r(1-b/d)-1$. Both are negative for $r<r_c=d/(d-b)$, proving local asymptotic stability. For $r>r_c$ it is a saddle. At equality one eigenvalue is zero, so linearization alone is inconclusive. If $b\ge d$, both eigenvalues are negative for every $r>0$.
 
 For illustration, $a=1,b=1/2,d=1,r=3$ gives $r_c=2$; the following physical-domain nullclines intersect at the DFE and one endemic equilibrium. The other algebraic intersection has $y>1$ and is not shown.
+
+The elimination step can be checked without expanding blindly. Substitute $y=(dx-b)/a$ into $(1-x)(1-y)=1/r$ to obtain
+\[
+(1-x)(a+b-dx)=a/r.
+\]
+Expanding the left side gives $dx^2-(a+b+d)x+a+b$, which produces $Q(x)$. The two algebraic roots are always distinct because the discriminant contains the strictly positive term $4ad/r$. Their product is $(a+b-a/r)/d$, while their sum is $(a+b+d)/d>0$; these two facts give the stated test for positivity of both $x$-coordinates.
+
+To justify the physical-domain test, observe that both factors of $F(x)=(1-x)(a+b-dx)/a$ are positive on the stated interval. Its derivative is
+\[
+F'(x)=-\frac{(a+b-dx)+d(1-x)}a<0.
+\]
+Thus the horizontal level $1/r$ intersects this graph exactly once when it lies strictly between $0$ and $1-b/d$. This proves existence and uniqueness and gives $r>d/(d-b)$ directly. It also explains why equality gives $y=0$ rather than an endemic state.
+
+Finally, for a small infection near the DFE the leading equation is $y'\approx[r(1-b/d)-1]y$. The factor $1-b/d$ represents the remaining contact factor at the disease-free norm level; the term $-1$ is the removal term in these units. Below the threshold a small infection decays, while above it a small infection grows. The second eigenvalue $-d$ describes relaxation of the norm variable and is always negative.
+
+
+\medskip\noindent\textbf{Why the eigenvalues at the DFE are immediate.}
+The full Jacobian before substitution is
+\[
+J(x,y)=\begin{pmatrix}
+-d&a\\-ry(1-y)&r(1-x)(1-2y)-1
+\end{pmatrix}.
+\]
+Substituting $(x,y)=(b/d,0)$ makes the lower-left entry zero. If $k=r(1-b/d)-1$, its characteristic determinant is $(-d-\lambda)(k-\lambda)$, so the eigenvalues are the diagonal entries $-d,k$.
+For $k\ne-d$, corresponding eigenvectors can be taken as $(1,0)^T$ and $(a,d+k)^T$: the first row for $\lambda=k$ is $(-d-k)p+aq=0$. If $k=-d$, the eigenvalue repeats and $a>0$ leaves only the eigenline $q=0$. Even then the linear solutions contain at most a factor $t$ times $e^{-dt}$ and still decay. The stability test therefore depends on the eigenvalue signs, not on having two independent eigenvectors.
+
 \begin{center}\begin{tikzpicture}\begin{axis}[width=0.78\linewidth,height=5cm,axis lines=middle,xlabel={$x$},ylabel={$y$},xmin=0,xmax=1.5,ymin=-0.05,ymax=1,title={$x^{\prime}=0$ (blue), $y^{\prime}=0$ (red)},samples=100,clip=true, tick label style={font=\scriptsize},title style={font=\small}]
 \addplot[blue,thick,domain=.5:1.5] {x-.5};
 \addplot[red,thick,domain=0:.66666] {1-1/(3*(1-x))};
@@ -2401,6 +2622,20 @@ Initial angular velocity should be bounded on this scaling, or the initial relax
 f'(\phi_\pm)=\frac1\gamma-\gamma<0.
 \]
 Hence the stable origin loses stability and creates two stable branches: a \textbf{supercritical pitchfork at $\gamma=1$}. With $\mu=\gamma-1$, expansion gives $\phi'=\mu\phi-\tfrac12\phi^3+O(\mu\phi^3+\phi^5)$ and $\phi_\pm\sim\pm\sqrt{2\mu}$. At $\gamma=1$ the origin is still attracting, but convergence is algebraic rather than exponential.
+
+The chain rule is the main step in the nondimensionalization. Since $\tau=t/T$ with $T=b/(mg)$,
+\[
+\frac{d\phi}{dt}=\frac{mg}{b}\frac{d\phi}{d\tau},\qquad
+\frac{d^2\phi}{dt^2}=\left(\frac{mg}{b}\right)^2\frac{d^2\phi}{d\tau^2}.
+\]
+This choice makes the damping term and gravitational term have the same coefficient after division by $mg$. The ratio of the inertial relaxation time $mr/b$ to $T$ is exactly $\varepsilon$. Small $\varepsilon$ therefore means velocity relaxes much faster than the angle changes. Dropping the inertial term is a timescale approximation, not a claim that the original acceleration is identically zero at every instant.
+
+For the bifurcation, factor the reduced right side as $\sin\phi(\gamma\cos\phi-1)$. Besides $\sin\phi=0$, a root requires $\cos\phi=1/\gamma$, which is possible only when $\gamma\ge1$. Differentiating the factored expression gives
+\[
+f'(\phi)=\cos\phi(\gamma\cos\phi-1)-\gamma\sin^2\phi.
+\]
+At the new roots the first term vanishes, leaving a negative derivative. The symmetry $f(-\phi)=-f(\phi)$ explains why the new equilibria appear in a symmetric pair. The plotted branches are only the neighborhood of zero; the repelling branch at $\pi$ and its periodic copies still exist. At the threshold, $\phi'\sim-\phi^3/2$ implies $\phi^{-2}\sim\tau+\text{constant}$, making the algebraic rate $|\phi|\sim\tau^{-1/2}$ explicit.
+
 \begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
 \node[anchor=east] at (1.7,0) {$\gamma=0$};\draw[gray] (2,0)--(7,0);
 \draw[->,thick] (2.845,0)--(2.405,0);
@@ -2443,6 +2678,11 @@ Factor $f(u;r)=(u-1)(r-u^2)$. The branches and their derivatives are
 \end{array}
 \]
 At $(u,r)=(0,0)$, $f_r=-1$ and $f_{uu}=2$, so a \textbf{saddle-node} creates the two square-root branches. At $(1,1)$, putting $u=1+v$, $r=1+\mu$ gives $v'=v(\mu-2v-v^2)$: a \textbf{transcritical} exchange of stability. At $r=0$, $u=0$ attracts from the left only; at $r=1$, $u=1$ attracts from the right only.
+
+The factorization is also a direct way to construct the phase lines. The factor $u-1$ changes sign at $1$. When $r>0$, $r-u^2$ is positive between $-\sqrt r$ and $\sqrt r$ and negative outside; when $r<0$ it is negative everywhere. Multiplying these signs determines the direction of motion on every interval. For example, when $0<r<1$ the order is $-\sqrt r<\sqrt r<1$, and the four interval signs are $+,-,+,-$. Thus trajectories on either side of $-\sqrt r$ move toward it, those beside $\sqrt r$ move away, and those near $1$ move toward $1$.
+
+The two events have different meanings. At $r=0$, two equilibria are born where previously none existed near zero. At $r=1$, the branch $u=1$ exists on both sides and crosses the positive square-root branch; neither branch is destroyed, but their stability is exchanged. At the exceptional parameter values, substitute directly: $f(u;0)=u^2(1-u)$ is positive near zero, while $f(u;1)=-(u-1)^2(u+1)$ is negative near one. These signs explain the semistable points without applying the inconclusive zero-derivative test.
+
 \begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
 \node[anchor=east] at (1.7,0) {$r<0$};\draw[gray] (2,0)--(7,0);
 \draw[->,thick] (3.030,0)--(3.470,0);
@@ -2522,6 +2762,36 @@ Indeed $\dot{x}=-H_y$ and $\dot{y}=H_x$.
 \textbf{(d)} The origin is a strict local minimum of $H$. For $0<h<1/2$, the component of $H=h$ around zero is a smooth compact oval with no equilibria, so its flow is periodic. Its turning points satisfy $x^2=1-\sqrt{1-2h}$. There are also unbounded components of these energy levels; the assertion concerns the inner oval only. At $h=1/2$, the two inner curves $y=\pm(1-x^2)$, $-1<x<1$, form a heteroclinic cycle between the saddles. This cycle bounds the region of periodic orbits.
 
 \textbf{(e)} The nullclines are $y=0$ and $x=0,\pm1$. Above the $x$-axis the flow moves left, below it right; $y'>0$ for $x<-1$ or $0<x<1$, and $y'<0$ for $-1<x<0$ or $x>1$. The periodic orbits run counterclockwise. Red curves below are the two heteroclinic connections; orange dotted lines are nullclines.
+
+To find the conserved quantity, apply the chain rule term by term:
+\[
+E'=2ax(-y)+2by\,[2x(1-x^2)]+4x^3(-y).
+\]
+The coefficients of $xy$ and $x^3y$ must each vanish for this expression to be zero at every point, giving $-2a+4b=0$ and $-4b-4=0$. Multiplying a conserved quantity by a nonzero constant preserves conservation, so passing from $E$ to $H$ simply gives a more convenient energy with a minimum at zero.
+
+For a level $H=h$, solve for $y$:
+\[
+y=\pm\sqrt{2h-2x^2+x^4}.
+\]
+For $0<h<1/2$, the inner interval between the two small turning points joins the upper and lower graphs into a closed oval. No equilibrium lies on it. The speed is continuous and has a positive minimum on this compact oval, so traversal takes a finite time and repeats; this supplies the step from a closed energy curve to a periodic trajectory. These periodic orbits form a continuous family and are not isolated limit cycles.
+
+At $h=1/2$, the square root becomes $|1-x^2|$. The upper inner branch goes from $(1,0)$ toward $(-1,0)$, and the lower one returns in the opposite direction, since $x'=-y$. Each connection takes infinite time to reach its saddle endpoint. Thus their union is a geometric closed loop but not a periodic orbit. Conservation confines nearby inner trajectories to their ovals, explaining why the center attracts no nonconstant solution.
+
+
+\medskip\noindent\textbf{Detailed eigenvalue and eigenvector calculation.}
+For a fixed point with horizontal coordinate $x^*$,
+\[
+J-\lambda I=\begin{pmatrix}-\lambda&-1\\2-6(x^*)^2&-\lambda\end{pmatrix},
+\quad\det(J-\lambda I)=\lambda^2+2-6(x^*)^2.
+\]
+At $x^*=0$ this is $\lambda^2+2=0$, so $\lambda=\pm i\sqrt2$. The first row says $q=-\lambda p$; choosing $p=1$ gives the optional complex eigenvectors $(1,\mp i\sqrt2)^T$. Their zero real parts make linear stability inconclusive for the nonlinear system, which is why conservation of $H$ is used.
+
+At $x^*=\pm1$, the polynomial is $\lambda^2-4=0$, giving $2$ and $-2$. For $\lambda=2$,
+\[
+(J-2I)v=\begin{pmatrix}-2&-1\\-4&-2\end{pmatrix}\begin{pmatrix}p\\q\end{pmatrix}=0
+\]
+reduces to $q=-2p$; choose $(1,-2)^T$. For $\lambda=-2$, the matrix $J+2I$ has first row $(2,-1)$, giving $q=2p$ and eigenvector $(1,2)^T$. The second row is dependent in both cases, as it must be when the determinant is zero. These are tangent directions through each of the two saddle points. Reversing an eigenvector's sign changes which half of the line is indicated, but never changes the eigenvalue or stable/unstable classification.
+
 \begin{center}\begin{tikzpicture}\begin{axis}[width=0.78\linewidth,height=6.0cm,axis lines=middle,xlabel={$x$},ylabel={$y$},xmin=-1.8,xmax=1.8,ymin=-1.8,ymax=1.8,title={},samples=100,clip=true, tick label style={font=\scriptsize},title style={font=\small}]
 \addplot[orange,dotted,thick,domain=-1.8:1.8] {0};
 \addplot[orange,dotted,thick] coordinates {(-1,-1.8) (-1,1.8)};\addplot[orange,dotted,thick] coordinates {(0,-1.8) (0,1.8)};\addplot[orange,dotted,thick] coordinates {(1,-1.8) (1,1.8)};\addplot[red,thick,domain=-1:1] {1-x^2};
@@ -2706,6 +2976,23 @@ T=a+b>0,\quad D=ab-1,\quad T^2-4D=(a-b)^2+4>0.
 Thus the eigenvalues are real and distinct. For $ab<1$ the origin is a saddle (one eigenvalue of each sign); for $ab>1$ it is a repelling node (both positive). On $ab=1$, the eigenvalues are $0$ and $a+b$, so $y=ax$ is a line of equilibria that repels transversely. No attracting nodes or spirals occur in the first quadrant.
 
 In eigenvector coordinates $(\xi,\eta)$, the portraits are respectively $\xi'=-c\xi,\eta'=d\eta$; $\xi'=c\xi,\eta'=d\eta$; and $\xi'=0,\eta'=d\eta$, with $c,d>0$. The sketches below use these coordinates, so the coordinate axes are eigendirections. As requested, computing their original-coordinate eigenvectors is unnecessary.
+
+The trace-determinant method avoids unnecessary eigenvector calculations. The characteristic polynomial is $\lambda^2-(a+b)\lambda+(ab-1)$. Its discriminant $(a-b)^2+4$ is positive, so its roots are real. Their product is negative below $ab=1$, forcing a saddle; above it the product and sum are both positive, forcing a repelling node. A positive trace also rules out a sink, while the positive discriminant rules out a focus or center.
+
+At the boundary, it is important to describe more than a zero eigenvalue. The equations $ax-y=0$ and $-x+by=0$ become dependent when $ab=1$, leaving an entire line of equilibria. In the plotted eigenvector coordinates, points on $\eta=0$ do not move, but points with $\eta\ne0$ move exponentially away from that line. In the saddle portrait, the horizontal direction contracts and the vertical direction expands; in the node portrait both expand. Reading these arrows supplies the qualitative phase portraits requested even without transforming the eigendirections back to the original coordinates. The hyperbola in the parameter diagram collects all boundary cases, with the saddle and node regions on its two sides.
+
+
+\medskip\noindent\textbf{Optional eigenvector calculation for comparison.}
+Although this problem explicitly permits omitting eigenvectors, they can be found with the same procedure as in problem 8. Expand
+\[
+\det(A-\lambda I)=(a-\lambda)(b-\lambda)-1=0
+\]
+to get $\lambda^2-(a+b)\lambda+ab-1=0$, and solve to obtain
+\[
+\lambda_\pm=\frac{a+b\pm\sqrt{(a-b)^2+4}}2.
+\]
+Then solve $(a-\lambda)p-q=0$: set $p=1$, giving $v_\pm=(1,a-\lambda_\pm)^T$. The second row is satisfied because $(a-\lambda)(b-\lambda)=1$. On $ab=1$, the zero-eigenvalue vector is $(1,a)^T$, spanning the line of equilibria, and a vector for $\lambda=a+b$ is $(1,-b)^T$. One may normalize these vectors if an orthonormal coordinate system is wanted, but their lengths have no effect on the phase portrait. The displayed sketches use the eigendirections as coordinate axes to emphasize contraction and expansion.
+
 \begin{center}\begin{tikzpicture}\begin{axis}[width=0.78\linewidth,height=6.0cm,axis lines=middle,xlabel={$\xi$},ylabel={$\eta$},xmin=-2,xmax=2,ymin=-2,ymax=2,title={Saddle},samples=100,clip=true, tick label style={font=\scriptsize},title style={font=\small}]
 \draw[->,gray!55,thin] (axis cs:-1.8970,-1.7697)--(axis cs:-1.7697,-1.8970);
 \draw[->,gray!55,thin] (axis cs:-1.9030,-1.4430)--(axis cs:-1.7637,-1.5570);
@@ -3232,6 +3519,20 @@ Initial angular velocity should be bounded on this scaling, or the initial relax
 f'(\phi_\pm)=\frac1\gamma-\gamma<0.
 \]
 Hence the stable origin loses stability and creates two stable branches: a \textbf{supercritical pitchfork at $\gamma=1$}. With $\mu=\gamma-1$, expansion gives $\phi'=\mu\phi-\tfrac12\phi^3+O(\mu\phi^3+\phi^5)$ and $\phi_\pm\sim\pm\sqrt{2\mu}$. At $\gamma=1$ the origin is still attracting, but convergence is algebraic rather than exponential.
+
+The chain rule is the main step in the nondimensionalization. Since $\tau=t/T$ with $T=b/(mg)$,
+\[
+\frac{d\phi}{dt}=\frac{mg}{b}\frac{d\phi}{d\tau},\qquad
+\frac{d^2\phi}{dt^2}=\left(\frac{mg}{b}\right)^2\frac{d^2\phi}{d\tau^2}.
+\]
+This choice makes the damping term and gravitational term have the same coefficient after division by $mg$. The ratio of the inertial relaxation time $mr/b$ to $T$ is exactly $\varepsilon$. Small $\varepsilon$ therefore means velocity relaxes much faster than the angle changes. Dropping the inertial term is a timescale approximation, not a claim that the original acceleration is identically zero at every instant.
+
+For the bifurcation, factor the reduced right side as $\sin\phi(\gamma\cos\phi-1)$. Besides $\sin\phi=0$, a root requires $\cos\phi=1/\gamma$, which is possible only when $\gamma\ge1$. Differentiating the factored expression gives
+\[
+f'(\phi)=\cos\phi(\gamma\cos\phi-1)-\gamma\sin^2\phi.
+\]
+At the new roots the first term vanishes, leaving a negative derivative. The symmetry $f(-\phi)=-f(\phi)$ explains why the new equilibria appear in a symmetric pair. The plotted branches are only the neighborhood of zero; the repelling branch at $\pi$ and its periodic copies still exist. At the threshold, $\phi'\sim-\phi^3/2$ implies $\phi^{-2}\sim\tau+\text{constant}$, making the algebraic rate $|\phi|\sim\tau^{-1/2}$ explicit.
+
 \begin{center}\begin{tikzpicture}[x=0.78cm,y=0.62cm,>=stealth,font=\scriptsize]
 \node[anchor=east] at (1.7,0) {$\gamma=0$};\draw[gray] (2,0)--(7,0);
 \draw[->,thick] (2.845,0)--(2.405,0);
