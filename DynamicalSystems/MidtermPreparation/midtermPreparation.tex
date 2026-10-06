@@ -70,6 +70,10 @@
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{Connection with Jacobians.} For a scalar equation $u'=f(u)$, the Jacobian is the $1\times1$ matrix $[f'(u^*)]$ evaluated at an equilibrium. Its only eigenvalue is $f'(u^*)$, and every nonzero scalar is an eigenvector. Thus the derivative test used in problems 1--6 is already an eigenvalue test in one dimension. The parameter is held constant when differentiating: here $\partial(r+u-u^3)/\partial u=1-3u^2$, not a derivative with respect to $r$. A zero eigenvalue means the linear term cannot decide stability, so the full nonlinear sign pattern must be used.
+
+
 Write $f(u;r)=r+u-u^3$. Equilibria satisfy $r=u^3-u$, and
 \[
  f_u=1-3u^2,\qquad f=f_u=0\iff (u,r)=\left(\pm\frac1{\sqrt3},\mp\frac2{3\sqrt3}\right).
@@ -128,6 +132,7 @@ The equation $r=u^3-u$ is particularly useful because it draws the entire bifurc
     \end{enumerate}
 
     \begin{solution}
+
 Factor $f(u;r)=(u-1)(r-u^2)$. The branches and their derivatives are
 \[
 \begin{array}{c|c|c}
@@ -197,6 +202,7 @@ The two events have different meanings. At $r=0$, two equilibria are born where 
     \end{enumerate}
 
     \begin{solution}
+
 Here $f(x;b)=b^2x-bx^3$. For $b\ne0$, the origin has $f_x(0;b)=b^2>0$, hence is \textbf{repelling on both sides of the parameter value zero}. For $b>0$, the additional equilibria $\pm\sqrt b$ satisfy $f_x=-2b^2<0$ and are attracting. For $b<0$ there are no other equilibria.
 
 At $b=0$, $f\equiv0$: \emph{every real number is an equilibrium}, each Lyapunov stable but none asymptotically stable. Thus $b=0$ is a degenerate bifurcation, \textbf{not one of the four generic normal forms listed in the question}. The square-root branches resemble a supercritical pitchfork, but a generic pitchfork would change the stability of the central branch and would not have an entire line of equilibria at its critical parameter.
@@ -242,6 +248,7 @@ For $b<0$, both $b$ and $b-x^2$ are negative, so $f$ has the same sign as $x$: a
     \end{enumerate}
 
     \begin{solution}
+
 The subparts use $b$, but the equation uses $r$; interpret $b$ as $r$ throughout. The equilibrium branches are $x_1=1-r$ for every $r$, and $x_2=\log r$ for $r>0$. At these points,
 \[
 f_x(x_1;r)=e^{1-r}-r,\qquad f_x(x_2;r)=r(r-1+\log r).
@@ -292,6 +299,7 @@ The derivative at the merged root is zero, so the assertion about $r=1$ requires
     \end{enumerate}
 
     \begin{solution}
+
 Factor $f=x(x^2-x+a)$. Besides zero, equilibria are
 \[
 x_\pm=\frac{1\pm\sqrt{1-4a}}2\quad(a\le1/4),\qquad f_x(0)=a,\quad f_x(x_\pm)=x_\pm(2x_\pm-1).
@@ -356,6 +364,7 @@ Hysteresis would require a range of parameters with two competing attracting sta
     \end{enumerate}
 
     \begin{solution}
+
 We have $f=x[(1-a)-ax]$. Zero is always fixed; for $a\ne0$ the other branch is $q=1/a-1$. Their derivatives are $f_x(0)=1-a$ and $f_x(q)=a-1$. Thus zero repels for $a<1$ and attracts for $a>1$, while $q$ has the opposite stability. At $a=1$, $f=-x^2$, so zero attracts from the right only. Setting $\mu=a-1$ gives $x'=-\mu x-(1+\mu)x^2$, a \textbf{transcritical bifurcation at $a=1$}. At $a=0$, $x'=x$; the nonzero branch has escaped to infinity, not collided at a finite point.
 
 The order of the roots is needed as well as their stability. For $a<0$, $q<0$; for $0<a<1$, $q>0$; for $a>1$, $-1<q<0$. When $a\ne0$, write $f=-ax(x-q)$. If $a<0$, this quadratic opens upward and is positive outside its roots. If $a>0$, it opens downward and is negative outside its roots. These observations generate the different phase-line rows without choosing arbitrary test points.
@@ -411,6 +420,41 @@ At $a=1$, a positive displacement obeys $x'=-x^2<0$ and decreases toward zero, w
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{A reusable Jacobian-to-eigenvector procedure.}
+For $x'=F(x,y)$ and $y'=G(x,y)$, the Jacobian is the matrix
+\[
+J(x,y)=\begin{pmatrix}
+\partial F/\partial x&\partial F/\partial y\\
+\partial G/\partial x&\partial G/\partial y
+\end{pmatrix}.
+\]
+Each row corresponds to one equation; each column corresponds to the variable differentiated. In a partial derivative with respect to $x$, hold $y$ and all parameters constant. First find an equilibrium $(x^*,y^*)$ by solving $F=G=0$, then substitute that point into the four derivatives. Do not substitute a fixed point into $F,G$ before differentiating: that would replace both equations by zero and incorrectly erase the linear behavior.
+
+Writing $x=x^*+\xi$, $y=y^*+\eta$, Taylor expansion gives
+\[
+\begin{pmatrix}\xi'\\\eta'\end{pmatrix}
+=J(x^*,y^*)\begin{pmatrix}\xi\\\eta\end{pmatrix}
++O(\xi^2+\eta^2).
+\]
+For a constant matrix $B=\begin{pmatrix}A&B_{12}\\C&D\end{pmatrix}$, its characteristic equation is
+\[
+\det(B-\lambda I)=(A-\lambda)(D-\lambda)-B_{12}C
+=\lambda^2-(A+D)\lambda+(AD-B_{12}C)=0.
+\]
+Subtract $\lambda$ only from the diagonal entries. For a $2\times2$ matrix, the determinant is the product of the main diagonal minus the product of the other diagonal. The trace $A+D$ and determinant $AD-B_{12}C$ are useful independent checks on the eigenvalues: they must equal the sum and product of the two roots.
+
+For each eigenvalue separately, solve the homogeneous system
+\[
+(B-\lambda I)\begin{pmatrix}p\\q\end{pmatrix}=0.
+\]
+Row-reduce or solve one row and check the other. The determinant is zero, so at least one variable is free; choose a convenient nonzero value for that free variable. Do not set both components to zero: the zero vector is never an eigenvector. A vector and any nonzero multiple describe the same eigenline. Check the result by multiplying $Bv$ and verifying that it equals $\lambda v$.
+
+A real eigenpair produces the linear solution $ce^{\lambda t}v$. Positive $\lambda$ expands this displacement and negative $\lambda$ contracts it. Opposite signs give a saddle; two negative real roots give a sink and two positive real roots a source. A complex pair $\sigma\pm i\omega$ gives oscillation with an exponential factor $e^{\sigma t}$. For a nonlinear system these classifications apply locally when no eigenvalue has zero real part. Zero or purely imaginary eigenvalues require additional nonlinear reasoning.
+
+\textbf{Applying the procedure here.} The equations are $F=2x+\alpha^2y$ and $G=-x-4y$. Therefore $F_x=2$, $F_y=\alpha^2$, $G_x=-1$, $G_y=-4$. The Jacobian equals the given coefficient matrix everywhere because the system is already linear. The calculation below can therefore be used globally, not just near the origin.
+
+
 The trace is $-2$, the determinant is $\alpha^2-8$, and
 \[
 \lambda_\pm=-1\pm\sqrt{9-\alpha^2},\qquad
@@ -1120,6 +1164,22 @@ has nullspace $p=-3q$, only one independent eigendirection. Repeating an eigenva
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{Constructing the Jacobian.} With $F=ax-y$ and $G=-x+by$, differentiating with respect to the state variables gives
+\[
+F_x=a,\quad F_y=-1,\quad G_x=-1,\quad G_y=b.
+\]
+The parameters $a,b$ remain constants during these derivatives. Consequently the Jacobian is exactly $A$ at every point. The off-diagonal entries need not be subtracted from $\lambda$ when forming $A-\lambda I$; only $a$ and $b$ become $a-\lambda$ and $b-\lambda$.
+
+For a concrete row-reduction example, take $a=b=1/2$. The eigenvalues are $-1/2$ and $3/2$. For the first,
+\[
+A+\tfrac12 I=\begin{pmatrix}1&-1\\-1&1\end{pmatrix}
+\ \xrightarrow{R_2\leftarrow R_2+R_1}\ 
+\begin{pmatrix}1&-1\\0&0\end{pmatrix},
+\]
+so $p=q$ and we may choose $v=(1,1)^T$. For $3/2$, the two rows of $A-\tfrac32I$ are both $(-1,-1)$, so $p=-q$ and $v=(1,-1)^T$. The first line is stable and the second unstable. The general parameter calculation follows the identical steps.
+
+
 Interpret the printed $x=Ax$ as the differential equation $\dot{\mathbf x}=A\mathbf x$. Since $A$ is symmetric,
 \[
 T=a+b>0,\quad D=ab-1,\quad
@@ -1643,6 +1703,31 @@ As a check, $v_+\cdot v_-=1+(a-\lambda_+)(a-\lambda_-)=0$, using the eigenvalue 
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{Form the Jacobian before evaluating it.} Here $F=y-y^3$ has no $x$ dependence, whereas $G=-x-y^2/2$ depends on both variables. The four derivatives are
+\[
+\begin{aligned}
+F_x&=0,&F_y&=1-3y^2,\\
+G_x&=-1,&G_y&=-\tfrac12(2y)=-y.
+\end{aligned}
+\]
+This gives one symbolic Jacobian, but three different numerical matrices:
+\[
+J(0,0)=\begin{pmatrix}0&1\\-1&0\end{pmatrix},\quad
+J(-1/2,1)=\begin{pmatrix}0&-2\\-1&-1\end{pmatrix},\quad
+J(-1/2,-1)=\begin{pmatrix}0&-2\\-1&1\end{pmatrix}.
+\]
+For example, at $y=-1$ the bottom-right entry is $-(-1)=1$, while the top-right entry is $1-3(-1)^2=-2$. Keeping these two signs distinct is essential.
+
+For the eigenvalue $1$ at $(-1/2,1)$, row reduction gives
+\[
+J-I=\begin{pmatrix}-1&-2\\-1&-2\end{pmatrix}
+\ \xrightarrow{R_2\leftarrow R_2-R_1}\ 
+\begin{pmatrix}-1&-2\\0&0\end{pmatrix}.
+\]
+Thus $p=-2q$, with $q$ free. Taking $q=1$ produces $(-2,1)^T$; taking $q=-1$ produces $(2,-1)^T$, an equally correct eigenvector. The other eigenpairs are worked out below using the same method.
+
+
 The nullclines are $y=0,\pm1$ and $x=-y^2/2$. Their intersections are $(0,0)$ and $(-1/2,\pm1)$. The Jacobian is
 \[
 J(x,y)=\begin{pmatrix}0&1-3y^2\\-1&-y\end{pmatrix}.
@@ -1867,6 +1952,27 @@ For $\lambda=2$, the first row gives $-2p-2q=0$, hence $(-1,1)^T$. For $\lambda=
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{Partial derivatives and substitution.} For $F=x-xy$, treat $y$ as constant when differentiating with respect to $x$, and $x$ as constant when differentiating with respect to $y$:
+\[
+F_x=1-y,\qquad F_y=-x.
+\]
+For $G=-y+xy-y^2$, the corresponding derivatives are
+\[
+G_x=y,\qquad G_y=-1+x-2y.
+\]
+For instance, the $xy$ term contributes $y$ to $G_x$ but $x$ to $G_y$. Evaluating gives
+\[
+J(0,0)=\begin{pmatrix}1&0\\0&-1\end{pmatrix},\quad
+J(0,-1)=\begin{pmatrix}2&0\\-1&1\end{pmatrix},\quad
+J(2,1)=\begin{pmatrix}0&-2\\1&-1\end{pmatrix}.
+\]
+In the last matrix, the lower-right entry is $-1+2-2=-1$, not $1$. Its determinant is $0(-1)-(-2)(1)=2$, a useful sign check.
+
+At $(0,-1)$ and $\lambda=2$, the matrix $J-2I$ is
+$\begin{pmatrix}0&0\\-1&-1\end{pmatrix}$. The zero first row imposes no condition; it does not mean no eigenvector exists. The remaining row says $p+q=0$. Choose $p=1$ and $q=-1$. This illustrates why one should inspect both rows instead of always trying to solve the first row alone.
+
+
 The nullclines are $x=0$ or $y=1$, and $y=0$ or $y=x-1$. Hence the fixed points are $(0,0)$, $(0,-1)$, and $(2,1)$. Since
 \[
 J=\begin{pmatrix}1-y&-x\\y&x-1-2y\end{pmatrix},
@@ -2084,6 +2190,26 @@ The quadratic formula gives $(-1\pm i\sqrt7)/2$. If desired, the first row $-\la
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{Building the local linear models.} With $F=x^2-y$ and $G=x-y$, differentiation gives
+\[
+F_x=2x,\quad F_y=-1,\quad G_x=1,\quad G_y=-1.
+\]
+At zero this produces $\begin{pmatrix}0&-1\\1&-1\end{pmatrix}$; at $(1,1)$ it produces $\begin{pmatrix}2&-1\\1&-1\end{pmatrix}$. The sign of $G_x$ is positive in both matrices.
+
+The linearization can also be seen without matrix notation. Near $(1,1)$ put $x=1+\xi$, $y=1+\eta$. Then
+\[
+\xi'=2\xi-\eta+\xi^2,\qquad \eta'=\xi-\eta.
+\]
+Dropping the quadratic term leaves exactly the Jacobian system. Near zero the equations are $\xi'=-\eta+\xi^2$, $\eta'=\xi-\eta$, giving the other matrix.
+
+For either eigenvalue at $(1,1)$, the first row of $J-\lambda I$ is $(2-\lambda,-1)$. The row operation
+\[
+R_2\leftarrow R_2-(1+\lambda)R_1
+\]
+turns the second row into $(\lambda^2-\lambda-1,0)=(0,0)$. Thus the single remaining equation is $(2-\lambda)p-q=0$. This explicitly shows how the characteristic equation makes the eigenvector equations dependent.
+
+
 At equilibrium $y=x^2=x$, so the fixed points are $(0,0)$ and $(1,1)$. The Jacobian is
 \[
 J=\begin{pmatrix}2x&-1\\1&-1\end{pmatrix}.
@@ -2294,6 +2420,16 @@ The straight lines $(1,1)+sv_\pm$ are the local tangent directions to the saddle
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{Why the Jacobian is diagonal.} The horizontal equation $F=x-x^3$ has no $y$ term, so $F_y=0$. The vertical equation $G=-y$ has no $x$ term, so $G_x=0$. The other derivatives are $F_x=1-3x^2$ and $G_y=-1$. Hence there are no linear cross-couplings: a small horizontal displacement changes only horizontal velocity, and a small vertical displacement changes only vertical velocity.
+
+At $(1,0)$, for example, use $x=1+\xi$, $y=\eta$ to obtain
+\[
+\xi'=-2\xi-3\xi^2-\xi^3,\qquad \eta'=-\eta.
+\]
+The coefficients $-2,-1$ of the linear terms are the eigenvalues. For $\lambda=-2$, the matrix $J+2I$ is $\begin{pmatrix}0&0\\0&1\end{pmatrix}$, so $q=0$ and $p$ is free. For $\lambda=-1$, $J+I=\begin{pmatrix}-1&0\\0&0\end{pmatrix}$, so $p=0$ and $q$ is free. These calculations justify reading the coordinate directions directly from a diagonal matrix.
+
+
 The fixed points are $(0,0)$ and $(\pm1,0)$, with
 \[
 J=\operatorname{diag}(1-3x^2,-1).
@@ -2506,6 +2642,19 @@ In local coordinates $\eta=x-x^*$ and $\zeta=y$, the node's linearized equations
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{Differentiating the infection model.} Let $F=ay+b-dx$ and $G=r(1-x)y(1-y)-y$. The first equation gives $F_x=-d$ and $F_y=a$. For the second, first write $y(1-y)=y-y^2$:
+\[
+\begin{aligned}
+G_x&=-r(y-y^2)=-ry(1-y),\\
+G_y&=r(1-x)(1-2y)-1.
+\end{aligned}
+\]
+The final $-1$ comes from differentiating the removal term $-y$; omitting it would shift the stability threshold. All four parameters are constants in this calculation.
+
+At the DFE, substituting $y=0$ makes $G_x=0$, and substituting $x=b/d$ gives $G_y=r(1-b/d)-1$. This explains the triangular matrix used below. Its triangular form is specific to the DFE; at an endemic point $G_x$ generally does not vanish. Eigenvalues should therefore be computed only after substituting the equilibrium being studied. The later calculation also covers how to find the eigenvectors of this triangular matrix and what happens if its diagonal entries coincide.
+
+
 \textbf{(a)} Setting $y=0$ gives $x'=b-dx$, so the unique disease-free equilibrium is $(b/d,0)$, with $b/d>0$.
 
 \textbf{(b)} For an equilibrium with $y\ne0$,
@@ -2601,6 +2750,7 @@ For $k\ne-d$, corresponding eigenvectors can be taken as $(1,0)^T$ and $(a,d+k)^
     \end{enumerate}
 
     \begin{solution}
+
 \textbf{(a)} Set $\tau=(mg/b)t$; primes below denote differentiation with respect to $\tau$. Dividing the original equation by $mg$ gives
 \[
 \underbrace{\frac{m^2gr}{b^2}}_{\varepsilon}\phi''+\phi'+\sin\phi-
@@ -2666,6 +2816,7 @@ At the new roots the first term vanishes, leaving a negative derivative. The sym
     \end{enumerate}
 
     \begin{solution}
+
 This is the same flow as problem 2, with the tasks split into three subparts. For completeness, the phase lines and bifurcation diagram are reproduced here.
 
 Factor $f(u;r)=(u-1)(r-u^2)$. The branches and their derivatives are
@@ -2742,6 +2893,27 @@ The two events have different meanings. At $r=0$, two equilibria are born where 
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{Jacobian calculation and a sign check.} Expand the second equation as $G=2x-2x^3$. Then
+\[
+F_x=0,\quad F_y=-1,\quad G_x=2-6x^2,\quad G_y=0.
+\]
+At zero, $G_x=2$; at either $x=1$ or $x=-1$, $G_x=-4$. Thus
+\[
+J_0=\begin{pmatrix}0&-1\\2&0\end{pmatrix},\qquad
+J_{\pm}=\begin{pmatrix}0&-1\\-4&0\end{pmatrix}.
+\]
+Both have trace zero, but their determinants have opposite signs: $\det J_0=2$ and $\det J_{\pm}=-4$. This predicts an imaginary pair at the origin and opposite real roots at the outer points before using the quadratic formula.
+
+For $\lambda=2$ at an outer point,
+\[
+J_{\pm}-2I=\begin{pmatrix}-2&-1\\-4&-2\end{pmatrix}
+\ \xrightarrow{R_2\leftarrow R_2-2R_1}\ 
+\begin{pmatrix}-2&-1\\0&0\end{pmatrix}.
+\]
+The surviving equation is $q=-2p$; taking $p=1$ gives $v=(1,-2)^T$. Check by multiplication: $J_{\pm}v=(2,-4)^T=2v$. For $\lambda=-2$, the same calculation gives $v=(1,2)^T$ and $J_{\pm}v=(-2,-4)^T=-2v$. These checks guard against interchanging stable and unstable directions.
+
+
 \textbf{(a)--(b)} The fixed points are $(0,0)$ and $(\pm1,0)$, and
 \[
 J=\begin{pmatrix}0&-1\\2-6x^2&0\end{pmatrix}.
@@ -2969,6 +3141,10 @@ reduces to $q=-2p$; choose $(1,-2)^T$. For $\lambda=-2$, the matrix $J+2I$ has f
     \end{enumerate}
 
     \begin{solution}
+
+\noindent\textbf{Jacobian and eigenvector reminders.} The derivatives of $(ax-y,-x+by)$ give $J=\begin{pmatrix}a&-1\\-1&b\end{pmatrix}$, with $a,b$ held fixed. An eigenvector is found by solving $Jv=\lambda v$ for one already-computed eigenvalue, not by solving $Jv=0$ unless that eigenvalue is zero. The zero-eigenvalue case on $ab=1$ gives the line of fixed points. The nonzero eigenvalue describes motion transverse to it. The optional calculation below works out both roots and their vectors; problem 8 also includes a numerical row-reduction example.
+
+
 As in problem 8, interpret the printed equation as $\dot{\mathbf x}=A\mathbf x$. We have
 \[
 T=a+b>0,\quad D=ab-1,\quad T^2-4D=(a-b)^2+4>0.
@@ -3496,6 +3672,7 @@ Then solve $(a-\lambda)p-q=0$: set $p=1$, giving $v_\pm=(1,a-\lambda_\pm)^T$. Th
     \end{enumerate}
 
     \begin{solution}
+
 This is the same bead-on-hoop model as problem 14. The full nondimensionalization and bifurcation analysis follow.
 
 \textbf{(a)} Set $\tau=(mg/b)t$; primes below denote differentiation with respect to $\tau$. Dividing the original equation by $mg$ gives
