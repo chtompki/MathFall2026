@@ -47,6 +47,20 @@
     edges that belong to exactly one of them?)
 
     \begin{proof}
+    The statement is true. Suppose, for a contradiction, that a tree \(T\)
+    has distinct perfect matchings \(M_1\) and \(M_2\). Consider the spanning
+    subgraph with edge set
+    \[
+        M_1\mathbin{\triangle}M_2
+        =(M_1\setminus M_2)\cup(M_2\setminus M_1).
+    \]
+    At each vertex, the two perfect matchings either use the same edge,
+    giving degree zero in this subgraph, or use different edges, giving
+    degree two. Since the matchings are distinct, this subgraph has a
+    component containing an edge. Every vertex of that component has
+    degree two, so the component is a cycle. This contradicts the fact
+    that a tree contains no cycle. Thus every tree has at most one
+    perfect matching.
     \end{proof}
 
     \noindent\textbf{2.} Prove that every maximal matching in a graph \(G\) has at least
@@ -55,6 +69,19 @@
     What does maximality of $M$ tell you about each edge of the maximum matching?)
 
     \begin{proof}
+    Let \(M\) be a maximal matching and let \(M^*\) be a maximum
+    matching in \(G\). Every edge of \(M^*\) has at least one endpoint
+    saturated by \(M\); otherwise, that edge could be added to \(M\),
+    contradicting maximality.
+
+    For each edge of \(M^*\), choose an edge of \(M\) sharing an endpoint
+    with it. Each edge of \(M\) can be chosen by at most two edges of
+    \(M^*\), since it has two endpoints and at most one edge of the
+    matching \(M^*\) is incident with each endpoint. Consequently,
+    \[
+        \alpha'(G)=|M^*|\leq 2|M|,
+    \]
+    and hence \(|M|\geq \alpha'(G)/2\).
     \end{proof}
 
     \noindent\textbf{3.} Prove that if \(G\) is an \(X,Y\)-bigraph such that
@@ -68,6 +95,24 @@
     does deleting \(y\) affect neighborhoods?)
 
     \begin{proof}
+    Fix any edge \(xy\in E(G)\), where \(x\in X\) and \(y\in Y\).
+    Let \(G'=G-x-y\), with partite sets \(X'=X\setminus\{x\}\)
+    and \(Y'=Y\setminus\{y\}\). We verify Hall's condition for \(X'\).
+    If \(S\subseteq X'\) is nonempty, then \(S\) is a proper subset
+    of \(X\), so the hypothesis and integrality give
+    \(|N_G(S)|\geq |S|+1\). Deleting \(x\) does not affect the
+    neighbors of \(S\), and deleting \(y\) removes at most one neighbor.
+    Therefore,
+    \[
+        |N_{G'}(S)|=|N_G(S)\setminus\{y\}|
+        \geq |N_G(S)|-1\geq |S|.
+    \]
+    The inequality also holds for \(S=\varnothing\). By Hall's Theorem,
+    \(G'\) has a matching \(M'\) saturating \(X'\). Since neither
+    \(x\) nor \(y\) belongs to \(G'\), the set \(M'\cup\{xy\}\)
+    is a matching in \(G\) that saturates \(X\) and contains \(xy\).
+    As \(xy\) was arbitrary, the conclusion follows. If \(G\) has
+    no edges, the assertion about every edge is vacuous.
     \end{proof}
 
     \noindent\textbf{4.} Use the K\"onig--Egerv\'ary Theorem to prove that every bipartite
@@ -79,6 +124,27 @@
     take care of?)
 
     \begin{proof}
+    Assume \(\Delta(G)>0\), as required for the stated ratio to be
+    defined. Let \(Q\) be a minimum vertex cover of \(G\). By the
+    K\"onig--Egerv\'ary Theorem, \(|Q|=\alpha'(G)\). Since every
+    edge has at least one endpoint in \(Q\),
+    \[
+        e(G)\leq \sum_{v\in Q}d_G(v)
+        \leq |Q|\Delta(G)=\alpha'(G)\Delta(G).
+    \]
+    Dividing by \(\Delta(G)\) yields
+    \(\alpha'(G)\geq e(G)/\Delta(G)\).
+    For an edgeless graph, the empty matching has size zero; the
+    division-free inequality above still holds.
+
+    Now let \(G\) be a subgraph of \(K_{n,n}\) with
+    \(e(G)>(k-1)n\), where \(n\) and \(k\) are positive integers.
+    Then \(G\) has at least one edge and \(\Delta(G)\leq n\), so
+    \[
+        \alpha'(G)\geq \frac{e(G)}{\Delta(G)}
+        \geq \frac{e(G)}{n}>k-1.
+    \]
+    Since \(\alpha'(G)\) is an integer, \(\alpha'(G)\geq k\).
     \end{proof}
 
     \noindent\textbf{5.} Let \(G\) be an \(X,Y\)-bigraph with vertex cover \(Q\), and let
@@ -91,6 +157,30 @@
     why the new set is a vertex cover.)
 
     \begin{proof}
+    Since no matching in \(H\) saturates \(Q\cap Y\), Hall's
+    Theorem gives a set \(S\subseteq Q\cap Y\) such that
+    \[
+        |N_H(S)|<|S|.
+    \]
+    Define
+    \[
+        Q'=(Q\setminus S)\cup N_H(S).
+    \]
+    Because \(N_H(S)\subseteq X\setminus Q\), the two sets in this
+    union are disjoint, and
+    \[
+        |Q'|=|Q|-|S|+|N_H(S)|<|Q|.
+    \]
+    It remains to show that \(Q'\) is a vertex cover of \(G\).
+    Let \(uv\) be any edge, with \(u\in X\) and \(v\in Y\).
+    If \(v\notin S\), at least one endpoint lies in \(Q\), and
+    neither endpoint lies in \(S\); thus an endpoint remains in
+    \(Q\setminus S\). If \(v\in S\) and \(u\in Q\), then
+    \(u\in Q\setminus S\), since \(S\subseteq Y\). Finally, if
+    \(v\in S\) and \(u\notin Q\), then \(uv\) is an edge of
+    \(H\), so \(u\in N_H(S)\). In every case, \(uv\) has an
+    endpoint in \(Q'\). Hence \(Q'\) is a vertex cover smaller
+    than \(Q\), as desired.
     \end{proof}
 
 
