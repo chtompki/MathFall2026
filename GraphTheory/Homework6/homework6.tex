@@ -1,0 +1,83 @@
+%! Author = chtompki
+%! Date = 1/14/26
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\title{Graph Theory:\\Homework 6\\ Book Section 3.1 Part II.}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+    \noindent\textbf{1.} Prove or disprove: Every tree has at most one perfect matching.
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{2.} Prove that every maximal matching in a graph \(G\) has at least
+    \(\alpha'(G)/2\) edges.
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{3.} Prove that if \(G\) is an \(X,Y\)-bigraph such that
+    \[
+        |N(S)| > |S|
+        \qquad \text{whenever } \varnothing \neq S \subsetneq X,
+    \]
+    then every edge of \(G\) belongs to some matching that saturates \(X\).
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{4.} Use the K\"onig--Egerv\'ary Theorem to prove that every bipartite
+    graph \(G\) has a matching of size at least \(e(G)/\Delta(G)\).
+    Use this to conclude that every subgraph of \(K_{n,n}\) with more
+    than \((k-1)n\) edges has a matching of size at least \(k\).
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{5.} Let \(G\) be an \(X,Y\)-bigraph with vertex cover \(Q\), and let
+    \(H\) be the induced \((X-Q),(Q\cap Y)\)-sub-bigraph of \(G\).
+    Prove that if no matching in \(H\) saturates \(Q\cap Y=Q-X\),
+    then \(G\) has a vertex cover that is smaller than \(Q\).
+
+    \begin{proof}
+    \end{proof}
+
+
+\end{document}
