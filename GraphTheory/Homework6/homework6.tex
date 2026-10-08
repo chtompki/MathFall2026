@@ -43,12 +43,16 @@
 
     \maketitle
     \noindent\textbf{1.} Prove or disprove: Every tree has at most one perfect matching.
+    (Hint: If a tree had two different perfect matchings, what could you say about the
+    edges that belong to exactly one of them?)
 
     \begin{proof}
     \end{proof}
 
     \noindent\textbf{2.} Prove that every maximal matching in a graph \(G\) has at least
     \(\alpha'(G)/2\) edges.
+    (Hint: Compare a maximal matching $M$ with a maximum matching $M^*$.
+    What does maximality of $M$ tell you about each edge of the maximum matching?)
 
     \begin{proof}
     \end{proof}
@@ -59,6 +63,9 @@
         \qquad \text{whenever } \varnothing \neq S \subsetneq X,
     \]
     then every edge of \(G\) belongs to some matching that saturates \(X\).
+    (Hint: Given an edge \(xy\), consider the graph
+    \(G' = G-x-y\). What would you like to show about \(G'\), and how
+    does deleting \(y\) affect neighborhoods?)
 
     \begin{proof}
     \end{proof}
@@ -67,6 +74,9 @@
     graph \(G\) has a matching of size at least \(e(G)/\Delta(G)\).
     Use this to conclude that every subgraph of \(K_{n,n}\) with more
     than \((k-1)n\) edges has a matching of size at least \(k\).
+    (Hint: K\"onig--Egerv\'ary lets you bound a different parameter
+    instead of \(\alpha'(G)\). How many edges can a single vertex
+    take care of?)
 
     \begin{proof}
     \end{proof}
@@ -75,6 +85,10 @@
     \(H\) be the induced \((X-Q),(Q\cap Y)\)-sub-bigraph of \(G\).
     Prove that if no matching in \(H\) saturates \(Q\cap Y=Q-X\),
     then \(G\) has a vertex cover that is smaller than \(Q\).
+    (Hint: What does Hall's Theorem tell you when no matching in
+    \(H\) saturates \(Q-X\)? Use that to decide which vertices of \(Q\)
+    you might remove and replace to obtain a smaller set, and explain
+    why the new set is a vertex cover.)
 
     \begin{proof}
     \end{proof}
