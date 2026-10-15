@@ -42,7 +42,7 @@
 \begin{document}
 
     \maketitle
-    \noindent\textbf{1.} Let $M$ be a maximal matching and $L$ a minimal edge cover in a graph with no
+    \noindent\textbf{1.} Let $M$ be a maximum matching and $L$ a minimal edge cover in a graph with no
     isolated vertices.
     Probe the following statements below:
     \begin{itemize}
@@ -51,6 +51,65 @@
     \end{itemize}
 
     \begin{proof}
+
+    Write $n=|V(G)|$, let $\nu$ be the maximum matching size, and let
+    $\rho$ be the minimum edge cover size. We first show that
+    $\rho=n-\nu$.
+
+    Every minimal edge cover $F$ induces a disjoint union of stars, each
+    with at least one edge. Indeed, an edge whose two endpoints both have
+    degree at least two in $(V(G),F)$ could be deleted without uncovering
+    a vertex. Thus every edge has a degree-one endpoint, which forces
+    each component to be a star. If there are $c$ such components, then
+    $|F|=n-c$, and choosing one edge from each star gives a matching of
+    size $c$. Consequently $|F|\ge n-\nu$. Applying this to a minimum
+    edge cover gives $\rho\ge n-\nu$.
+
+    Conversely, start with a maximum matching $M$. Its unmatched vertices
+    form an independent set, since an edge between two of them would
+    enlarge the matching. Choose an incident edge for each unmatched
+    vertex; this is possible because there are no isolated vertices.
+    These edges are distinct and join unmatched vertices to matched
+    vertices. Together with $M$ they form an edge cover of size
+    $\nu+(n-2\nu)=n-\nu$. Hence $\rho=n-\nu$.
+
+    \smallskip
+    \noindent\textbf{(a)} Under the opening assumption that $M$ is a
+    \emph{maximum} matching, both assertions are true: $M$ is maximal,
+    and the preceding construction extends it to a minimum edge cover.
+    Thus the stated equivalence holds under that assumption.
+    If the intended statement instead quantifies over arbitrary matchings,
+    ``maximal'' must be replaced by ``maximum.'' For example, on the path
+    $1,2,3,4$, the matching $\{23\}$ is maximal, but the unique minimum
+    edge cover is $\{12,34\}$.
+
+    For completeness, a matching contained in a minimum edge cover need
+    not itself be maximum (it could be empty). The usual unrestricted
+    equivalence requires the matching to be \emph{maximal}: a maximal
+    matching is maximum if and only if it is contained in a minimum edge
+    cover. To see the reverse direction, a minimum edge cover has exactly
+    $\nu$ star components. A maximal matching contained in it must choose
+    one edge from every star, and therefore has size $\nu$.
+
+    \smallskip
+    \noindent\textbf{(b)} As written, this statement is false. On the path
+    $1,2,3,4,5,6$, let
+    \[
+       L=\{12,23,45,56\}.
+    \]
+    This is a minimal edge cover, since deleting any of its edges uncovers
+    a leaf of one of its two star components. It contains the maximal
+    matching $\{12,45\}$: the only unmatched vertices are $3$ and $6$,
+    which are not adjacent. However, $L$ is not minimum, since
+    $\{12,34,56\}$ is an edge cover with only three edges.
+
+    The corrected assertion replaces ``maximal'' by ``maximum.'' If $L$
+    is minimum, its star decomposition has $n-|L|=\nu$ components, so
+    selecting one edge from each gives a maximum matching contained in
+    $L$. Conversely, if the minimal edge cover $L$ contains a maximum
+    matching, each of its $c$ star components contributes at most one
+    matching edge. Hence $\nu\le c\le\nu$, so
+    $|L|=n-c=n-\nu=\rho$, and $L$ is minimum.
     \end{proof}
 
     \noindent\textbf{2.} Let $G$ be a simple graph in which the sum of degrees of any $k$ vertices
@@ -58,6 +117,17 @@
     Prove that every maximal independent set in $G$ has more than $k$ vertices.
 
     \begin{proof}
+
+    Let $I$ be a maximal independent set, and suppose $|I|\le k$.
+    Choose a set $S$ of $k$ vertices containing $I$. (As usual the
+    hypothesis is understood with $0\le k\le n$.) Maximality implies
+    that every vertex outside $I$, and hence every vertex outside $S$,
+    has a neighbor in $I$. Thus at least $n-k$ edges join $I$ to
+    $V(G)\setminus S$, giving
+    \[
+       n-k\le\sum_{v\in I}d(v)\le\sum_{v\in S}d(v)<n-k,
+    \]
+    a contradiction. Therefore $|I|>k$.
     \end{proof}
 
     \noindent\textbf{3.} An edge $e$ of a graph $G$ is $\alpha$-critical is $\alpha(G - e) > \alpha(G)$.
@@ -69,6 +139,46 @@
     Use this to prove $y$ and $z$ belong to the same component of $H$.)
 
     \begin{proof}
+
+    Put $a=\alpha(G)$. Deleting one edge increases the independence
+    number by at most one: removing one endpoint of that edge from an
+    independent set in the edge-deleted graph leaves an independent set
+    in $G$. Therefore the sets in the hint satisfy
+    $|Y|=|Z|=a+1$. Moreover $x,y\in Y$ and $x,z\in Z$; otherwise
+    one of these sets would already be independent in $G$. Since $xz$
+    is present in $G-xy$ and $xy$ is present in $G-xz$, we have
+    $z\notin Y$ and $y\notin Z$.
+
+    Set $A=Y\setminus Z$, $B=Z\setminus Y$, and $H=G[A\cup B]$.
+    The sets $Y\setminus\{x\}$ and $Z\setminus\{x\}$ are independent
+    in $G$ and have size $a$, so both are maximum. In particular $H$
+    is bipartite with parts $A,B$.
+
+    Let $C$ be any component of $H$. Exchanging $A\cap V(C)$ for
+    $B\cap V(C)$ in $Y\setminus\{x\}$ preserves independence:
+    there are no edges to another component of $H$, and vertices of
+    $(Y\cap Z)\setminus\{x\}$ have no neighbors in either part.
+    Maximality of the cardinality $a$ implies
+    $|B\cap V(C)|\le |A\cap V(C)|$. Exchanging in the other direction
+    using $Z\setminus\{x\}$ gives the reverse inequality. Hence each
+    component has equally many vertices in $A$ and $B$.
+
+    Suppose $y$ and $z$ lie in different components, and let $C$ contain
+    $y$. Then
+    \[
+       Y'=(Y\setminus(A\cap V(C)))\cup(B\cap V(C))
+    \]
+    has size $a+1$. The same exchange argument shows that its vertices
+    other than $x$ are independent. The only neighbor of $x$ in $Y$
+    is $y$, which was removed, and the only neighbor of $x$ in $Z$ is
+    $z$, which was not added. Thus $Y'$ is independent in $G$, a
+    contradiction. Therefore $y$ and $z$ belong to the same component.
+
+    Choose a shortest $y$--$z$ path $P$ in $H$. Because $y\in A$ and
+    $z\in B$, its length is odd. A shortest path has no chord, and $x$
+    has no neighbors in $V(H)\setminus\{y,z\}$. Consequently $P$
+    together with the edges $xy,xz$ is an induced cycle of odd length,
+    containing both specified edges.
     \end{proof}
 
     \noindent\textbf{4.} Let $G$ be a connected graph with at least three vertices.
@@ -76,6 +186,16 @@
     Prove that $G'$ is 2-connected.
 
     \begin{proof}
+
+    Interpret the construction as adding the specified edges to $G$.
+    Fix any vertex $v$. For any two distinct vertices $a,b\ne v$,
+    choose a simple $a$--$b$ path in $G$. If it avoids $v$, it remains
+    a path in $G'-v$. Otherwise let $u,v,w$ be the consecutive vertices
+    where it passes through $v$. The distinct vertices $u,w$ are either
+    adjacent in $G$ or have distance two in $G$, so $uw\in E(G')$.
+    Replacing $u,v,w$ by $u,w$ gives an $a$--$b$ path in $G'-v$.
+    Thus $G'-v$ is connected for every $v$. Since $G'$ is connected
+    and has at least three vertices, it is 2-connected.
     \end{proof}
 
     \noindent\textbf{5.} Prove that $\kappa(G) = \delta(G)$ if $G$ is simple and $\delta(G) \ge n(G) - 2$.
@@ -83,6 +203,33 @@
     minimum degree $n-3$ and connectivity less than $n-3$.
 
     \begin{proof}
+
+    Write $n=n(G)$, using the standard convention
+    $\kappa(K_n)=n-1$. If $G$ is complete, the desired equality is
+    immediate. Otherwise $\delta(G)=n-2$, and each vertex has at most
+    one nonneighbor among the other vertices.
+
+    Suppose $S$ is a vertex set with $|S|<n-2$. At least three vertices
+    remain. If $G-S$ were disconnected, choose vertices $u,v$ in two
+    distinct components, and a third remaining vertex $w$. If $w$ is
+    in the component of $u$, then $v$ has the two nonneighbors $u,w$;
+    otherwise $u$ has the two nonneighbors $v,w$. Both are impossible.
+    Hence deleting fewer than $n-2$ vertices cannot disconnect $G$.
+    On the other hand, since $G$ is not complete, choose nonadjacent
+    vertices $p,q$. Deleting the other $n-2$ vertices leaves two isolated
+    vertices. Thus $\kappa(G)=n-2=\delta(G)$.
+
+    For sharpness, for each $n\ge4$ take two disjoint copies of $K_2$
+    and a clique $S$ on $n-4$ vertices, and join every vertex of $S$
+    to all four vertices in the two copies of $K_2$. Each of those four
+    vertices has degree $1+(n-4)=n-3$, while each vertex in $S$ has
+    degree $n-1$. Therefore $\delta(G)=n-3$. Deleting $S$ leaves
+    $K_2\mathbin{\dot\cup}K_2$, so
+    \[
+       \kappa(G)\le n-4<n-3=\delta(G).
+    \]
+    When $n=4$, $S$ is empty and the graph is already disconnected,
+    with connectivity zero. Thus the construction covers every $n\ge4$.
     \end{proof}
 
 
