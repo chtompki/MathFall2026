@@ -1,0 +1,89 @@
+%! Author = chtompki
+%! Date = 1/14/26
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\title{Graph Theory:\\Homework 7\\ Book Section 3.1 Part III and 4.1.}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+    \noindent\textbf{1.} Let $M$ be a maximal matching and $L$ a minimal edge cover in a graph with no
+    isolated vertices.
+    Probe the following statements below:
+    \begin{itemize}
+        \item[(a)] $M$ is a maximal matching if and only if $M$is contained in a minimum edge cover.
+        \item[(b)] $L$ is a minimum edge cover if and only if $L$ contains a maximal matching.
+    \end{itemize}
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{2.} Let $G$ be a simple graph in which the sum of degrees of any $k$ vertices
+    is less than $n-k$.
+    Prove that every maximal independent set in $G$ has more than $k$ vertices.
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{3.} An edge $e$ of a graph $G$ is $\alpha$-critical is $\alpha(G - e) > \alpha(G)$.
+    Suppose that $xy$ and $xz$ are $\alpha$-critical edges in $G$.
+    Prove that $G$ has an induced subgraph that is an odd cycle containing $xy$ and $xz$.
+    (Hint: Let $Y$, $Z$ be maximum independent sets in $G-xy$ and $G-xz$ respectively.
+    Let $H = G[Y\Delta Z]$.
+    Prove that every component of $H$ has the same number of vertices from $Y$ to $Z$.
+    Use this to prove $y$ and $z$ belong to the same component of $H$.)
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{4.} Let $G$ be a connected graph with at least three vertices.
+    Form $G'$ and $G$ by adding an edge with endpoints $x,y$ whenever $d_G(x,y) = 2$.
+    Prove that $G'$ is 2-connected.
+
+    \begin{proof}
+    \end{proof}
+
+    \noindent\textbf{5.} Prove that $\kappa(G) = \delta(G)$ if $G$ is simple and $\delta(G) \ge n(G) - 2$.
+    Prove that this is the best possible for each $n\ge 4$ by constructing a simple $n$-vertex graph with
+    minimum degree $n-3$ and connectivity less than $n-3$.
+
+    \begin{proof}
+    \end{proof}
+
+
+\end{document}
