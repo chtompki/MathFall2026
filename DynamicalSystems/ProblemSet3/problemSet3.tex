@@ -1,0 +1,170 @@
+%! Author = chtompki
+%! Date = 1/14/26
+\documentclass[10pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\NewDocumentCommand{\vitem}{v}{%
+    \item[\texttt{#1}]%
+}
+
+\newcommand{\slopeelement}[3]{%
+    \pgfmathsetmacro{\slopeDX}{0.14/sqrt(1+(#3)^2)}%
+    \pgfmathsetmacro{\slopeDY}{(#3)*\slopeDX}%
+    \pgfmathsetmacro{\slopeXA}{(#1)-\slopeDX}%
+    \pgfmathsetmacro{\slopeYA}{(#2)-\slopeDY}%
+    \pgfmathsetmacro{\slopeXB}{(#1)+\slopeDX}%
+    \pgfmathsetmacro{\slopeYB}{(#2)+\slopeDY}%
+    \edef\slopecommand{%
+        \noexpand\draw[gray,thin]
+        (axis cs:\slopeXA,\slopeYA)
+        --
+        (axis cs:\slopeXB,\slopeYB);%
+    }%
+    \slopecommand
+}
+
+\title{Dynamical Systems\\Problem Set 3}
+\author{Rob Tompkins}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \date{\today}
+    \begin{onehalfspace}
+        We begin by noting that all of the files referenced in this document are available at: \\
+        \underline{https://github.com/chtompki/MathFall2026/tree/main/DynamicalSystems/ProblemSet3}
+
+
+
+        \section*{Chapter 6}
+
+        \noindent\textbf{6.2.2} Consider the system
+        \[
+            \dot{x}=y, \qquad \dot{y}=-x+(1-x^2-y^2)y.
+        \]
+        \begin{enumerate}[label=\alph*)]
+            \item Let $D$ be the open disk $x^2+y^2<4$. Verify that the system satisfies the hypotheses of the existence and uniqueness theorem throughout the domain $D$.
+            \item By substitution, show that $x(t)=\sin t$, $y(t)=\cos t$ is an exact solution of the system.
+            \item Now consider a different solution, in this case starting from the initial condition $x(0)=\tfrac12$, $y(0)=0$. Without doing any calculations, explain why this solution must satisfy $x(t)^2+y(t)^2<1$ for all $t<\infty$.
+        \end{enumerate}
+
+        \bigskip
+        \noindent\textbf{6.5.20 (Rock-paper-scissors)} In the children's hand game of rock-paper-scissors, rock beats scissors (by smashing it); scissors beats paper (by cutting it); and paper beats rock (by covering it). In a biological setting, analogs of this non-transitive competition occur among certain types of bacteria (Kirkup and Riley 2004) and lizards (Sinervo and Lively 1996).
+
+        Consider the following idealized model for three competing species locked in a life-and-death game of rock-paper-scissors:
+        \[
+            \dot{P}=P(R-S), \qquad
+            \dot{R}=R(S-P), \qquad
+            \dot{S}=S(P-R),
+        \]
+        where $P$, $R$, and $S$ (all positive, of course) are the sizes of the paper, rock, and scissors populations.
+        \begin{enumerate}[label=\alph*)]
+            \item Write a few sentences explaining the various terms in these equations. Be sure to comment on why a given term has a plus or minus sign in front of it. You don't have to write much---just enough to demonstrate that you understand how the form of the equations reflects the rock-paper-scissors story. Also, state some of the biological assumptions being made here implicitly.
+            \item Show that $P+R+S$ is a conserved quantity.
+            \item Show that $PRS$ is also conserved.
+            \item How does the system behave as $t\to\infty$? Prove that your answer is correct. (Hint: Visualize the level sets of the functions $E_1(P,R,S)=P+R+S$ and $E_2(P,R,S)=PRS$ in the three-dimensional $(P,R,S)$ space. What can you infer from the fact that all trajectories must simultaneously lie in level sets of both functions?)
+        \end{enumerate}
+
+        \bigskip
+        \noindent\textbf{6.6.4 (Computer explorations)} For each of the following reversible systems, try to sketch the phase portrait by hand. Then use a computer to check your sketch. If the computer reveals patterns you hadn't anticipated, try to explain them.
+        \begin{enumerate}[label=\alph*)]
+            \item $\ddot{x}+\dot{x}^{2}+x=3$
+            \item $\dot{x}=y-y^3, \qquad \dot{y}=x\cos y$
+            \item $\dot{x}=\sin y, \qquad \dot{y}=y^2-x$
+        \end{enumerate}
+
+        \bigskip
+        \noindent\textbf{6.7.3 (Nonlinear damping)} Analyze
+        \[
+            \ddot{\theta}+(1+a\cos\theta)\dot{\theta}+\sin\theta=0,
+        \]
+        for all $a\ge 0$.
+
+        \bigskip
+        \noindent\textbf{6.8.7 (Ruling out closed orbits)} Use index theory to show that the system
+        \[
+            \dot{x}=x(4-y-x^2), \qquad \dot{y}=y(x-1)
+        \]
+        has no closed orbits.
+
+        \section*{Chapter 7}
+
+        \noindent\textbf{7.2.9} For each of the following systems, decide whether it is a gradient system. If so, find $V$ and sketch the phase portrait. On a separate graph, sketch the equipotentials $V=\text{constant}$. (If the system is not a gradient system, go on to the next question.)
+        \begin{enumerate}[label=\alph*)]
+            \item $\dot{x}=y+x^2y, \qquad \dot{y}=-x+2xy$
+            \item $\dot{x}=2x, \qquad \dot{y}=8y$
+            \item $\dot{x}=-2xe^{x^2+y^2}, \qquad \dot{y}=-2ye^{x^2+y^2}$
+        \end{enumerate}
+
+        \bigskip
+        \noindent\textbf{7.2.12} Show that
+        \[
+            \dot{x}=-x+2y^3-2y^4, \qquad \dot{y}=-x-y+xy
+        \]
+        has no periodic solutions. (Hint: Choose $a$, $m$, and $n$ such that $V=x^m+ay^n$ is a Liapunov function.)
+
+        \bigskip
+        \noindent\textbf{7.2.18} Consider the predator-prey model
+        \[
+            \dot{x}=rx\left(1-\frac{x}{2}\right)-\frac{2x}{1+x}y,
+            \qquad
+            \dot{y}=-y+\frac{2x}{1+x}y,
+        \]
+        where $r>0$ and $x,y\ge 0$. Prove this system has no closed orbits by invoking Dulac's criterion with the function
+        \[
+            g(x,y)=\frac{1+x}{x}\,y^{\alpha-1}
+        \]
+        for a suitable choice of $\alpha$ (Hofbauer and Sigmund 1998).
+
+        \bigskip
+        \noindent\textbf{7.3.1} Consider
+        \[
+            \dot{x}=x-y-x(x^2+5y^2), \qquad
+            \dot{y}=x+y-y(x^2+y^2).
+        \]
+        \begin{enumerate}[label=\alph*)]
+            \item Classify the fixed point at the origin.
+            \item Rewrite the system in polar coordinates, using $r\dot{r}=x\dot{x}+y\dot{y}$ and $\dot{\theta}=(x\dot{y}-y\dot{x})/r^2$.
+            \item Determine the circle of maximum radius, $r_1$, centered on the origin such that all trajectories have a radially outward component on it.
+            \item Determine the circle of minimum radius, $r_2$, centered on the origin such that all trajectories have a radially inward component on it.
+            \item Prove that the system has a limit cycle somewhere in the trapping region $r_1\le r\le r_2$.
+        \end{enumerate}
+
+        \bigskip
+        \noindent\textbf{7.5.7 (Cell cycle)} Tyson (1991) proposed an elegant model of the cell division cycle, based on interactions between the proteins cdc2 and cyclin. He showed that the model's mathematical essence is contained in the following set of dimensionless equations:
+        \[
+            \dot{u}=b(v-u)(B+u^2)-u, \qquad \dot{v}=c-u,
+        \]
+        where $u$ is proportional to the concentration of the active form of a cdc2-cyclin complex, and $v$ is proportional to the total cyclin concentration (monomers and dimers). The parameters $b\gg 1$ and $B\ll 1$ are fixed and satisfy $8Bb\ll 1$, and $c$ is adjustable.
+        \begin{enumerate}[label=\alph*)]
+            \item Sketch the nullclines.
+            \item Show that the system exhibits relaxation oscillations for $c_1<c<c_2$, where $c_1$ and $c_2$ are to be determined approximately. (It is too hard to find $c_1$ and $c_2$ exactly, but a good approximation can be achieved if you assume $8Bb\ll 1$.)
+            \item Show that the system is excitable if $c$ is slightly less than $c_1$.
+        \end{enumerate}
+
+
+    \end{onehalfspace}
+\end{document}
