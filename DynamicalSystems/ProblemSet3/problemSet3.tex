@@ -71,7 +71,15 @@
             \item Now consider a different solution, in this case starting from the initial condition $x(0)=\tfrac12$, $y(0)=0$. Without doing any calculations, explain why this solution must satisfy $x(t)^2+y(t)^2<1$ for all $t<\infty$.
         \end{enumerate}
 
-        \bigskip
+        \begin{solution}
+
+\begin{enumerate}[label=\alph*)]
+\item The vector field is polynomial, hence continuously differentiable on $\mathbb R^2$. Its Jacobian is continuous and bounded on the closed disk of radius $2$, so it is Lipschitz there. Thus every initial point in $D$ has a unique local solution (and continuation as long as it remains in a compact subset of $D$).
+\item $\dot x=\cos t=y$, and $\dot y=-\sin t=-x+(1-\sin^2t-\cos^2t)\cos t$.
+\item The unit circle is a trajectory. By uniqueness, another trajectory cannot intersect it at a finite time, in either time direction. A continuous trajectory starting inside therefore stays strictly inside. Boundedness and the continuation theorem guarantee existence for every finite positive and negative time, so the conclusion holds for all $t\in\mathbb R$.
+\end{enumerate}
+        \end{solution}
+
         \noindent\textbf{6.5.20 (Rock-paper-scissors)} In the children's hand game of rock-paper-scissors, rock beats scissors (by smashing it); scissors beats paper (by cutting it); and paper beats rock (by covering it). In a biological setting, analogs of this non-transitive competition occur among certain types of bacteria (Kirkup and Riley 2004) and lizards (Sinervo and Lively 1996).
 
         Consider the following idealized model for three competing species locked in a life-and-death game of rock-paper-scissors:
@@ -88,7 +96,20 @@
             \item How does the system behave as $t\to\infty$? Prove that your answer is correct. (Hint: Visualize the level sets of the functions $E_1(P,R,S)=P+R+S$ and $E_2(P,R,S)=PRS$ in the three-dimensional $(P,R,S)$ space. What can you infer from the fact that all trajectories must simultaneously lie in level sets of both functions?)
         \end{enumerate}
 
-        \bigskip
+        \begin{solution}
+
+\begin{enumerate}[label=\alph*)]
+\item The positive term $PR$ in $\dot P$ represents paper gaining from encounters with rock; $-PS$ represents its loss to scissors. Similarly, rock gains from scissors and loses to paper, and scissors gains from paper and loses to rock. The model assumes well-mixed populations, pairwise mass-action encounters, equal interaction coefficients, and exact conversion of a loser's loss into the winner's gain. There is no independent birth, death, immigration, or resource limitation.
+\item Direct addition gives $(P+R+S)'=PR-PS+RS-RP+SP-SR=0$. Write the constant as $M>0$.
+\item Positivity is preserved, since each equation has the form $\dot P=P h(t)$. Consequently
+\[\frac{d}{dt}\log(PRS)=(R-S)+(S-P)+(P-R)=0.\]
+Write $PRS=K>0$.
+\item The only positive equilibria satisfy $P=R=S=M/3$. By AM--GM, $K\le(M/3)^3$, with equality precisely at this equilibrium. Otherwise every trajectory is periodic; it does not converge to a fixed point.
+
+Here is a justification of the geometry. On the open triangle $P+R+S=M$, the function $L=\log P+\log R+\log S$ is strictly concave, tends to $-\infty$ at the boundary, and has a unique critical point, its maximum, at the centroid. Each lower level is a single smooth simple closed curve: on every ray from the centroid strict concavity makes $L$ strictly decrease from its maximum to $-\infty$. The level is compact in the positive triangle (indeed $P,R,S\ge K/M^2$). The vector field is tangent to it and nowhere zero. A continuous nonvanishing speed on this compact curve gives a finite traversal time, hence a periodic orbit. The two conserved quantities therefore imply neutral, persistent population oscillations.
+\end{enumerate}
+        \end{solution}
+
         \noindent\textbf{6.6.4 (Computer explorations)} For each of the following reversible systems, try to sketch the phase portrait by hand. Then use a computer to check your sketch. If the computer reveals patterns you hadn't anticipated, try to explain them.
         \begin{enumerate}[label=\alph*)]
             \item $\ddot{x}+\dot{x}^{2}+x=3$
@@ -96,19 +117,65 @@
             \item $\dot{x}=\sin y, \qquad \dot{y}=y^2-x$
         \end{enumerate}
 
-        \bigskip
+        \begin{solution}
+
+Put $y=\dot x$ in (a). The following analysis supplies the hand sketches; \texttt{ps3\_phase\_portraits.m} plots vector fields and numerical trajectories to check them.
+\begin{enumerate}[label=\alph*)]
+\item The system is $\dot x=y$, $\dot y=3-x-y^2$, reversible under $(x,y,t)\mapsto(x,-y,-t)$. A first integral is
+\[H=e^{2x}\left(y^2+x-\frac72\right),\qquad \dot H=0.\]
+For example, setting $z=y^2$ along a nonvertical orbit gives $dz/dx+2z=6-2x$. The sole equilibrium $(3,0)$ is a center: the Hessian of $H$ there is positive definite. Its value is $h_*=-e^6/2$. For $h_*<h<0$, the levels are closed ovals around the center. At $h=0$ the unbounded level is $y^2=7/2-x$; for $h>0$ the levels are also unbounded, with a right turning point on $y=0$. These follow directly from $y^2=7/2-x+h e^{-2x}$. The upper half-plane points right and the lower half-plane left, so the ovals run clockwise.
+\item Reversibility is $(x,y,t)\mapsto(-x,y,-t)$. The equilibria are $(0,0)$ and $(0,\pm1)$, with Jacobian
+\[J(0,y_*)=\begin{pmatrix}0&1-3y_*^2\\ \cos y_*&0\end{pmatrix}.\]
+The origin is a saddle (eigenvalues $\pm1$), while $(0,\pm1)$ are centers. To establish the latter beyond linearization, on any strip where $\cos y\ne0$ use
+\[H(x,y)=\frac{x^2}{2}-\int_0^y\frac{s-s^3}{\cos s}\,ds\]
+when the strip contains zero; in other strips replace the lower limit by any point in the strip. Its derivative vanishes. At $(0,\pm1)$ its Hessian is positive definite. The level through the origin forms two homoclinic loops surrounding the two centers: the potential decreases between $0$ and $1$, then increases to $+\infty$ as $y\uparrow\pi/2$, and is even. The lines $y=\pi/2+k\pi$ are invariant horizontal trajectories, since $\dot y=0$ there; no trajectory crosses them. In all other strips there are no equilibria or periodic orbits. These invariant barriers explain the layered appearance of the plot.
+\item Reversibility is $(x,y,t)\mapsto(x,-y,-t)$. Nullclines are $y=k\pi$ and $x=y^2$. The equilibria are
+\[ (x,y)=(k^2\pi^2,k\pi),\quad
+J_k=\begin{pmatrix}0&(-1)^k\\-1&2k\pi\end{pmatrix},\quad k\in\mathbb Z.\]
+Odd $k$ give saddles, since $\det J_k=-1$. Nonzero even $k$ give nodes: both eigenvalues are real, with positive sign for $k>0$ and negative sign for $k<0$. At $k=0$ they are $\pm i$; reversibility about $y=0$ makes the origin a nonlinear center. More explicitly, sufficiently small trajectories rotate about the origin and meet the symmetry axis transversely; reflecting the segment between successive intersections and reversing time closes the orbit, giving a family of periodic orbits. The field points right where $\sin y>0$, left where $\sin y<0$, upward to the left of $x=y^2$, and downward to its right. These rules, the center, and the alternating nodes and saddles determine the main features visible on progressively larger plotting windows. The companion script includes both a central and a wider view; finite numerical trajectories are not a proof of any additional global connection.
+\end{enumerate}
+        \end{solution}
+
         \noindent\textbf{6.7.3 (Nonlinear damping)} Analyze
         \[
             \ddot{\theta}+(1+a\cos\theta)\dot{\theta}+\sin\theta=0,
         \]
         for all $a\ge 0$.
 
-        \bigskip
+        \begin{solution}
+
+Set $y=\dot\theta$ and regard $\theta$ modulo $2\pi$. Equilibria are $(2k\pi,0)$ and $((2k+1)\pi,0)$. At a bottom equilibrium the characteristic equation is
+\[\lambda^2+(1+a)\lambda+1=0.\]
+It is a stable focus for $0\le a<1$, a repeated stable node at $a=1$, and a stable node for $a>1$. At a top equilibrium the determinant is $-1$, so it is a saddle for every $a\ge0$ (even when its trace $a-1$ vanishes).
+
+Although the usual mechanical energy has derivative $-(1+a\cos\theta)y^2$, which need not be negative for $a>1$, a different energy resolves all parameters. Define
+\[V(\theta,y)=\frac12(y+a\sin\theta)^2+(a+1)(1-\cos\theta).\]
+Since $(y+a\sin\theta)'=-y-\sin\theta$, direct differentiation gives
+\[\dot V=-y^2-a\sin^2\theta\le0.\]
+For $a>0$, equality holds only at equilibria. For $a=0$, equality means $y=0$, and the only trajectories remaining there also satisfy $\sin\theta=0$. Sublevel sets are compact on the cylinder, so LaSalle's invariance principle shows that every forward trajectory converges to an equilibrium. The omega-limit set is connected and the equilibrium set on the cylinder is finite, so the limit is a single equilibrium. Except on the stable manifolds of the top saddles, trajectories approach a bottom equilibrium. There are no nonconstant periodic motions, either librations or rotations, for any $a\ge0$. On the unwrapped plane the same conclusion holds with a particular integer $k$, since convergence on the cylinder eventually confines the angle to a neighborhood of one lift. Negative local damping for $a>1$ thus does not produce sustained oscillations.
+        \end{solution}
+
         \noindent\textbf{6.8.7 (Ruling out closed orbits)} Use index theory to show that the system
         \[
             \dot{x}=x(4-y-x^2), \qquad \dot{y}=y(x-1)
         \]
         has no closed orbits.
+
+        \begin{solution}
+
+The axes are invariant, so a nonconstant periodic orbit cannot cross either axis or lie on one. It must lie in an open quadrant. The equilibria are
+\[(0,0),\quad(2,0),\quad(-2,0),\quad(1,3).\]
+Only $(1,3)$ lies in an open quadrant. A simple closed curve contained in any other quadrant encloses no equilibrium, contradicting the index $+1$ of a periodic orbit.
+
+\emph{Qualification to the requested method.} In the first quadrant, $(1,3)$ has Jacobian
+\[\begin{pmatrix}-2&-1\\3&0\end{pmatrix},\]
+so it is a stable focus of index $+1$. Index theory alone therefore supplies no contradiction for an orbit surrounding it. To finish the stated conclusion, apply Dulac's criterion there with $g=1/(xy)$:
+\[\frac{\partial(g\dot x)}{\partial x}+\frac{\partial(g\dot y)}{\partial y}
+=\frac{\partial}{\partial x}\frac{4-y-x^2}{y}
+ +\frac{\partial}{\partial y}\frac{x-1}{x}
+=-\frac{2x}{y}<0.\]
+The first quadrant is simply connected and $g$ is smooth there, so it contains no periodic orbit. Together these arguments rule out closed orbits everywhere. For the equations as printed, an index-only argument based on the enclosed fixed-point indices is insufficient.
+        \end{solution}
 
         \section*{Chapter 7}
 
@@ -119,14 +186,32 @@
             \item $\dot{x}=-2xe^{x^2+y^2}, \qquad \dot{y}=-2ye^{x^2+y^2}$
         \end{enumerate}
 
-        \bigskip
+        \begin{solution}
+
+Use the convention $(\dot x,\dot y)=-\nabla V$. On $\mathbb R^2$ a continuously differentiable vector field is a gradient field exactly when $f_y=g_x$.
+\begin{enumerate}[label=\alph*)]
+\item Here $f_y=1+x^2$ and $g_x=-1+2y$, which are not identically equal. This is not a gradient system.
+\item One may take $V=-x^2-4y^2$. The origin is an unstable node, and $x=x_0e^{2t}$, $y=y_0e^{8t}$. Nonaxial trajectories satisfy $y=Cx^4$ on each half-plane and point away from the origin. Equipotentials are ellipses $x^2+4y^2=\text{constant}$ (and the origin at zero).
+\item Take $V=e^{x^2+y^2}$. Trajectories are straight radial rays pointing inward, with $\dot r=-2re^{r^2}$; the origin is a globally attracting stable node. Equipotentials are concentric circles $r^2=\log V$, $V\ge1$. For both gradient examples the flow is perpendicular to the equipotentials. Separate phase and equipotential plots are supplied by \texttt{ps3\_gradient\_plots.m}.
+\end{enumerate}
+        \end{solution}
+
         \noindent\textbf{7.2.12} Show that
         \[
             \dot{x}=-x+2y^3-2y^4, \qquad \dot{y}=-x-y+xy
         \]
         has no periodic solutions. (Hint: Choose $a$, $m$, and $n$ such that $V=x^m+ay^n$ is a Liapunov function.)
 
-        \bigskip
+        \begin{solution}
+
+Choose $m=2$, $n=4$, and $a=1$, so $V=x^2+y^4$. Then
+\begin{align*}
+\dot V&=2x(-x+2y^3-2y^4)+4y^3(-x-y+xy)\\
+&=-2x^2-4y^4<0\qquad\text{for }(x,y)\ne(0,0).
+\end{align*}
+A nonconstant periodic solution would return to the same value of $V$, contradicting its strict decrease. In fact $V$ is positive definite and radially unbounded, so the origin is globally asymptotically stable. Here ``no periodic solutions'' means no nonconstant periodic solutions; the equilibrium is of course constant.
+        \end{solution}
+
         \noindent\textbf{7.2.18} Consider the predator-prey model
         \[
             \dot{x}=rx\left(1-\frac{x}{2}\right)-\frac{2x}{1+x}y,
@@ -139,7 +224,18 @@
         \]
         for a suitable choice of $\alpha$ (Hofbauer and Sigmund 1998).
 
-        \bigskip
+        \begin{solution}
+
+On the simply connected positive quadrant multiply the field by the proposed $g$. This gives
+\[g\dot x=r(1+x)(1-x/2)y^{\alpha-1}-2y^\alpha,
+\qquad g\dot y=\frac{x-1}{x}y^\alpha.\]
+Hence its divergence is
+\[y^{\alpha-1}\left[r\left(\frac12-x\right)+\alpha\left(1-\frac1x\right)\right].\]
+Choose $\alpha=r/2$. The bracket becomes
+\[r\left(1-x-\frac1{2x}\right)\le r(1-\sqrt2)<0,\]
+using $x+1/(2x)\ge\sqrt2$. Dulac's criterion excludes periodic orbits in the positive quadrant. The axes are invariant and their scalar flows have no nonconstant periodic solutions, so none occur anywhere in the biological domain.
+        \end{solution}
+
         \noindent\textbf{7.3.1} Consider
         \[
             \dot{x}=x-y-x(x^2+5y^2), \qquad
@@ -153,7 +249,26 @@
             \item Prove that the system has a limit cycle somewhere in the trapping region $r_1\le r\le r_2$.
         \end{enumerate}
 
-        \bigskip
+        \begin{solution}
+
+\begin{enumerate}[label=\alph*)]
+\item The Jacobian at the origin is $\left(\begin{smallmatrix}1&-1\\1&1\end{smallmatrix}\right)$, with eigenvalues $1\pm i$. The origin is an unstable spiral.
+\item Direct computation gives
+\[\dot r=r\left[1-r^2(1+\sin^2 2\theta)\right],\qquad
+\dot\theta=1+4r^2\cos\theta\sin^3\theta.\]
+Indeed $x\dot x+y\dot y=r^2-r^4-4x^2y^2$ and $x\dot y-y\dot x=r^2+4xy^3$.
+\item Since $1\le1+\sin^22\theta\le2$, the sharp inner radius is $r_1=1/\sqrt2$, with $\dot r\ge0$ everywhere on the circle. Strict outward motion everywhere requires $r<r_1$; thus for that literal strict interpretation there is a supremum, not an attained maximum.
+\item The sharp outer radius is $r_2=1$, with $\dot r\le0$ on its circle. Strict inward motion everywhere requires $r>1$, so the corresponding strict minimum is an infimum.
+\item The closed annulus $1/\sqrt2\le r\le1$ is positively invariant. There are no equilibria in it, or indeed anywhere except the origin: at a nonzero equilibrium both coordinates must be nonzero, and writing $q=y/x$ gives
+\[x^2(1+5q^2)=1-q,\qquad x^2q(1+q^2)=1+q.\]
+Eliminating $x^2$ yields
+\[q^4+4q^3+6q^2+1=q^2(q+2)^2+2q^2+1=0.\]
+The last expression is strictly positive for every real $q$, a contradiction. The Poincare--Bendixson theorem therefore gives a periodic orbit in the annulus.
+
+For completeness it is an isolated, attracting limit cycle. The divergence is $2-4x^2-8y^2=2-4r^2-4y^2\le0$ throughout the annulus, and its time integral along any periodic orbit there is strictly negative. The transverse Floquet multiplier is thus less than one. This also rules out a continuous family of periodic orbits there.
+\end{enumerate}
+        \end{solution}
+
         \noindent\textbf{7.5.7 (Cell cycle)} Tyson (1991) proposed an elegant model of the cell division cycle, based on interactions between the proteins cdc2 and cyclin. He showed that the model's mathematical essence is contained in the following set of dimensionless equations:
         \[
             \dot{u}=b(v-u)(B+u^2)-u, \qquad \dot{v}=c-u,
@@ -164,6 +279,28 @@
             \item Show that the system exhibits relaxation oscillations for $c_1<c<c_2$, where $c_1$ and $c_2$ are to be determined approximately. (It is too hard to find $c_1$ and $c_2$ exactly, but a good approximation can be achieved if you assume $8Bb\ll 1$.)
             \item Show that the system is excitable if $c$ is slightly less than $c_1$.
         \end{enumerate}
+
+        \begin{solution}
+
+Assume $b,B>0$. Put
+\[h(u)=u+\frac{u}{b(B+u^2)},\qquad
+\dot u=b(B+u^2)[v-h(u)].\]
+\begin{enumerate}[label=\alph*)]
+\item The $u$-nullcline is $v=h(u)$ and the $v$-nullcline is $u=c$. Above the graph $u$ increases and below it $u$ decreases; to the left of $u=c$, $v$ increases, and to the right it decreases. Since
+\[h'(u)=1+\frac{B-u^2}{b(B+u^2)^2},\]
+the positive branch has a local maximum at $u_-$ and a local minimum at $u_+$, where
+\[u_\mp^2=\frac{1-2bB\mp\sqrt{1-8bB}}{2b}.\]
+It is therefore N-shaped: two attracting outer branches separated by a repelling middle branch for the fast $u$ dynamics.
+\item The unique equilibrium is $(c,h(c))$. Its Jacobian has determinant $b(B+c^2)>0$ and trace $-b(B+c^2)h'(c)$. Thus it is stable on either outer branch and unstable when $u_-<c<u_+$. The two zero-trace thresholds are exactly the fold abscissae above. For $bB\ll1$,
+\[c_1=u_-\sim\sqrt B,\qquad c_2=u_+\sim b^{-1/2};\]
+more precisely $c_1=\sqrt B[1+2bB+O((bB)^2)]$ and $c_2=b^{-1/2}[1-\tfrac32bB+O((bB)^2)]$.
+
+In the fast--slow regime, with $c$ between the folds and away from the transition neighborhoods, the orbit slowly climbs the left attracting branch ($u<c$, so $\dot v>0$), jumps right near its upper fold, descends the right attracting branch ($u>c$), and jumps left near its lower fold. This is the relaxation cycle; the fast jumps occur with $v$ approximately fixed. The companion \texttt{ps3\_cell\_cycle.m} illustrates the phase path and time series.
+
+\emph{Scope of the approximation.} The fold formulas give exact linear stability boundaries, while the relaxation description and identification of the oscillatory interval with these boundaries are asymptotic. Arbitrarily close to a Hopf threshold, oscillations can be small or undergo a rapid canard transition; one should not assert large relaxation oscillations uniformly throughout the entire open interval at finite parameters. The stated scale assumptions and nullcline sketch support the requested fast--slow approximation, not an exact global bifurcation theorem.
+\item For $c$ just below $c_1$, the equilibrium is stable and lies on the left branch near its fold. Small disturbances decay. A sufficiently large disturbance that pushes the state past the nearby repelling branch triggers a fast rightward jump and a large excursion: slow descent on the right branch, a jump back to the left branch, and recovery to equilibrium. Thus a finite threshold separates small responses from a large pulse, the characteristic behavior of excitability. This statement is in the same fast--slow regime as part (b); the script compares perturbations numerically.
+\end{enumerate}
+        \end{solution}
 
 
     \end{onehalfspace}
