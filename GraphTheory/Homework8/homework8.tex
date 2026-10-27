@@ -1,0 +1,220 @@
+%! Author = chtompki
+%! Date = 1/14/26
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\title{Graph Theory:\\Homework 8\\ Book Section 4.1 Part II and 4.2.}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+
+    \noindent\textbf{Theorem 4.1.11} if $G$ is a 3-regular graph then $\kappa(G) = \kappa'(G)$.\\\\
+
+    \noindent\textbf{Proposition 4.1.12} If $S$ is a set of vertices in a graph $G$, then
+    \[
+        \big|[S,\overline{S}]\big| = \Big[\sum_{v\in S}d(v)\Big] - 2e(G[S])
+    \]
+    \quad\\
+
+    \noindent\textbf{Corollary 4.1.13} If $G$ is a simple graph and $|[S,\overline{S}]| < \delta(G)$ for some
+    nonempty proper subset $S\subset V(G)$, then $|S| > \delta(G)$.
+
+    \quad\\
+
+    \noindent\textbf{1.} Let $G$ be a connected graph in which for every edge $e$, there are cycles $C_1$
+    and $C_2$ containing $e$ whose only common edge is $e$.
+    Prove that $G$ is 3-edge-connected.
+    Use this to show that the Petersen graph is 3-edge-connected
+
+    \begin{proof}
+
+        Suppose an edge cut $F$ has size at most two, and choose an edge
+        $e\in F$. Let $S$ be a component of $G-F$ containing one endpoint
+        of $e$. (We may take $F$ to be a minimal disconnecting set, so its
+        edges join distinct components.) Every cycle containing $e$ must
+        cross from $S$ to $\overline S$ again, and hence must contain another
+        edge of $F$. Thus, if $|F|=1$, no such cycle exists; if $|F|=2$,
+        both $C_1$ and $C_2$ contain the other edge of $F$. Both conclusions
+        contradict the hypothesis. Therefore $\kappa'(G)\ge 3$.
+
+        Label the Petersen graph with vertices $a_i,b_i$ for
+        $i\in\mathbb Z/5\mathbb Z$, with edges $a_i a_{i+1}$,
+        $a_i b_i$, and $b_i b_{i+2}$. Rotating the subscripts preserves
+        adjacency, so it suffices to check one edge of each type.
+        The following pairs of cycles have only the indicated edge in common:
+        \[
+        \begin{array}{c|l|l}
+        \text{edge}&C_1&C_2\\ \hline
+        a_0a_1&a_0a_1a_2a_3a_4a_0&a_0a_1b_1b_3b_0a_0\\
+        a_0b_0&a_0b_0b_2a_2a_1a_0&a_0b_0b_3a_3a_4a_0\\
+        b_0b_2&b_0b_2b_4b_1b_3b_0&b_0b_2a_2a_1a_0b_0
+        \end{array}
+        \]
+        Hence the Petersen graph is 3-edge-connected. Since it is
+        3-regular, deleting the three edges at a vertex disconnects it,
+        so its edge connectivity is exactly three.
+    \end{proof}
+
+    \noindent\textbf{2.} Use Proposition 4.1.12 and Theorem 4.1.11 to prove that the Petersen graph is
+    3-connected
+
+    \begin{proof}
+
+        Let $G$ be the Petersen graph. It is simple, 3-regular, and has
+        ten vertices and girth five. To see the girth assertion using the
+        labeling above, a cycle with no spokes $a_i b_i$ is a 5-cycle.
+        A cycle with two spokes contains a nonempty outer path and a
+        nonempty inner path. These paths cannot both have length one,
+        since outer adjacency requires subscript difference $\pm1$ and
+        inner adjacency requires difference $\pm2$. Such a cycle therefore
+        has length at least five. A cycle with at least four spokes has
+        at least four intervening nonspoke edges, and has length at least eight.
+
+        Suppose there were an edge cut $[S,\overline S]$ of size at most
+        two, choosing $S$ to be the smaller side. By Corollary 4.1.13,
+        $|S|>3$, and since $|V(G)|=10$, we have $|S|\in\{4,5\}$.
+        If $|S|=4$, the girth condition makes $G[S]$ a forest, so
+        $e(G[S])\le3$. If $|S|=5$, either $G[S]$ is a forest or any
+        cycle in it uses all five vertices. That 5-cycle has no chord,
+        since a chord would create a triangle. Thus $e(G[S])\le5$.
+        Proposition 4.1.12 now gives
+        \[
+        |[S,\overline S]|=3|S|-2e(G[S])\ge
+        \begin{cases}
+        12-6=6,&|S|=4,\\
+        15-10=5,&|S|=5,
+        \end{cases}
+        \]
+        a contradiction. Therefore $\kappa'(G)\ge3$, and the degree
+        bound gives $\kappa'(G)=3$. By Theorem 4.1.11,
+        $\kappa(G)=\kappa'(G)=3$, so $G$ is 3-connected.
+    \end{proof}
+
+    \noindent\textbf{3.} Let $G$ be a simple graph with diameter 2 and let $[S, \overline{S}]$ be a
+    minimum edge cut with $|S|\le |\overline{S}$.
+    \begin{itemize}
+        \item[(a)] Prove that every vertex of $S$ has a neighbor in $\overline{S}$.
+        \item[(b)] Use part (a) and Corollary 4.1.13 to prove that $\kappa'(G) = \delta(G)$.
+    \end{itemize}
+
+    \begin{proof}
+
+        Write $F=[S,\overline S]$. Since the edges incident with a
+        minimum-degree vertex form an edge cut, $|F|=\kappa'(G)\le\delta(G)$.
+
+        \textbf{(a)} Suppose some $x\in S$ has no neighbor in
+        $\overline S$. For every $y\in\overline S$, the diameter-two
+        hypothesis supplies a path $x,z,y$ of length two. Since every
+        neighbor of $x$ lies in $S$, the edge $zy$ belongs to $F$.
+        Consequently each vertex of $\overline S$ is incident with an
+        edge of $F$, and these give distinct edges for distinct $y$.
+        Hence
+        \[
+        |F|\ge |\overline S|\ge |S|>d(x)\ge\delta(G),
+        \]
+        where $d(x)\le |S|-1$ because $G$ is simple. This contradicts
+        $|F|\le\delta(G)$. Thus every vertex of $S$ has a neighbor in
+        $\overline S$.
+
+        \textbf{(b)} By part (a), $|F|\ge |S|$. If
+        $\kappa'(G)=|F|<\delta(G)$, Corollary 4.1.13 gives
+        $|S|>\delta(G)$, yielding
+        $|F|\ge |S|>\delta(G)$, a contradiction. Therefore
+        $\kappa'(G)=\delta(G)$.
+    \end{proof}
+
+    \noindent\textbf{4.} Prove or disprove: If $P$ is a $u,v$-path in a 2-connected graph $G$, then there
+    is a $u,v$-path $Q$ that is internally disjoint from $P$.
+
+    \begin{proof}
+
+        The assertion is false. Let $G$ be the 4-cycle with cyclic
+        vertex order $u,a,v,b,u$, together with the diagonal $ab$.
+        The spanning 4-cycle shows that deleting any one vertex leaves
+        a connected graph, so $G$ is 2-connected.
+        However, $P=u,a,b,v$ is a $u,v$-path whose internal vertices
+        are $a$ and $b$. A $u,v$-path internally disjoint from $P$
+        would have to use only $u$ and $v$, and hence would have to be
+        the edge $uv$. That edge is absent. Thus no such $Q$ exists.
+    \end{proof}
+
+    \noindent\textbf{5.} Prove that a graph $G$ with at least four vertices is 2-connected if and only if
+    for every pair $X,Y$ of disjoint vertex sets with $|X|,|Y| \ge 2$, there exist two completely disjoint
+    paths $P_1$ and $P_2$ in $G$ such that each has an endpoint in $X$ and an end point in $Y$ and
+    no internal vertex in $X$ or $Y$.
+
+    \begin{proof}
+
+        First suppose $G$ is 2-connected, and let $X,Y$ be disjoint
+        with $|X|,|Y|\ge2$. Add two new vertices $s,t$, joining $s$
+        to every vertex of $X$ and $t$ to every vertex of $Y$.
+        No single vertex other than $s,t$ separates $s$ from $t$:
+        after deleting any vertex $w$ of $G$, the graph $G-w$ is
+        connected and both $X\setminus\{w\}$ and
+        $Y\setminus\{w\}$ remain nonempty. By the vertex version of
+        Menger's theorem there are two internally vertex-disjoint
+        $s,t$-paths. Removing $s,t$ leaves two vertex-disjoint paths
+        from $X$ to $Y$. On each, retain the segment ending at its
+        first vertex in $Y$ and starting at the last vertex in $X$
+        before that endpoint. These segments remain vertex-disjoint
+        and have no internal vertex in $X\cup Y$, as required.
+
+        Conversely, assume the stated path property. First $G$ is
+        connected. Otherwise, if some component is a singleton $a$,
+        choose distinct other vertices $b,c,d$ and put
+        $X=\{a,b\}$, $Y=\{c,d\}$. Two vertex-disjoint $X,Y$-paths
+        would have to use both vertices of $X$ as endpoints, but no
+        path can join $a$ to $Y$. If there is no singleton component,
+        choose two vertices of one component as $X$ and two vertices
+        of another component as $Y$; there is then no $X,Y$-path at all.
+        Both possibilities contradict the property.
+
+        Suppose now that $z$ is a cut vertex. If $G-z$ has a singleton
+        component $a$, at least two other vertices $b,c$ remain because
+        $|V(G)|\ge4$. Take $X=\{a,z\}$ and $Y=\{b,c\}$.
+        The path starting at $a$ must pass through $z$, while the
+        other path must have $z$ as its endpoint, contradicting vertex
+        disjointness. If $G-z$ has no singleton component, choose two
+        vertices of one component as $X$ and two of another as $Y$.
+        Every $X,Y$-path passes through $z$, so two such paths cannot
+        be vertex-disjoint. Thus $G$ has no cut vertex. Being connected
+        with at least four vertices, it is 2-connected.
+    \end{proof}
+
+
+\end{document}
