@@ -1,0 +1,199 @@
+%! Author = chtompki
+%! Date = 1/14/26
+\documentclass[10pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\NewDocumentCommand{\vitem}{v}{%
+    \item[\texttt{#1}]%
+}
+
+\newcommand{\slopeelement}[3]{%
+    \pgfmathsetmacro{\slopeDX}{0.14/sqrt(1+(#3)^2)}%
+    \pgfmathsetmacro{\slopeDY}{(#3)*\slopeDX}%
+    \pgfmathsetmacro{\slopeXA}{(#1)-\slopeDX}%
+    \pgfmathsetmacro{\slopeYA}{(#2)-\slopeDY}%
+    \pgfmathsetmacro{\slopeXB}{(#1)+\slopeDX}%
+    \pgfmathsetmacro{\slopeYB}{(#2)+\slopeDY}%
+    \edef\slopecommand{%
+        \noexpand\draw[gray,thin]
+        (axis cs:\slopeXA,\slopeYA)
+        --
+        (axis cs:\slopeXB,\slopeYB);%
+    }%
+    \slopecommand
+}
+
+\title{Dynamical Systems\\Problem Set 4}
+\author{Rob Tompkins}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \date{\today}
+    \begin{onehalfspace}
+        We begin by noting that all of the files referenced in this document are available at: \\
+        \underline{https://github.com/chtompki/MathFall2026/tree/main/DynamicalSystems/ProblemSet4}
+
+        \noindent\textbf{8.1.6}
+        Consider the system $\dot{x}=y-2x$, $\dot{y}=\mu+x^2-y$.
+        \begin{enumerate}[label=\alph*)]
+            \item Sketch the nullclines.
+            \item Find and classify the bifurcations that occur as $\mu$ varies.
+            \item Sketch the phase portrait as a function of $\mu$.
+        \end{enumerate}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{8.1.15}
+        (The power of true believers) Sometimes a small band of unwavering advocates can win an entire population over to their point of view, as in the case of the civil rights or women's suffrage movements in the United States. Consider the following stylized model of such situations, which was studied by Marvel et al.\ (2012) and inspired by the earlier work of Xie et al.\ (2011).
+        
+        The population is divided into four non-overlapping groups. An initially small group of true believers holds opinion A (for example, that women deserve the right to vote) and they are committed to this belief. Nothing that anyone says or does can change their minds. Another group of people currently agrees with them, but they are uncommitted to A. If someone argues for the opposing position, B, an uncommitted A-believer instantly becomes an AB, meaning someone who sees the merit in both positions. Likewise, B-believers instantly turn into members of the AB subpopulation when confronted with an argument for A. The people in the AB group, being fence-sitters, don't try to persuade anyone of anything. And they can be pushed to either side with the slightest nudge; when confronted with an argument for A---or for B---they join that camp. At each time step, we select two people at random and have one of them act as an advocate and the other as a listener. Assuming the members of the four groups mix with each other at random, the governing equations for the dynamics are
+        \[
+        \begin{aligned}
+            \dot{n}_A &= (p+n_A)n_{AB}-n_A n_B,\\
+            \dot{n}_B &= n_B n_{AB}-(p+n_A)n_{AB}.
+        \end{aligned}
+        \]
+        % Transcribed as printed on p. 291. The final n_{AB} in the second
+        % equation appears to be a typo for n_B; the printed equation is preserved.
+        where $n_{AB}=1-(p+n_A)-n_B$. Here the parameter $p$ denotes the unchanging fraction of true believers in the population. The time-dependent variables $n_A$, $n_B$, and $n_{AB}$ are the current fractions in the A, B, and AB subpopulations.
+        \begin{enumerate}[label=\alph*)]
+            \item Interpret and justify the form of the various terms in the governing equations.
+            \item Assume that initially everyone believes in B, except for the true believers in A. Thus, $n_B(0)=1-p$, and $n_A(0)=n_{AB}(0)=0$. Numerically integrate the system until it reaches equilibrium. Show that the final state changes discontinuously as a function of $p$. Specifically, show there is a critical fraction of true believers (call it $p_c$) such that for $p<p_c$, most people still accept B, whereas for $p>p_c$, everyone comes around to A.
+            \item Show analytically that $p_c=1-\sqrt{3}/2\approx 0.134$. Thus, in this model, only about $13\%$ of the population needs to be unwavering advocates to get everyone else to agree with them eventually.
+            \item What type of bifurcation occurs at $p_c$?
+        \end{enumerate}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{8.2.2}
+        By calculating the linearization at the origin, show that the system $\dot{x}=-y+\mu x+xy^2$, $\dot{y}=x+\mu y-x^2$ has pure imaginary eigenvalues when $\mu=0$.
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{8.2.3}
+        (Computer work) By plotting phase portraits on the computer, show that the system $\dot{x}=-y+\mu x+xy^2$, $\dot{y}=x+\mu y-x^2$ undergoes a Hopf bifurcation at $\mu=0$. Is it subcritical, supercritical, or degenerate?
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{8.2.4}
+        (A heuristic analysis) The system $\dot{x}=-y+\mu x+xy^2$, $\dot{y}=x+\mu y-x^2$ can be analyzed in a rough, intuitive way as follows.
+        \begin{enumerate}[label=\alph*)]
+            \item Rewrite the system in polar coordinates.
+            \item Show that if $r\ll 1$, then $\dot{\theta}\approx 1$ and $\dot{r}\approx\mu r+\frac18 r^3+\cdots$, where the terms omitted are oscillatory and have essentially zero time-average around one cycle.
+            \item The formulas in part (b) suggest the presence of an unstable limit cycle of radius $r\approx\sqrt{-8\mu}$ for $\mu<0$. Confirm that prediction numerically. (Since we assumed that $r\ll 1$, the prediction is expected to hold only if $|\mu|\ll 1$.)
+        \end{enumerate}
+        The reasoning above is shaky. See Drazin (1992, pp.\ 188--190) for a proper analysis via the Poincar\'e-Lindstedt method.
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{8.2.10}
+        (Bacterial respiration) Fair\'en and Velarde (1979) considered a model for respiration in a bacterial culture. The equations are
+        \[
+            \dot{x}=B-x-\frac{xy}{1+qx^2},\qquad
+            \dot{y}=A-\frac{xy}{1+qx^2}
+        \]
+        where $x$ and $y$ are the levels of nutrient and oxygen, respectively, and $A,B,q>0$ are parameters. Investigate the dynamics of this model. As a start, find all the fixed points and classify them. Then consider the nullclines and try to construct a trapping region. Can you find conditions on $A,B,q$ under which the system has a stable limit cycle? Use numerical integration, the Poincar\'e-Bendixson theorem, results about Hopf bifurcations, or whatever else seems useful. (This question is deliberately open-ended and could serve as a class project; see how far you can go.)
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{8.2.12}
+        (Analytical criterion to decide if a Hopf bifurcation is subcritical or supercritical) Any system at a Hopf bifurcation can be put into the following form by suitable changes of variables:
+        \[
+            \dot{x}=-\omega y+f(x,y),\qquad
+            \dot{y}=\omega x+g(x,y),
+        \]
+        where $f$ and $g$ contain only higher-order nonlinear terms that vanish at the origin. As shown by Guckenheimer and Holmes (1983, pp.\ 152--156), one can decide whether the bifurcation is subcritical or supercritical by calculating the sign of the following quantity:
+        \[
+        \begin{aligned}
+            16a ={}& f_{xxx}+f_{xyy}+g_{xxy}+g_{yyy}\\
+            &+\frac{1}{\omega}\bigl[f_{xy}(f_{xx}+f_{yy})
+            -g_{xy}(g_{xx}+g_{yy})-f_{xx}g_{xx}+f_{yy}g_{yy}\bigr]
+        \end{aligned}
+        \]
+        where the subscripts denote partial derivatives evaluated at $(0,0)$. The criterion is: If $a<0$, the bifurcation is supercritical; if $a>0$, the bifurcation is subcritical.
+        \begin{enumerate}[label=\alph*)]
+            \item Calculate $a$ for the system $\dot{x}=-y+xy^2$, $\dot{y}=x-x^2$.
+            \item Use part (a) to decide which type of Hopf bifurcation occurs for $\dot{x}=-y+\mu x+xy^2$, $\dot{y}=x+\mu y-x^2$ at $\mu=0$. (Compare the results of Exercises 8.2.2--8.2.4.)
+        \end{enumerate}
+        (You might be wondering what $a$ measures. Roughly speaking, $a$ is the coefficient of the cubic term in the equation $\dot{r}=ar^3$ governing the radial dynamics at the bifurcation. Here $r$ is a slightly transformed version of the usual polar coordinate. For details, see Guckenheimer and Holmes (1983) or Grimshaw (1990).)
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{8.3.1}
+        (Brusselator) The Brusselator is a simple model of a hypothetical chemical oscillator, named after the home of the scientists who proposed it. (This is a common joke played by the chemical oscillator community; there is also the ``Oregonator,'' ``Palo Altonator,'' etc.) In dimensionless form, its kinetics are
+        \[
+        \begin{aligned}
+            \dot{x}&=1-(b+1)x+ax^2y,\\
+            \dot{y}&=bx-ax^2y
+        \end{aligned}
+        \]
+        where $a,b>0$ are parameters and $x,y\geq 0$ are dimensionless concentrations.
+        \begin{enumerate}[label=\alph*)]
+            \item Find all the fixed points, and use the Jacobian to classify them.
+            \item Sketch the nullclines, and thereby construct a trapping region for the flow.
+            \item Show that a Hopf bifurcation occurs at some parameter value $b=b_c$, where $b_c$ is to be determined.
+            \item Does the limit cycle exist for $b>b_c$ or $b<b_c$? Explain, using the Poincar\'e-Bendixson theorem.
+            \item Find the approximate period of the limit cycle for $b\approx b_c$.
+        \end{enumerate}
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{8.4.4}
+        (Second-order phase-locked loop) Using a computer, explore the phase portrait of
+        \[
+            \ddot{\theta}+(1-\mu\cos\theta)\dot{\theta}+\sin\theta=0
+        \]
+        for $\mu\geq 0$. For some values of $\mu$, you should find that the system has a stable limit cycle. Classify the bifurcations that create and destroy the cycle as $\mu$ increases from $0$.
+
+        \begin{solution}
+        \end{solution}
+
+        \noindent\textbf{8.5.4}
+        (Logistic equation with sinusoidal harvesting) In Exercise 3.7.3 you were asked to consider a simple model of a fishery with constant harvesting. Now consider a generalization in which the harvesting varies periodically in time, perhaps due to daily or seasonal variations. To keep things simple, assume the periodic harvesting is purely sinusoidal (Benardete et al.\ 2008). Then, if the fish population grows logistically in the absence of harvesting, the model is given in dimensionless form by
+        \[
+            \dot{x}=rx(1-x)-h(1+\alpha\sin t).
+        \]
+        Assume that $r,h>0$ and $0<\alpha<1$.
+        \begin{enumerate}[label=\alph*)]
+            \item Show that if $h>r/4$ the system has no periodic solutions, even though the fish are being harvested periodically with period $T=2\pi$. What happens to the fish population in this case?
+            \item By using a Poincar\'e map argument like that in the text, show that if $h<\dfrac{r}{4(1+\alpha)}$, there exists a $2\pi$-periodic solution---in fact, a stable limit cycle---in the strip $1/2<x<1$. Similarly, show there exists an unstable limit cycle in the strip $0<x<1/2$. Interpret your results biologically.
+            \item What happens in between cases (a) and (b), i.e., for $\dfrac{r}{4(1+\alpha)}<h<\dfrac{r}{4}$?
+        \end{enumerate}
+
+        \begin{solution}
+        \end{solution}
+        
+    \end{onehalfspace}
+\end{document}
