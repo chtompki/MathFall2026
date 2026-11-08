@@ -1,0 +1,319 @@
+\documentclass[12pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,enumitem,booktabs,tikz}
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+\newcommand{\cart}{\mathbin{\square}}
+\title{Exam2Prep}
+\date{}
+\begin{document}\maketitle
+
+    \noindent Solutions to the exercises marked ($-$) in West, \emph{Introduction to Graph Theory}, second edition, Sections 3.1, 4.1, 4.2, and 5.1. The three optional exercises marked ($*-$) in Section 3.1 are included. Statements are condensed; qualifications needed for small or disconnected graphs are stated explicitly.
+
+    \smallskip\noindent Notation: $n=n(G)$; $\alpha,\alpha',\beta,\beta'$ denote independence, matching, vertex-cover, and edge-cover numbers. $G+H$ is disjoint union, $G\vee H$ is join, and $G\cart H$ is Cartesian product. Connectivity means vertex connectivity unless specified otherwise.
+
+    \section*{3.1 Matchings and Covers}
+
+    \subsection*{3.1.1} Find a maximum matching and a minimum vertex cover in each of the three pictured bipartite graphs.
+    \begin{solution}Label the top vertices $t_1,t_2,\ldots$ and the bottom vertices $b_1,b_2,\ldots$, each from left to right in the book. The following are explicit certificates:
+        \begin{center}\begin{tabular}{ccl}\toprule
+            Graph & Matching $M$ & Vertex cover $C$\\\midrule
+            Left & $\{t_1b_3,t_3b_2,t_4b_5\}$ & $\{t_3,t_4,b_3\}$\\
+            Middle & $\{t_1b_2,t_2b_3,t_4b_4\}$ & $\{t_4,b_2,b_3\}$\\
+            Right & $\{t_1b_4,t_2b_1,t_3b_2,t_4b_5\}$ & $\{t_2,t_4,b_2,b_4\}$\\\bottomrule
+            \end{tabular}\end{center}
+        Each listed edge occurs in its graph, the matching edges have distinct endpoints, and the listed cover meets every edge. For any matching and vertex cover, $|M|\le |C|$, since distinct matching edges require distinct covering vertices. Equality therefore proves both optimality claims. The maximum matching sizes are $3,3,4$.\end{solution}
+
+    \subsection*{3.1.2} Determine the minimum size of a maximal matching in $C_n$.
+    \begin{solution}The answer is $\lceil n/3\rceil$ ($n\ge3$). If a maximal matching has $m$ edges, its $n-2m$ unmatched vertices must be independent. Between consecutive matching edges around the cycle there is at most one unmatched vertex, so $n-2m\le m$ and $m\ge\lceil n/3\rceil$.
+    Conversely, put $m=\lceil n/3\rceil$. Around the cycle arrange $m$ disjoint matched pairs and $n-2m$ unmatched single vertices, placing at most one single between successive pairs. This is possible since $0\le n-2m\le m$. The unmatched vertices are independent, so the matching is maximal.\end{solution}
+
+    \subsection*{3.1.3} If a matching saturates $S\subseteq V(G)$, prove that some maximum matching saturates $S$. Must every maximum matching do so?
+    \begin{solution}Start with the given matching and repeatedly augment along an augmenting path until the matching is maximum. Augmentation preserves saturation of every previously saturated vertex: internal vertices exchange their matched edge, and the two endpoints become saturated. Thus the final matching saturates $S$.
+    Not every maximum matching need do so. In $P_3=a b c$, take $S=\{a\}$. The maximum matching $\{ab\}$ saturates $S$, but the maximum matching $\{bc\}$ does not.\end{solution}
+
+    \subsection*{3.1.4} Characterize the simple graphs for which each of $\alpha,\alpha',\beta,\beta'$ equals $1$.
+    \begin{solution}\begin{itemize}[leftmargin=*]
+\item $\alpha(G)=1$ exactly for nonempty complete graphs: every two distinct vertices must be adjacent.
+\item $\alpha'(G)=1$ exactly for a nontrivial star or a triangle, together with any number of isolated vertices. To prove necessity, fix an edge $uv$. All edges meet $uv$. If all meet a single vertex, the nontrivial part is a star. Otherwise, if $u$ has two distinct neighbors $v,w$, an edge avoiding $u$ must be $vw$ (to meet both $uv$ and $uw$); any further edge would miss one of the three triangle edges. If the maximum degree is at most one, there is just one edge.
+\item $\beta(G)=1$ exactly for a nontrivial star together with isolated vertices: one vertex meets every edge, and at least one edge exists.
+\item $\beta'(G)=1$ exactly for $K_2$. One edge must cover every vertex, so there are exactly two vertices and they are adjacent. Graphs with isolated vertices have no edge cover.
+        \end{itemize}\end{solution}
+
+    \subsection*{3.1.5} Prove $\alpha(G)\ge n(G)/(\Delta(G)+1)$.
+    \begin{solution}Greedily choose a remaining vertex for an independent set and delete its closed neighborhood. At most $\Delta(G)+1$ vertices are deleted at each step. The chosen vertices are independent, and if there are $s$ steps, then $n\le s(\Delta+1)$. Hence $\alpha(G)\ge s\ge n/(\Delta+1)$. As usual, graphs here are loopless.\end{solution}
+
+    \subsection*{3.1.6} For a tree with $n$ vertices and independence number $k$, determine $\alpha'(T)$.
+    \begin{solution}The complement of an independent set is a vertex cover, so $\beta(T)=n-\alpha(T)=n-k$. A tree is bipartite; the K\H{o}nig--Egerv\'ary theorem gives $\alpha'(T)=\beta(T)=n-k$.\end{solution}
+
+    \subsection*{3.1.7} Prove that $G$ is bipartite iff $\alpha(H)=\beta'(H)$ for every subgraph $H$ without isolated vertices.
+    \begin{solution}If $G$ is bipartite, so is $H$. The identities $\alpha(H)+\beta(H)=n(H)$ and $\alpha'(H)+\beta'(H)=n(H)$, together with $\alpha'(H)=\beta(H)$, give $\alpha(H)=\beta'(H)$ (the corollary cited in the exercise).
+    Conversely, if $G$ is not bipartite, it contains an odd cycle $H=C_{2r+1}$. This subgraph has no isolated vertices, but $\alpha(H)=r$ and $\beta'(H)=r+1$: an edge cover needs at least $r+1$ edges and such a cover exists. Thus the stated equality fails.\end{solution}
+
+    \subsection*{3.1.44} Suppose the degrees of any $k$ vertices sum to less than $n-k$. Prove every maximal independent set has more than $k$ vertices.
+    \begin{solution}Assume $1\le k\le n$, and suppose an independent set $S$ has $s\le k$ vertices. Extend $S$ to a $k$-vertex set $R$. Degrees are nonnegative, so $\sum_{v\in S}d(v)\le\sum_{v\in R}d(v)<n-k$. Consequently
+        \[
+            \left|\bigcup_{v\in S}N[v]\right|\le s+\sum_{v\in S}d(v)<s+n-k\le n.
+        \]
+        Some vertex outside these closed neighborhoods can be added to $S$, so $S$ is not maximal.\end{solution}
+
+    \subsection*{3.1.46 (optional)} Characterize graphs with domination number $1$.
+    \begin{solution}Exactly the graphs with a universal vertex: $\gamma(G)=1$ iff some $v$ satisfies $N[v]=V(G)$, equivalently $d(v)=n-1$. This includes $K_1$.\end{solution}
+
+    \subsection*{3.1.47 (optional)} Find a smallest tree whose domination and vertex-cover numbers differ.
+    \begin{solution}Among nontrivial trees the minimum order is $6$, attained by $P_6=v_1\cdots v_6$. The set $\{v_2,v_5\}$ dominates it, and no vertex dominates all six vertices, so $\gamma(P_6)=2$. Its three disjoint edges $v_1v_2,v_3v_4,v_5v_6$ force $\beta(P_6)\ge3$, while $\{v_2,v_4,v_6\}$ is a cover, so $\beta(P_6)=3$.
+    For minimality, every vertex cover of a graph without isolated vertices dominates it, so $\gamma\le\beta$. If a nontrivial tree has $\gamma=1$, it is a star and has $\beta=1$. Otherwise strict inequality requires $\beta\ge3$. Since a tree is bipartite, $\beta=\alpha'$, and three matching edges require at least six vertices.
+        \emph{Convention:} if the one-vertex tree is allowed, $K_1$ is the trivial smaller exception, with $\gamma=1$ and $\beta=0$. The intended nontrivial-tree answer is $P_6$.\end{solution}
+
+    \subsection*{3.1.48 (optional)} Determine $\gamma(C_n)$ and $\gamma(P_n)$.
+    \begin{solution}Both equal $\lceil n/3\rceil$ (for $C_n$, $n\ge3$). Each vertex dominates at most three vertices, yielding the lower bound.
+    For $P_n=v_1\cdots v_n$, if $n=3q$, choose $v_2,v_5,\ldots,v_{3q-1}$; if $n=3q+1$, add $v_{3q+1}$ to that set; if $n=3q+2$, add $v_{3q+2}$. These sets dominate the path and have the claimed size. Adding the edge $v_nv_1$ cannot destroy domination, so the same upper bound holds for the cycle.\end{solution}
+
+    \section*{4.1 Cuts and Connectivity}
+
+    \subsection*{4.1.1} Prove or refute the four assertions about vertex and edge connectivity.
+    \begin{solution}\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item Every graph with connectivity $4$ is $2$-connected: true, since deleting fewer than two vertices leaves it connected.
+\item Every $3$-connected graph has connectivity $3$: false. $K_5$ is $3$-connected but has connectivity $4$. The adjective $k$-connected means connectivity at least $k$.
+\item Every $k$-connected graph is $k$-edge-connected: true, by $\kappa(G)\le\kappa'(G)$.
+\item Every $k$-edge-connected graph is $k$-connected: false for $k=2$. Two triangles sharing exactly one vertex have no cut-edge, so they are $2$-edge-connected, but the shared vertex is a cut-vertex.
+        \end{enumerate}\end{solution}
+
+    \subsection*{4.1.2} Correct and prove: if $e$ is a cut-edge, then an endpoint of $e$ is a cut-vertex.
+    \begin{solution}As stated this is false for $K_2$: its edge is a cut-edge, but neither vertex is a cut-vertex. Add the hypothesis that the component containing $e$ has at least three vertices (connected $G$ of order at least three suffices).
+    Write $e=uv$, and let $A,B$ be the vertex sets of the two components obtained by deleting $e$ from its component, with $u\in A,v\in B$. At least one of $A,B$ has size at least two. If $|A|\ge2$, deletion of $u$ separates the nonempty sets $A-\{u\}$ and $B$, so $u$ is a cut-vertex. The case $|B|\ge2$ is symmetric.\end{solution}
+
+    \subsection*{4.1.3} If an $n$-vertex simple graph other than $K_n$ is not $k$-connected, prove it has a separating set of size $k-1$.
+    \begin{solution}Use the usual range $1\le k\le n-1$. There is a separating set $S$ with $|S|\le k-1$ (possibly empty for a disconnected graph). Choose $x,y$ in different components of $G-S$. Since $k-1\le n-2$, enlarge $S$ to a set $S'$ of size exactly $k-1$ while retaining $x,y$. No $x,y$-path exists in $G-S'$, since none exists in $G-S$. Thus $S'$ separates $G$.
+    The upper restriction on $k$ is necessary; for $k=n$, deleting $n-1$ vertices leaves only one vertex and cannot disconnect the graph.\end{solution}
+
+    \subsection*{4.1.4} Prove $G$ is $k$-connected iff $G\vee K_r$ is $(k+r)$-connected.
+    \begin{solution}Assume the usual order requirement $n(G)>k$. If $G$ is $k$-connected, delete fewer than $k+r$ vertices from the join. If a vertex of $K_r$ remains, it is adjacent to every other remaining vertex, so the remaining graph is connected. If all $r$ new vertices are deleted, fewer than $k$ vertices of $G$ have been deleted, again leaving a connected graph.
+    Conversely, if the join is $(k+r)$-connected, delete its $r$ new vertices and any set $S\subseteq V(G)$ with $|S|<k$. The total deletion has size less than $k+r$, so $G-S$ is connected. Hence $G$ is $k$-connected.\end{solution}
+
+    \subsection*{4.1.5} Add all edges between vertices at distance $2$ in a connected graph $G$ of order at least $3$. Prove the resulting $G'$ is $2$-connected.
+    \begin{solution}The graph $G'$ is connected. Fix a vertex $v$. Every component of $G-v$ has a neighbor of $v$, because $G$ is connected. Any two distinct neighbors of $v$ are adjacent in $G'$: their distance in $G$ is at most two. Thus, after deleting $v$, the components of $G-v$ are joined together in $G'-v$. Hence $G'-v$ is connected for every $v$, proving $2$-connectivity.\end{solution}
+
+    \subsection*{4.1.6} For blocks $B_1,\ldots,B_b$, prove the vertex-count identity $n(G)=\sum_i n(B_i)-b+1$.
+    \begin{solution}This identity needs $G$ to be connected. For a connected graph, induct on the number of blocks. The one-block case is immediate. An end-block $B$ meets the remaining connected graph $H$ in exactly one cut-vertex, so $n(G)=n(H)+n(B)-1$. Applying induction to $H$ gives the formula.
+    For a graph with $c$ components, summing the connected formulas gives the corrected general identity
+        \[
+            n(G)=\sum_{i=1}^{b}n(B_i)-b+c,
+        \]
+        counting each isolated vertex as a block. For example, $2K_2$ disproves the printed formula without connectedness.\end{solution}
+
+    \subsection*{4.1.7} Express the number of spanning trees of a connected graph in terms of its blocks.
+    \begin{solution}Writing $\tau(H)$ for the number of spanning trees,
+        \[
+            \tau(G)=\prod_{i=1}^{b}\tau(B_i).
+        \]
+        Choose a spanning tree independently in each block. Their union is connected because the blocks connect through cut-vertices, and acyclic because every cycle of $G$ is contained in one block. Conversely, a spanning tree restricts to a spanning tree of each block: a path cannot leave a block and reenter through another vertex, since that would combine blocks into a larger subgraph without a cut-vertex. These operations are inverse, giving the product. Bridge blocks and isolated-vertex blocks contribute a factor of one.\end{solution}
+
+    \subsection*{4.1.30} On $\{1,\ldots,11\}$, join distinct integers with a common factor greater than $1$. Determine the blocks.
+    \begin{solution}The even vertices $\{2,4,6,8,10\}$ induce $K_5$, and $\{3,6,9\}$ induces a triangle. These two cliques share only vertex $6$. Vertex $5$ has only neighbor $10$, while $1,7,11$ are isolated. The complete block list is therefore
+        \[
+            G[\{2,4,6,8,10\}]\cong K_5,\quad
+            G[\{3,6,9\}]\cong K_3,\quad
+            G[\{5,10\}]\cong K_2,
+        \]
+        together with the three isolated-vertex blocks. The cut-vertices are $6$ and $10$; the only edge between $5$ and the rest is $5\,10$.\end{solution}
+
+    \section*{$4.2$ $k$-Connected Graphs}
+
+    \subsection*{4.2.1} Determine $\kappa(u,v)$ and $\kappa'(u,v)$ in the pictured graph, with optimality certificates.
+    \begin{solution}Label the three vertices in the middle vertical column $a,b,c$ from top to bottom, and the vertex immediately right of $b$ by $d$. Label the four vertices one column right of $u$ by $p,q,r,s$ from top to bottom, and those one column left of $v$ by $P,Q,R,S$ from top to bottom. Parallel edges in the drawing are distinct.
+    Three internally disjoint paths are
+        \[
+            u p a P v,\qquad u q b d Q v,\qquad u s c S v.
+        \]
+        Deleting $\{a,b,c\}$ separates $u$ from $v$. Thus $\kappa(u,v)=3$.
+        Five edge-disjoint paths are
+        \[
+            u p a P v,\quad u q a Q v,\quad u q b d Q v,
+            \quad u r c R v,\quad u s c S v.
+        \]
+        The two occurrences of $uq$ use its two parallel edges, and the two occurrences of $Qv$ use its two parallel edges. The five edges
+        \[
+            pa,\ qa,\ bd,\ rc,\ sc
+        \]
+        separate $\{u,p,q,r,s,b\}$ from all remaining vertices. Thus $\kappa'(u,v)=5$. Each lower bound comes from disjoint paths; each matching upper bound comes from a cut.\end{solution}
+
+    \subsection*{4.2.2} Prove subdivision preserves $2$-edge-connectivity, and deduce that a graph with a closed-ear decomposition is $2$-edge-connected.
+    \begin{solution}A connected graph is $2$-edge-connected iff every edge lies on a cycle. Subdividing $xy$ into $xw,wy$ preserves connectedness. Replace $xy$ by $xwy$ in any cycle using $xy$; hence each new edge lies on a cycle, and every old edge still does.
+    For the deduction, start with the initial cycle. An open ear can be formed by adding an edge between its old endpoints and subdividing it; the new edge lies on a cycle using an old path. A closed ear can be formed by adding a new vertex with two parallel edges to its old endpoint, then subdividing those edges. These operations preserve connectedness and put every edge on a cycle. Induction over the ears proves the result.\end{solution}
+
+    \subsection*{4.2.3} In the divisibility digraph on $[12]$, determine $\kappa(1,12)$ and $\kappa'(1,12)$.
+    \begin{solution}The arc $1\to12$ exists. Therefore no deletion of vertices other than $1,12$ can destroy reachability from $1$ to $12$: the vertex-cut parameter $\kappa(1,12)$ is undefined under the book's convention for adjacent ordered pairs (or infinite if an extended minimum convention is adopted).
+    There are five edge-disjoint directed paths
+        \[
+            1\to12,\qquad 1\to j\to12\quad(j=2,3,4,6).
+        \]
+        The only arcs entering $12$ from other vertices come from $1,2,3,4,6$. Deleting these five arcs blocks every path, proving $\kappa'(1,12)=5$. Loops, if included in the divisibility relation, affect neither conclusion.\end{solution}
+
+    \subsection*{4.2.4} Must every given $u,v$-path in a $2$-connected graph have an internally disjoint $u,v$-path?
+    \begin{solution}No. Take $G=K_4-uv$, with vertices $u,v,x,y$, and let $P=u x y v$. The cycle $u x v y u$ spans $G$, so $G$ is $2$-connected. An internally disjoint path from $u$ to $v$ would have to avoid both $x$ and $y$, requiring the missing edge $uv$. Menger's theorem guarantees some pair of internally disjoint paths, not a partner for every prescribed path.\end{solution}
+
+    \subsection*{4.2.5} Join $u,v$ in $H(G)$ iff they occur on a common cycle of the simple graph $G$. Characterize when $H(G)$ is complete.
+    \begin{solution}For $n(G)\ge3$, exactly when $G$ is $2$-connected. If $G$ is $2$-connected, two internally disjoint paths between any two vertices form a cycle through them, so $H(G)$ is complete. Conversely, completeness implies that every pair is on a cycle, so $G$ is connected. If $x$ were a cut-vertex, vertices in distinct components of $G-x$ could not lie on a common cycle: deleting $x$ from such a cycle would leave a path joining those components. Thus $G$ has no cut-vertex.
+    For completeness about small orders: $G=K_1$ gives the vacuous exception $H(G)=K_1$; no two-vertex simple graph satisfies the condition.\end{solution}
+
+    \subsection*{4.2.6} Prove that a simple graph is $2$-connected iff it is obtainable from $C_3$ by edge additions and subdivisions.
+    \begin{solution}Edge addition preserves $2$-connectivity. Subdivision also does: if $xy$ becomes $xw,wy$, deleting $w$ leaves $G-xy$, which is connected since no edge of a $2$-connected graph is a bridge. Deleting an old vertex leaves a connected graph, with $w$ either on a subdivided old edge or attached to the surviving endpoint of $xy$.
+    For necessity, take an open-ear decomposition of $G$. Obtain its initial cycle by subdividing edges of $C_3$. To add an ear with old endpoints $x,y$, if $xy$ is absent, add $xy$ and subdivide it to the ear's length. If $xy$ is already present, subdivide that existing edge to form the new ear and then add $xy$ back. In the latter case the ear has length at least two, so all intermediate graphs can remain simple. These operations realize every ear addition.\end{solution}
+
+    \section*{5.1 Vertex Coloring and Upper Bounds}
+
+    \subsection*{5.1.1} Compute the clique, independence, and chromatic numbers of the pictured graph. Check the standard lower bounds and color-criticality.
+    \begin{solution}\begin{center}\begin{tikzpicture}[scale=1,every node/.style={font=\small}]
+                                      \coordinate (a) at (0,2);
+                                      \coordinate (b) at (-1,1.3);
+                                      \coordinate (c) at (1,1.3);
+                                      \coordinate (d) at (-0.65,0);
+                                      \coordinate (e) at (0.65,0);
+                                      \coordinate (f) at (-0.38,0.85);
+                                      \coordinate (g) at (0.38,0.85);
+                                      \draw (a)--(b);
+                                      \draw (a)--(c);
+                                      \draw (a)--(f);
+                                      \draw (a)--(g);
+                                      \draw (b)--(d);
+                                      \draw (b)--(g);
+                                      \draw (c)--(e);
+                                      \draw (c)--(f);
+                                      \draw (d)--(e);
+                                      \draw (e)--(f);
+                                      \draw (d)--(g);
+                                      \fill (a) circle (1.6pt) node[above right] {$ a $};
+                                      \fill (b) circle (1.6pt) node[above right] {$ b $};
+                                      \fill (c) circle (1.6pt) node[above right] {$ c $};
+                                      \fill (d) circle (1.6pt) node[above right] {$ d $};
+                                      \fill (e) circle (1.6pt) node[above right] {$ e $};
+                                      \fill (f) circle (1.6pt) node[above right] {$ f $};
+                                      \fill (g) circle (1.6pt) node[above right] {$ g $};
+        \end{tikzpicture}\end{center}
+        Use the labels above. The triangles are $abg$ and $acf$, so $\omega(G)=3$; neither extends to a $4$-clique. Also $\alpha(G)=2$: $\{b,c\}$ is independent, and for every vertex its nonneighbors induce a clique (check from the displayed edges), ruling out an independent triple. Hence
+        \[
+            \chi(G)\ge\left\lceil\frac{7}{2}\right\rceil=4.
+        \]
+        A proper $4$-coloring in the order $(a,b,c,d,e,f,g)$ is $(1,2,2,1,3,4,3)$. Thus $\chi(G)=4$. The independence bound proves optimality; the clique bound $\chi\ge3$ does not.
+        The graph is color-critical, even under edge deletion. Here are proper $3$-colorings after deleting each edge; each tuple is ordered $(a,b,c,d,e,f,g)$.
+        \begin{center}\begin{tabular}{cc}\toprule Deleted edge & Color tuple\\\midrule
+            $ab$ & $1,1,2,2,1,3,3$\\
+            $ac$ & $1,2,1,1,2,3,3$\\
+            $af$ & $1,2,2,1,3,1,3$\\
+            $ag$ & $1,2,2,3,1,3,1$\\
+            $bd$ & $1,2,2,2,1,3,3$\\
+            $bg$ & $1,2,2,3,1,3,2$\\
+            $ce$ & $1,2,2,1,2,3,3$\\
+            $cf$ & $1,2,2,1,3,2,3$\\
+            $de$ & $1,2,2,1,1,3,3$\\
+            $ef$ & $1,2,2,1,3,3,3$\\
+            $dg$ & $1,2,2,3,1,3,3$\\
+            \bottomrule\end{tabular}\end{center}
+        Every proper subgraph omits an edge or vertex; since the graph has no isolated vertices, it is a subgraph of some $G-e$. Therefore every proper subgraph is $3$-colorable.\end{solution}
+
+    \subsection*{5.1.2} Prove $\chi(G)$ is the maximum chromatic number of its components.
+    \begin{solution}Every coloring of $G$ restricts to a coloring of every component, giving the lower bound. For the upper bound, color each component using the same palette of $r=\max_C\chi(C)$ colors. There are no edges between components, so their colorings combine to a proper $r$-coloring.\end{solution}
+
+    \subsection*{5.1.3} Prove $\chi(G)=\max_i\chi(B_i)$ for the blocks $B_i$ of $G$.
+    \begin{solution}Each block is a subgraph, giving $\chi(G)\ge\max_i\chi(B_i)$. Within a connected component, inductively attach end-blocks, using $r=\max_i\chi(B_i)$ colors in every block. An attached block meets the previously colored graph in one cut-vertex; permute its color names so the two colorings agree there. No other compatibility is needed. This colors each component with $r$ colors, and the same palette works across components.\end{solution}
+
+    \subsection*{5.1.4} Exhibit $G,v$ with $\chi(G-v)<\chi(G)$ and $\chi(\overline G-v)<\chi(\overline G)$.
+    \begin{solution}Take $G=C_5$ and any vertex $v$. Both $G$ and $\overline G\cong C_5$ have chromatic number $3$. Deleting a vertex from either yields $P_4$, of chromatic number $2$.\end{solution}
+
+    \subsection*{5.1.5} Prove $\chi(G+H)=\max\{\chi(G),\chi(H)\}$ and $\chi(G\vee H)=\chi(G)+\chi(H)$.
+    \begin{solution}For disjoint union, the component argument allows the same palette on both graphs, while restriction gives the lower bound. In a join, every vertex of $G$ is adjacent to every vertex of $H$, so the two graphs must use disjoint palettes. They need at least $\chi(G)+\chi(H)$ colors, and optimal colorings with disjoint palettes attain that number.\end{solution}
+
+    \subsection*{5.1.6} If $\chi(G)=\omega(G)+1$, put $H_1=G$ and $H_k=H_{k-1}\vee G$. Prove $\chi(H_k)=\omega(H_k)+k$.
+    \begin{solution}The join of $k$ copies of $G$ has $\chi(H_k)=k\chi(G)$ by Exercise 5.1.5. A clique in a join consists of a clique from each factor, so $\omega(H_k)=k\omega(G)$. Therefore $\chi(H_k)=k(\omega(G)+1)=\omega(H_k)+k$.\end{solution}
+
+    \subsection*{5.1.7} Give a graph, neither a clique nor an odd cycle, and an order for which greedy coloring uses $\Delta(G)+1$ colors.
+    \begin{solution}Take the path $v_1v_2v_3v_4$, and order its vertices as $v_1,v_4,v_2,v_3$. First-fit greedy coloring gives colors $1,1,2,3$ in that order. Thus it uses $3=\Delta(P_4)+1$ colors, although the path is $2$-colorable.\end{solution}
+
+    \subsection*{5.1.8} Prove $\max_{H\subseteq G}\delta(H)\le\Delta(G)$, and characterize equality.
+    \begin{solution}For every nonempty subgraph $H$, $\delta(H)\le\Delta(H)\le\Delta(G)$, proving the inequality and showing that the degeneracy bound on $\chi(G)$ is at least as strong as the maximum-degree bound.
+    Let $D=\Delta(G)$. If some $H$ has $\delta(H)=D$, then every vertex of $H$ has degree exactly $D$ in both $H$ and $G$. Thus no edge incident to a vertex of $H$ is omitted, and no such vertex has a neighbor outside $H$. Therefore $H$ is a union of $D$-regular components of $G$. Conversely, a $D$-regular component has minimum degree $D$. Equality holds exactly when $G$ has a $\Delta(G)$-regular component.\end{solution}
+
+    \subsection*{5.1.9} Draw and optimally color $K_{1,3}\cart P_3$; give a $3$-coloring of $C_5\cart C_5$ with class sizes $9,8,8$.
+    \begin{solution}Let $x$ be the star center, its leaves $a,b,c$, and $j=0,1,2$ the path coordinate. Draw three copies of the star and join corresponding vertices of successive copies:
+        \begin{center}\begin{tikzpicture}[scale=1.1]
+                          \foreach \j in {0,1,2}{
+                              \coordinate (x\j) at (2*\j,0);
+                              \coordinate (a\j) at (2*\j,1);
+                              \coordinate (b\j) at (2*\j,-1);
+                              \coordinate (c\j) at (2*\j-.65,-.55);
+                              \foreach \v in {a,b,c}{\draw (x\j)--(\v\j);}
+                              \foreach \v in {x,a,b,c}{\fill (\v\j) circle (1.5pt) node[above right] {$\v_{\j}$};}
+                          }
+                          \foreach \v in {x,a,b,c}{\draw (\v0)--(\v1)--(\v2);}
+            \end{tikzpicture}\end{center}
+        Set $s(x)=0$ and $s(a)=s(b)=s(c)=1$. The coloring $s(v)+j\pmod2$ is proper: every edge changes exactly one parity. Since the graph has edges, $\chi=2$.
+        For $C_5\cart C_5$, use the grid below with both row and column indices taken cyclically. Join consecutive entries in each row and column, including the wraparound pairs; this is the toroidal drawing of the product.
+        \[
+            \begin{array}{c|ccccc}
+                &0&1&2&3&4\\\hline
+                0&1&2&0&1&2\\
+                1&2&0&1&2&0\\
+                2&0&1&2&0&1\\
+                3&1&2&0&1&2\\
+                4&2&0&1&2&0
+            \end{array}
+        \]
+        Consecutive entries, including wraparound entries, differ in every row and column. Color $2$ occurs nine times; colors $0,1$ occur eight times each. A row is a $5$-cycle, so three colors are also optimal.\end{solution}
+
+    \subsection*{5.1.10} Prove $G\cart H$ decomposes into $n(G)$ copies of $H$ and $n(H)$ copies of $G$.
+    \begin{solution}For each $g\in V(G)$, the vertices $(g,h)$ induce a copy of $H$ using exactly the edges whose first coordinates agree. For each $h\in V(H)$, the vertices $(g,h)$ induce a copy of $G$ using exactly the edges whose second coordinates agree. Every product edge has exactly one of these two types, so the copies partition the edge set. Copies of different types may share vertices; a decomposition requires disjoint edge sets.\end{solution}
+
+    \subsection*{5.1.11} Prove each of the two pictured graphs is isomorphic to $C_3\cart C_3$.
+    \begin{solution}Use coordinates $(i,j)\in\{1,2,3\}^2$. In the left drawing, label the six outer vertices clockwise starting at the top by
+        \[
+            (1,1),(2,1),(2,3),(3,3),(3,2),(1,2),
+        \]
+        and label the inner vertices (top, lower-left, lower-right) by
+        \[
+            (2,2),(1,3),(3,1).
+        \]
+        In the right drawing, label the nine perimeter vertices clockwise starting at the top by
+        \[
+            \begin{gathered}
+                (1,1),(1,2),(1,3),(2,3),(2,1),\\
+            (2,2),(3,2),(3,3),(3,1).
+            \end{gathered}
+        \]
+        In each drawing, inspection of its edges gives the six triangles obtained by fixing either coordinate. Every vertex has degree four, with its neighbors precisely the other two vertices in its row and the other two in its column. Thus two vertices are adjacent exactly when their coordinate pairs agree in one coordinate and differ in the other, which is the adjacency rule for $C_3\cart C_3$. These bijections are the required isomorphisms.\end{solution}
+
+    \subsection*{5.1.12} Must a $k$-chromatic graph have a proper $k$-coloring with a color class of size $\alpha(G)$?
+    \begin{solution}No. Join the centers $u,v$ of two disjoint copies of $K_{1,2}$. This six-vertex tree has two leaves at each center. Its four leaves form a maximum independent set: choosing either center excludes its two leaves and the other center, leaving an independent set of size at most three. Thus $\alpha(G)=4$.
+    The graph is connected and bipartite, so its bipartition is unique up to swapping. Each part consists of one center and the two leaves at the other center, and has size three. Every proper $2$-coloring therefore has classes of size $3,3$, never four.\end{solution}
+
+    \subsection*{5.1.13} If $G=F\cup H$, must $\chi(G)\le\chi(F)+\chi(H)$?
+    \begin{solution}No. On the same six vertices split into two triples, take $F=K_{3,3}$ and let $H$ consist of the two triangles within the triples. Then $F\cup H=K_6$, but $\chi(F)=2$, $\chi(H)=3$, and $\chi(K_6)=6>5$.\end{solution}
+
+    \subsection*{5.1.14} Prove or refute $\chi(G)\le n(G)-\alpha(G)+1$.
+    \begin{solution}True. Give one color to a maximum independent set, and give a distinct new color to each remaining vertex. This uses $1+n(G)-\alpha(G)$ colors and is proper.\end{solution}
+
+    \subsection*{5.1.15} For connected $G$, must $\chi(G)\le1+a(G)$, where $a(G)$ is the average degree?
+    \begin{solution}No. Start with $K_4$ and attach a path of three new vertices to one clique vertex, using three new edges. The resulting graph has $n=7$, $e=9$, average degree $a=18/7$, and chromatic number $4$ (the clique requires four colors, which extend along the path). But $1+a=25/7<4$.\end{solution}
+
+    \subsection*{5.1.16} Use Theorem 5.1.21 to prove every tournament has a spanning directed path.
+    \begin{solution}An $n$-vertex tournament is an orientation of $K_n$, and $\chi(K_n)=n$. The Gallai--Roy theorem gives a directed path of length at least $\chi(K_n)-1=n-1$. A path has distinct vertices, so this path contains all $n$ vertices. The one-vertex case is immediate.\end{solution}
+
+    \subsection*{5.1.17} Use Lemma 5.1.18 to prove $\chi(G)\le4$ for the pictured six-vertex graph.
+    \begin{solution}Label the outer pentagon $a,b,c,d,e$ clockwise from the top and its central vertex $f$. The edges are the pentagon edges and $fb,fc,fd,fe$. The degrees are $2,3,3,3,3,4$, respectively. If $\chi(G)\ge5$, then $G$ contains a $5$-critical subgraph, whose minimum degree is at least four by the lemma. But only $f$ can even have degree four in a subgraph of $G$, so no such subgraph exists. Hence $\chi(G)\le4$.
+    In fact $\chi(G)=3$: the color classes $\{a,f\}$, $\{b,d\}$, $\{c,e\}$ are independent, and $b,c,f$ form a triangle.\end{solution}
+
+    \subsection*{5.1.18} How many colors are needed on $V(K_n)$ if every color class must induce maximum degree at most $k$?
+    \begin{solution}For $k\ge0$, the answer is $\lceil n/(k+1)\rceil$. A color class of size $s$ induces $K_s$, whose maximum degree is $s-1$. Thus each class has at most $k+1$ vertices, forcing the lower bound. Partitioning the vertices into groups of size at most $k+1$ attains it. This is a relaxed coloring, not necessarily a proper coloring when $k>0$.\end{solution}
+
+    \subsection*{5.1.19} Find the error in the proposed inductive proof of Brooks\textquotesingle\ theorem that colors pieces separated by $S$ and permutes colors to agree on $S$.
+    \begin{solution}The claimed compatibility on $S$ is unjustified. A permutation of color names preserves which vertices have equal colors. If nonadjacent vertices $x,y\in S$ have the same color in one piece and different colors in another, no permutation makes both restrictions agree. An arbitrary separating set need not be a clique, so its coloring need not have a unique equality pattern. The separate colorings therefore cannot simply be glued as asserted.\end{solution}
+
+    \subsection*{5.1.49} $2$-color the Petersen graph so each color class induces only isolated edges and vertices.
+    \begin{solution}Use the standard representation with outer vertices $u_i$, inner vertices $v_i$ ($i\in\mathbb Z_5$), outer edges $u_iu_{i+1}$, inner edges $v_iv_{i+2}$, and spokes $u_iv_i$. Assign the colors in the following table:
+        \begin{center}\begin{tabular}{c|ccccc}
+                          $i$&0&1&2&3&4\\\hline
+                          $u_i$&R&R&B&R&B\\
+                          $v_i$&B&B&R&R&R\\
+            \end{tabular}\end{center}
+        The only monochromatic edges are $u_0u_1,\ v_2v_4,\ u_3v_3$. They have pairwise disjoint endpoints. Thus both induced color-class subgraphs have maximum degree at most one, so each consists of isolated edges and isolated vertices.\end{solution}
+
+\end{document}
