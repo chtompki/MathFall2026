@@ -1,0 +1,229 @@
+%! Author = chtompki
+%! Date = 1/14/26
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{amsart}
+% Default margins are too wide all the way around. I reset them here
+\setlength{\hoffset}{-.75in}
+\setlength{\textwidth}{6.5in}
+\setlength{\voffset}{-.5in}
+\setlength{\textheight}{9.0in}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{pgfplots}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usetikzlibrary{shadows,arrows,arrows.meta,shapes,positioning,calc}% Required for the Circle and Triangle arrow tips
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{enumitem}
+
+\theoremstyle{conjecture}
+\newtheorem{conjecture}{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{question}
+\newtheorem{question}{Question}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+
+\newenvironment{solution}
+{\begin{proof}[Solution]}
+{\end{proof}}
+
+\title{Graph Theory:\\Homework 9\\ Book Section 4.2 Part II and 5.1.}
+\author{Rob Tompkins}
+\date{\today}
+
+
+\begin{document}
+
+    \maketitle
+
+    \noindent\textbf{1.} Prove the part of the hypercube $Q_k$ is $k$-connected by constructing
+    $k$ pairwise internally disjoint $x,y$-paths for each vertex pair $x,y\in V(Q_k)$.
+    (Hint: Use induction to show that for all $k$, for all $x,y\in V(Q_k)$ there are $k$
+    internally disjoint $x,y$-paths.
+    Why does this suffice?)
+
+    \begin{proof}
+        We prove by induction on $k\geq 1$ that every two distinct vertices of
+        $Q_k$ are joined by $k$ pairwise internally disjoint paths.  The case
+        $k=1$ holds because $Q_1=K_2$.
+
+        Suppose $k\geq2$ and the assertion holds for $Q_{k-1}$.  View the
+        vertices as binary $k$-tuples, with adjacency given by changing one
+        coordinate.  Let $x\ne y$.
+
+        \emph{Case 1: $x$ and $y$ agree in some coordinate $j$.}
+        The vertices having their common value in coordinate $j$ induce a copy
+        $H$ of $Q_{k-1}$.  By induction, $H$ contains $k-1$ pairwise internally
+        disjoint $x,y$-paths.  The vertices having the other value in coordinate
+        $j$ induce another copy $H'$ of $Q_{k-1}$.  Let $x'$ and $y'$ be obtained
+        from $x$ and $y$ by changing coordinate $j$.  Since $H'$ is connected,
+        choose an $x',y'$-path $R$ in $H'$.  The path formed by $xx'$, $R$, and
+        $y'y$ has all its internal vertices in $H'$.  It is therefore internally
+        disjoint from the $k-1$ paths in $H$, giving the required $k$ paths.
+
+        \emph{Case 2: $x$ and $y$ differ in every coordinate.}
+        For $j\in\{1,\ldots,k\}$, form a path $P_j$ by starting at $x$ and
+        changing coordinates in the cyclic order
+        \[
+            j,j+1,\ldots,k,1,\ldots,j-1.
+        \]
+        Each coordinate is changed exactly once, so $P_j$ is a path ending at
+        $y$.  At an internal vertex after $t$ steps, where $1\leq t\leq k-1$,
+        the coordinates that differ from $x$ are precisely the cyclic interval
+        of length $t$ beginning at $j$.  This is a nonempty proper cyclic
+        interval, and its starting coordinate is uniquely determined: it is
+        the coordinate in the interval whose cyclic predecessor is outside the
+        interval.  Thus an internal vertex determines both $t$ and $j$, and
+        cannot lie on two different paths $P_j$.  These $k$ paths are pairwise
+        internally disjoint.
+
+        This completes the induction.  Theorem~4.2.21 (the global form of
+        Menger's Theorem) now implies that $Q_k$ is $k$-connected.  Explicitly,
+        if fewer than $k$ vertices are deleted and $x,y$ survive, each deleted
+        vertex belongs internally to at most one of our $k$ paths, so at least
+        one $x,y$-path survives.  Also $|V(Q_k)|=2^k\geq k+1$, as required
+        for $k$-connectivity.
+    \end{proof}
+
+    \noindent\textbf{2.} Let $G$ be a $k$-connected graph, and let $S,T$ be disjoint subsets
+    of $V(G)$ with $|S|\ge k$ and $|T|\ge k$.
+    Prove that $G$ has a $k$ pairwise disjoint $S,T$-paths.
+    (Hint: Consider adding new vertices and try to use Menger's Theorem.)
+
+    \begin{proof}
+        Assume $k\geq1$; for $k=0$ the assertion is vacuous.
+        Construct $H$ from $G$ by adding distinct new vertices $a$ and $b$,
+        joining $a$ to every vertex of $S$ and $b$ to every vertex of $T$.
+        Do not add an edge $ab$.
+
+        We claim that no set of fewer than $k$ vertices separates $a$ from $b$
+        in $H$.  Indeed, let $U\subseteq V(H)\setminus\{a,b\}$ with $|U|<k$.
+        Since $|S|,|T|\geq k$, choose $s\in S\setminus U$ and
+        $t\in T\setminus U$.  Since $G$ is $k$-connected, $G-U$ is connected,
+        so it contains an $s,t$-path.  Together with $as$ and $tb$, this gives
+        an $a,b$-path in $H-U$, proving the claim.
+
+        By Menger's Theorem~4.2.17, since $a,b$ are nonadjacent, $H$ has $k$
+        pairwise internally disjoint $a,b$-paths.  Delete $a$ and $b$ from each
+        path.  The resulting paths lie in $G$, start in $S$, and end in $T$.
+        They are pairwise vertex-disjoint, including their endpoints, because
+        all of their vertices were internal vertices of the original paths.
+
+        If an $S,T$-path is required to have no internal vertices in
+        $S\cup T$, shorten each resulting path as follows.  Orient it from its
+        $S$-endpoint to its $T$-endpoint; take the first vertex of $T$ on it
+        and the last vertex of $S$ preceding that vertex.  The subpath between
+        these vertices has no internal vertex in $S\cup T$.  Taking subpaths
+        preserves pairwise vertex-disjointness, so these are the required $k$
+        disjoint $S,T$-paths.
+    \end{proof}
+
+    \noindent\textbf{3.} Let $G$ be a graph whose odd cycles are pairwise intersecting,
+    meaning that every two odd cycles in $G$ have a common vertex.
+    Prove $\chi(G)\le 5$.
+    (Hint: Try the contrapositive.
+    If $\chi(G)\ge 6$, consider an optimal coloring and the subgraphs induced by groups of
+    its groups of color classes.
+    Recall that a graph with no odd cycle is bipartite.)
+
+    \begin{proof}
+        We prove the contrapositive.  Suppose $r=\chi(G)\geq6$ and choose an
+        optimal proper coloring with color classes $C_1,\ldots,C_r$
+        (Definition~5.1.4).  Let
+        \[
+            A=C_1\cup C_2\cup C_3,
+            \qquad B=C_4\cup C_5\cup C_6.
+        \]
+        The induced graph $G[A]$ is not bipartite: if it were, we could replace
+        the three colors used on $A$ by two colors, keeping colors
+        $4,\ldots,r$ on the other vertices.  This would be a proper
+        $(r-1)$-coloring of $G$, contrary to the definition of $r$.
+        The same argument shows that $G[B]$ is not bipartite: replace its
+        three colors by two while retaining all other colors.
+
+        A graph is bipartite if and only if it contains no odd cycle, the
+        characterization used in Examples~5.1.3 and~5.1.5.  Hence $G[A]$ and
+        $G[B]$ each contain an odd cycle.  Since $A\cap B=\varnothing$, these
+        two odd cycles have no common vertex.  Thus $\chi(G)\geq6$ implies
+        the existence of two vertex-disjoint odd cycles.  Taking the
+        contrapositive proves $\chi(G)\leq5$ under the stated hypothesis.
+    \end{proof}
+
+    \noindent\textbf{4.} Prove that a graph $G$ is $m$-colorable if and only if
+    $\alpha(G\square K_m) \ge n(G)$.
+
+    \begin{proof}
+        Let $m\geq1$ and identify $V(K_m)$ with $[m]=\{1,\ldots,m\}$.
+        By Definition~5.1.9, the vertices of $G\square K_m$ are pairs $(v,i)$,
+        and two distinct pairs $(u,i),(v,j)$ are adjacent exactly when
+        \[
+            u=v\text{ and }i\ne j,
+            \qquad\text{or}\qquad
+            uv\in E(G)\text{ and }i=j.
+        \]
+
+        Suppose first that $c:V(G)\to[m]$ is a proper coloring.  Set
+        \[
+            I=\{(v,c(v)):v\in V(G)\}.
+        \]
+        This set contains exactly one pair for each $v$, so $|I|=n(G)$.
+        Two distinct elements of $I$ have different first coordinates.
+        If their first coordinates are adjacent in $G$, their second
+        coordinates differ because $c$ is proper.  Thus neither adjacency
+        condition in the product holds, and $I$ is independent.  Consequently
+        $\alpha(G\square K_m)\geq n(G)$.
+
+        Conversely, suppose $G\square K_m$ has an independent set $I$ of
+        size at least $n(G)$.  For each $v\in V(G)$, the fiber
+        \[
+            F_v=\{(v,i):i\in[m]\}
+        \]
+        induces a clique $K_m$.  Therefore $I$ contains at most one vertex
+        from each $F_v$.  There are $n(G)$ such fibers, so $|I|=n(G)$ and
+        $I$ contains exactly one vertex $(v,c(v))$ from every fiber.
+        This defines a map $c:V(G)\to[m]$.  If $uv\in E(G)$ and
+        $c(u)=c(v)=i$, then $(u,i)$ and $(v,i)$ would be adjacent vertices
+        of $I$, a contradiction.  Thus $c$ is a proper $m$-coloring of $G$.
+        This is the correspondence between color classes and independent
+        sets described in Remark~5.1.2.
+    \end{proof}
+
+    \noindent\textbf{5.} Prove that every graph $G$ has a vertex ordering relative to which
+    greedy coloring uses $\chi(G)$ colors.
+
+    \begin{proof}
+        Let $r=\chi(G)$ and choose an optimal proper coloring
+        $f:V(G)\to\{1,\ldots,r\}$.  Order all vertices of color $1$ first,
+        then those of color $2$, and so on through color $r$, with any order
+        within each color class.  Apply the greedy coloring of
+        Algorithm~5.1.12 to this ordering, and call the resulting coloring $g$.
+
+        We prove by induction along the ordering that $g(v)\leq f(v)$ for
+        every vertex $v$.  Suppose this has been established for all vertices
+        preceding $v$, and put $i=f(v)$.  Any earlier neighbor $u$ of $v$
+        satisfies $f(u)\leq i$ by the ordering.  In fact $f(u)<i$, since
+        vertices of the same color class are nonadjacent
+        (Remark~5.1.2).  By induction,
+        \[
+            g(u)\leq f(u)\leq i-1.
+        \]
+        Thus color $i$ is absent from all earlier neighbors of $v$.  Since
+        greedy coloring chooses the least available positive integer,
+        $g(v)\leq i=f(v)$.  This argument also establishes the base case,
+        where there are no earlier neighbors.
+
+        Therefore greedy coloring uses at most $r$ colors.  Its output is a
+        proper coloring, so it cannot use fewer than $\chi(G)=r$ colors.
+        It consequently uses exactly $\chi(G)$ colors.  For the empty graph,
+        the empty ordering has the same property, with zero colors.
+    \end{proof}
+
+
+\end{document}
