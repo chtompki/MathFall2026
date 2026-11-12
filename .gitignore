@@ -1,6 +1,9 @@
 .idea
 temp
 out
+.intellij-venv
+*.venv
+
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
