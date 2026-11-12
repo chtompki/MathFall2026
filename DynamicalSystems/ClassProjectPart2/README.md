@@ -29,7 +29,20 @@ or run `./build.sh` as it contains this series of commands.
 
 The scripts write CSV tables to `data/` and Matplotlib previews to `plots/`.
 With only NumPy installed, pass `--data-only` to regenerate the CSV tables.
-The report draws the figures directly from those tables with TikZ/PGFPlots;
+The report draws the Python-based figures directly from those tables with TikZ/PGFPlots;
 it does not embed the Matplotlib previews or require Python during compilation.
 The CSV files are included so the report can be compiled immediately with a
 TeX distribution that provides PGFPlots 1.18.
+
+### MATLAB figures
+
+Run the following from the MATLAB Command Window with the project directory as the current folder:
+
+~~~matlab
+circle_map_dimension
+~~~
+
+The script saves three 300 dpi PNG files in the project's own plots folder:
+matlab_circle_map.png, matlab_staircase.png, and matlab_dimension_fit.png.
+Recompile classProjectPart2.tex twice to include them in the appendix.
+The paper also compiles before any MATLAB PNGs have been generated.

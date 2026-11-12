@@ -36,7 +36,7 @@ function build_latex() {
 function clean() {
     echo ""
     echo "INFO: deleting extra LaTeX output (.aux, .log, .out) and .venv if present"
-    rm -f classProjectPart2.aux classProjectPart2.log classProjectPart2.out
+    rm -f classProjectPart2.aux classProjectPart2.log classProjectPart2.out texput.log
     rm -rf .venv
 }
 
