@@ -46,16 +46,17 @@ r  = linspace(2e-3, 0.1, 101);
 sr = arrayfun(@(rk) sum(widths(widths >= rk)), r); % iterating over r(max width) values
 Nr = (1 - sr) ./ r; % amount of empty space
 
-x = log(r);
+x = log(1./r);
 y = log(Nr);
 p = polyfit(x, y, 1);
 fprintf('slope = %.3f', p(1));
 
 figure;
-plot(x, y, 'b.');
+plot(x, y, 'b.','DisplayName', '$N(r)$ from plateau widths');
 hold on
-plot(x, polyval(p, x), 'r-', 'LineWidth', 2);
+plot(x, polyval(p, x), 'r-', 'LineWidth', 2, 'DisplayName', sprintf('$y$ = %.4f $x$ + %.4f', p(1), p(2)));
 grid on;
-xlabel('log r');
+xlabel('log 1/r');
 ylabel('log N(r)');
+legend('show', 'Location', 'best', 'Interpreter', 'latex');
 exportgraphics(gcf, fullfile(plotDir, 'matlab_dimension_fit.png'), 'Resolution', 300);
