@@ -50,6 +50,40 @@
     What is the smallest possible length of a face?)
 
     \begin{proof}
+        If $G$ is disconnected, draw its components separately and join them
+        by bridges to obtain a connected simple plane graph $H$ on the same
+        $n$ vertices. If $G$ is connected, take $H$ to be a plane drawing of
+        $G$. The added bridges create no cycles, so $H$ still has girth $k$.
+
+        Every face of $H$ has boundary length at least $k$, counting edge
+        occurrences with multiplicity. To see this, contract all bridges.
+        Contracting a bridge preserves the faces and the cycles, and removes
+        two occurrences of that bridge from its incident face boundary.
+        The resulting connected plane graph has a cycle because the girth
+        is finite. Each face therefore has a nonempty boundary walk, and
+        each edge on that walk occurs only once because every edge is
+        incident with two distinct faces. Every nonempty closed trail
+        contains a cycle, whose length is at least $k$.
+
+        Write $e=e(H)$ and let $f$ be the number of its faces. Counting the
+        two sides of every edge gives $kf\le 2e$. Euler's formula yields
+        \[
+            2=n-e+f\le n-e+\frac{2e}{k},
+            \qquad
+            e(G)\le e\le (n-2)\frac{k}{k-2}.
+        \]
+
+        Represent the Petersen graph by the two-element subsets of
+        $\{1,2,3,4,5\}$, with adjacency defined by disjointness. There are
+        ten vertices, each of degree three, so there are fifteen edges.
+        Three pairwise disjoint two-element sets would require six
+        elements, so there is no triangle. Two distinct vertices have
+        at most one common neighbor, since the complement of their union
+        has at most two elements. A $4$-cycle would give its opposite
+        vertices two common neighbors. The sequence
+        $12,34,15,23,45,12$, where $ij$ denotes $\{i,j\}$, is a $5$-cycle.
+        Hence the girth is five. If the Petersen graph were planar, the
+        bound just proved would give $15\le 8\cdot 5/3=40/3$, a contradiction.
     \end{proof}
 
     \noindent\textbf{2.} Prove that the complement of a simple planar graph with at least
@@ -57,6 +91,18 @@
     (Hint: If $G$ and $\overline{G}$ are both planar, apply Theorem 6.1.23 to each of them.)
 
     \begin{proof}
+        Suppose both $G$ and $\overline G$ are planar. Each pair of
+        vertices contributes exactly one edge to the two graphs together.
+        Applying Theorem~6.1.23 to each graph gives
+        \[
+            \binom n2=e(G)+e(\overline G)\le 6n-12.
+        \]
+        But for $n\ge 11$ we have
+        \[
+            \binom n2-(6n-12)
+            =\frac{(n-11)(n-2)+2}{2}>0.
+        \]
+        This contradiction shows that $\overline G$ is nonplanar.
     \end{proof}
 
     \noindent\textbf{3.} Let $S$ be a set of $n$ points in the plane such that for all $x,y\in S$,
@@ -67,6 +113,30 @@
     Show that no two of the segments cross, then use Theorem 6.1.23.)
 
     \begin{proof}
+        Assume $n\ge 3$, as required by Theorem~6.1.23, and interpret the
+        distance condition for distinct points. For $n=1$ the asserted
+        bound is negative, and for $n=2$ a unit-distance pair exceeds
+        the bound of zero.
+
+        Draw a graph on $S$ by joining each unit-distance pair by its
+        straight segment. No vertex can lie in the interior of an edge,
+        since it would be less than one unit from an endpoint.
+        Suppose edges $ab$ and $cd$ with distinct endpoints meet at an
+        interior point $p$. Choose the labels so that $a$ and $c$ are
+        the endpoints closest to $p$ on their respective edges. Then
+        $|a-p|\le 1/2$ and $|c-p|\le 1/2$. If the segments lie on
+        different lines, the strict triangle inequality gives
+        \[
+            |a-c|<|a-p|+|p-c|\le 1,
+        \]
+        a contradiction. If the segments are collinear and overlap,
+        one has an endpoint in the interior of the other, which was
+        already ruled out. Distinct edges with a common endpoint can
+        meet only there, since any further intersection would force
+        the two unit segments to coincide.
+
+        Thus, the drawing is planar. Theorem~6.1.23 bounds its number
+        of edges, and hence the number of unit-distance pairs, by $3n-6$.
     \end{proof}
 
     \noindent\textbf{4.} Choose a presentation topic.
