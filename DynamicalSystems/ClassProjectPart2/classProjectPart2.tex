@@ -44,67 +44,102 @@ meanings of mathematical size.
 
 \end{abstract}
 
-\section{Random iteration: the circle attractor}
+\section{The Chaos Game - Random iteration: the Sierpi\'nski triangle}
 
-We've used both python and matlab to reproduce Example~1 of Barnsley and Vince
-\cite{barnsley-vince}, we take the state space to be the unit circle
-and at each step independently choose either the identity or a rotation, each with probability $1/2$.
-We use the irrational rotation angle $2\pi(\sqrt{5}-1)/2$ and start at $(1,0)$.
-Both maps preserve distances, so this example tests the chaos game beyond the familiar contracting maps that
-generate the Sierpi\'nski triangle.
+\subsection{The algorithm and Barnsley--Vince convergence theorem}
 
-Write the circle as $\mathbb T=\mathbb R/\mathbb Z$ and let $\alpha=(\sqrt5-1)/2$.
-From phase $t_0$, the set of all $n$-step images is $\{t_0+j\alpha:0\le j\le n\}$ modulo one.
-The forward orbit of an irrational rotation is dense, and compactness implies that some finite prefix is an
-$\varepsilon$-net for each $\varepsilon>0$.
-For any nonempty compact initial set $B$ on the circle, the $n$-step images of $B$ contain the images of a
-single point of $B$ and lie on the circle, so their Hausdorff limit is the circle as well.
-
-In the random experiment let $S_n$ count rotations among the first $n$ choices.
-The phase at step $n$ is $t_0+\alpha S_n$ modulo one, and the strong law gives $S_n/n\to1/2$ almost surely.
-Because the count increases by zero or one, every tail visits all rotation counts from its starting count onward.
-Thus every tail is dense almost surely, even though two starting phases driven by the same choices stay the
-same distance apart.
-Attraction describes the coverage by sets of images here; individual trajectories need not approach one another.
-
-For a finite set of sampled points, let $g_N$ denote the largest gap between successive distinct phases, measured
-in turns and including the wraparound gap.
-The point farthest from the sample is at the midpoint of that gap, so the Euclidean Hausdorff distance to the circle is
+Let $(X,d)$ be a proper metric space (every closed bounded set is compact), and let
+$f_1,\ldots,f_m:X\to X$ be continuous.
+A word $w=(i_1,\ldots,i_k)$ lists the maps in the order applied, so
 \[
-d_H = 2\sin(\pi g_N/2).
+  f_w=f_{i_k}\circ\cdots\circ f_{i_1},\qquad
+  \mathcal F^k(B)=\bigcup_{w\in\{1,\ldots,m\}^k} f_w(B),
+  \qquad f_w(B)=\{f_w(x):x\in B\}.
 \]
-The midpoint of the largest gap is at angular distance $\pi g_N$ from its nearest sample, and the
-corresponding chord has length $2\sin(\pi g_N/2)$.
-The reverse directed distance is zero because every sample point lies on the circle.
-If there are $M$ distinct phases, the gaps sum to one, so $g_N\ge1/M$.
-Thus $2\sin(\pi/(2M))$ is the best possible coverage error for $M$ samples, attained by equal spacing.
+Thus $\mathcal F^k(B)$ is the set of all endpoints reached from $B$ in $k$ steps.
+For nonempty sets $B,C$, define the point-to-set distance, directed excess, and Hausdorff distance:
+\[
+  d(x,C)=\inf_{y\in C}d(x,y),\qquad e(B,C)=\sup_{x\in B}d(x,C),\qquad
+  d_H(B,C)=\max\{e(B,C),e(C,B)\}.
+\]
+Assume $A$ is a nonempty compact attractor: $\mathcal F(A)=A$ and there is an open neighborhood $U$ of $A$
+such that $d_H(\mathcal F^k(B),A)\to0$ for every nonempty compact $B\subseteq U$.
 
-The experiment uses a fixed random seed and measures cumulative coverage at powers of two.
-The error drops from $1.129$ after $8$ iterates to $0.00230$ after $4096$.
-Figure~\ref{fig:circle} reproduces the qualitative finding that a single random orbit draws the circle and adds a
-numerical measure of how well the sample covers it.
-The finite prefix calculation illustrates coverage; the almost sure statement about infinite tails comes from
-the argument above and the theorem, rather than the plot.
+\paragraph{Chaos game \cite[Chapter~III, Section~8]{barnsley-book}.}
+Fix $x_0\in U$.
+At step $n\ge1$, choose a random index $I_n$ from the index set $\{1,\ldots,m\}$ and set $x_n=f_{I_n}(x_{n-1})$.
+Given the previous choices $I_1,\ldots,I_{n-1}$, each index has conditional probability at least a fixed $p>0$
+almost surely (with probability one).
+To draw the attractor, discard an initial segment and plot the subsequent iterates.
+
+\paragraph{Theorem (Barnsley and Vince \cite[Theorem~1]{barnsley-vince}).}
+With probability one, $d_H(T_N,A)\to0$ as $N\to\infty$, where
+\[
+  T_N=\overline{\{x_n:n\ge N\}}.
+\]
+Here $\overline S=\{x:d(x,S)=0\}$ (metric closure).
+
+\paragraph{Proof.}
+Since $x_n\in\mathcal F^n(\{x_0\})$ and $d(\cdot,A)$ is continuous,
+\[
+  e(T_N,A)\le\sup_{n\ge N}d_H(\mathcal F^n(\{x_0\}),A)\longrightarrow0.
+\]
+Compactness of $A$ and openness of $U$ allow us to choose $\delta>0$ so that the closed neighborhood
+$C=\{x:d(x,A)\le\delta\}$ lies in $U$.
+Properness makes $C$ compact, and the preceding bound puts every sufficiently late iterate in $C$.
+
+Fix an open ball $V$ centered in $A$.
+For each $x\in C$, attraction of $\{x\}$ gives a finite word $w$ with $f_w(x)\in V$.
+By continuity the same word works on a neighborhood of $x$.
+A finite subcover of $C$ gives a common upper bound $L\ge1$ on the lengths of the selected words.
+At the start of any late block of $L$ steps, one of these words reaches $V$ from the current state.
+Multiplying the conditional probability bounds along the word gives a chance of at least $p^L$ of hitting $V$.
+Conditioning at successive block boundaries bounds the probability of missing $V$ for $k$ blocks by
+$(1-p^L)^k$, which tends to zero.
+This argument does not require independent choices.
+
+For each positive integer $r$, cover $A$ by finitely many balls of radius $1/(2r)$ centered in $A$.
+There are countably many balls and tail indices to check, so with probability one every late tail hits
+every ball in these covers.
+Each $a\in A$ is then within $1/r$ of some point in each late tail, for every $r$, by the triangle inequality.
+Thus $A\subseteq T_N$ for every sufficiently large $N$ and $e(A,T_N)=0$.
+Together with the first bound, this proves the theorem.
+
+\paragraph{Sierpi\'nski triangle example \cite[Chapter~III, Section~8]{barnsley-book}.}
+Let $v_1=(0,0)$, $v_2=(1,0)$, and $v_3=(1/2,\sqrt3/2)$ be the vertices of an equilateral triangle $T$.
+Choose a vertex uniformly and independently at each step and move halfway toward it:
+\[
+  x_{n+1}=f_{i_n}(x_n),\qquad f_i(x)=\tfrac12(x+v_i).
+\]
+Each map shrinks distances by $1/2$.
+The set update $\mathcal F(T)$ keeps the three corner triangles, and $\mathcal F^k(T)$ consists of
+$3^k$ triangles of side $2^{-k}$.
+Their nested intersection is the Sierpi\'nski triangle $A$, which satisfies $\mathcal F(A)=A$.
+For nonempty compact sets $B,C$, the contraction of each map gives
+$d_H(\mathcal F(B),\mathcal F(C))\le \tfrac12 d_H(B,C)$.
+Taking $C=A$ gives $d_H(\mathcal F^k(B),A)\le 2^{-k}d_H(B,A)$.
+The theorem above then shows that almost surely every random orbit tail has closure containing $A$.
+Here we start at $v_1\in A$, so every iterate stays on $A$ and every tail has closure exactly $A$.
+This is a contractive illustration of the theorem, which also covers noncontractive examples.
+
+Figure~\ref{fig:triangle} compares two prefixes of the same seeded run.
+With more iterates the small corner copies become clearer, while the removed middle triangles remain empty.
+The deterministic $2^{-k}$ bound applies to the full set of $k$-step images, not to a finite random prefix.
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}
-\begin{axis}[width=.40\linewidth,height=5cm,axis equal image,xmin=-1.15,xmax=1.15,ymin=-1.15,ymax=1.15,
-  xlabel={$x$},ylabel={$y$},title={First 512 iterates}]
-\addplot[only marks,mark=*,mark size=.62pt,blue!65!black]
-  table[col sep=comma,x=x,y=y]{data/circle.csv};
-\end{axis}
-\end{tikzpicture}
-\hfill
-\begin{tikzpicture}
-\begin{loglogaxis}[width=.49\linewidth,height=5cm,xlabel={Iterates $N$},ylabel={Hausdorff distance},
-  title={Coverage error},grid=major]
-\addplot[blue!65!black,mark=*] table[col sep=comma,x=n,y=distance]{data/coverage.csv};
-\end{loglogaxis}
-\end{tikzpicture}
-\caption{The noncontractive chaos game on the unit circle.
-Repeated points do not improve coverage; newly visited phases close the gaps.}
-\label{fig:circle}
+\foreach \count/\last in {256/255,4096/4095}{%
+  \begin{tikzpicture}
+  \begin{axis}[width=.46\linewidth,height=5cm,axis equal image,
+    xmin=-.03,xmax=1.03,ymin=-.03,ymax=.9,xlabel={$x$},ylabel={$y$},title={First \count\ iterates}]
+  \addplot[only marks,mark=*,mark size=.44pt,blue!65!black,
+    restrict expr to domain={\coordindex}{0:\last}]
+    table[col sep=comma,x=x,y=y]{data/triangle.csv};
+  \end{axis}
+  \end{tikzpicture}%
+}
+\caption{Two prefixes of the same chaos-game orbit on the Sierpi\'nski triangle.}
+\label{fig:triangle}
 \end{figure}
 
 \section{Frequency locking: the critical Devil's staircase}
@@ -122,6 +157,8 @@ starting all runs at phase $0.123$.
 \subsection{Existence of the winding number and mechanism of locking}
 
 Write $F_\Omega$ for the lift at $K=1$.
+A lift keeps the phase on the real line so that full turns are recorded.
+The superscript in $F_\Omega^n$ counts compositions.
 It is increasing because $F_\Omega'(x)=1+\cos(2\pi x)\ge0$ and the zeros of the derivative are isolated.
 It satisfies $F_\Omega(x+1)=F_\Omega(x)+1$.
 Let $D_n(x)=F_\Omega^n(x)-x$, and let $a_n$ and $b_n$ be its minimum and maximum over one period.
@@ -189,23 +226,67 @@ Horizontal segments indicate that the same average rotation persists over a rang
   \end{figure}
 }{}
 
-\section{The connection through fractal dimension}
+\section{Commonality: set evolution and fractal dimension}
 
-Strogatz \cite[Chapter~11]{strogatz} distinguishes counting points, measuring length, and counting boxes as
+The triangle and the staircase both reveal geometry across scales through iteration.
+The triangle's gaps are produced by repeatedly keeping three smaller copies in state space.
+The staircase's plateaus arise because a periodic orbit can persist across an interval of biases;
+the exceptional set left between plateaus lies in parameter space.
+These mechanisms differ, but in both cases the limiting geometry is visible through finite computations.
+
+\subsection{A common set evolution}
+
+For a relation $R$ on a space $X$, define its action on sets by
+\[
+  \mathcal T_R(B)=\{y\in X:\text{there exists }x\in B\text{ with }xRy\}.
+\]
+For an iterated function system, take $xRy$ when $y=f_i(x)$ for some available map $f_i$.
+Then $\mathcal T_R(B)=\bigcup_i f_i(B)$, and $\mathcal T_R^n(B)$ collects all reachable states after $n$ steps.
+The relation $xRy$ means that the rule permits a step from $x$ to $y$.
+In the triangle example, these sets converge to the Sierpi\'nski triangle, and a single random orbit recovers it
+in the sense that every tail is dense almost surely.
+
+For Bak, take $R$ to be the graph of a deterministic update on the enlarged state $(\Omega,x,n,u)$, where $u$
+accumulates the unwrapped phase advance.
+The update fixes $\Omega$ and sends
+\[
+  (x,n,u)\longmapsto(F_\Omega(x),\,n+1,\,u+F_\Omega(x)-x).
+\]
+Start one state at each bias with the same initial phase and with $n=u=0$.
+For $n\ge1$, observing $(\Omega,u/n)$ gives the graph of the finite-time winding estimates.
+The $1/n$ error bound above yields uniform convergence to the staircase and bounds the Hausdorff distance
+between the observed graphs by $1/n$, since points can be paired at the same bias.
+
+The common form is therefore a set update followed by observation: $A_n=\pi(\mathcal T_R^n(B_0))$,
+where $\pi$ is the identity for the reachable triangle points and reads out $(\Omega,u/n)$ for Bak at $n\ge1$.
+The relation and set update require no metric or separation axiom.
+One can also describe convergence topologically: the observed sets eventually lie in every open neighborhood
+of the limit set and eventually meet each open set that meets the limit.
+This is Vietoris convergence \cite[Section~2]{barnsley-transformations}; it does not by itself extend the chaos-game theorem to non-Hausdorff spaces.
+The triangle is an attractor for the reachable-set dynamics, while the staircase is a limit of observed graphs,
+not an attractor of the original circle map.
+
+\subsection{What fractal dimension measures in each example}
+
+Strogatz \cite[Sections~11.1--11.4]{strogatz} distinguishes counting points, measuring length, and counting boxes as
 the observation scale shrinks.
 For instance, the middle-thirds Cantor set has zero length and uncountably many points, yet at scale $3^{-m}$
 it takes on the order of $2^m$ boxes to cover it, giving box dimension $\log 2/\log 3$.
 These are three different ways to describe the same set.
 
-The circle experiment concerns the geometry of an attractor in state space.
-Its orbit has only countably many points, yet its closure is the entire circle, with box dimension one.
+The triangle experiment concerns the geometry of an attractor in state space.
+The countable sampled orbit is dense in the uncountable Sierpi\'nski triangle.
+At scale $2^{-k}$, each of the $3^k$ corner copies can be covered by a bounded number of boxes.
+Conversely, a box of that scale can meet only a bounded number of the level-$k$ triangles, whose interiors
+are disjoint and have area proportional to $4^{-k}$.
+Thus the box count is comparable to $3^k$, giving dimension $\log 3/\log 2$.
 The staircase experiment concerns geometry in parameter space: its fractal set lies on the bias axis, where
 the open locking intervals have been removed.
 Bak estimates its dimension near $0.87$ by measuring how much of the bias axis remains uncovered after accounting
-for plateaus wider than a scale $r$ and dividing the remaining length by $r$.
+for plateaus wider than a scale $r$ and dividing the remaining length by $r$ \cite[p.~44]{bak}.
 To make the connection precise, let $E$ be the closed set left after removing the open locking intervals
 and include the endpoints of $[0,1]$.
-In the complete staircase, $E$ has measure zero.
+In the complete staircase, $E$ has measure zero \cite[p.~44]{bak}.
 If its complementary gaps have lengths $\ell_j$, the length of the $r/2$-neighborhood of $E$ inside
 $[0,1]$ is $V(r)=\sum_j\min(\ell_j,r)$.
 Each gap wider than $r$ contributes two strips of length $r/2$, and each shorter gap contributes its full length.
@@ -263,6 +344,16 @@ Per Bak.
 ``The Devil's staircase.''
 \emph{Physics Today}, 39(12), 38--45, 1986.
 
+\bibitem{barnsley-book}
+Michael F. Barnsley.
+\emph{Fractals Everywhere}.
+2nd ed., Academic Press, 1993.
+
+\bibitem{barnsley-transformations}
+Michael Barnsley.
+\emph{Fractal Transformations in 2 and 3 Dimensions}.
+\href{https://arxiv.org/abs/1308.6648v1}{arXiv:1308.6648v1}, 2013.
+
 \end{thebibliography}
 
 \clearpage
@@ -286,7 +377,7 @@ so the fitted slope is a finite-resolution estimate.
 \section{Python reproduction scripts}
 
 \lstinputlisting[language=Python,basicstyle=\small\ttfamily,breaklines=true,numbers=left,
-  numberstyle=\tiny,caption={Python script for the chaos game and circle coverage.}]{chaos_game.py}
+  numberstyle=\tiny,caption={Python script for the Sierpi\'nski triangle chaos game.}]{chaos_game.py}
 
 \lstinputlisting[language=Python,basicstyle=\small\ttfamily,breaklines=true,numbers=left,
   numberstyle=\tiny,caption={Python script for the winding number staircase.}]{devil_staircase.py}

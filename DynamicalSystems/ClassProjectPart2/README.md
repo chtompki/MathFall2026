@@ -9,7 +9,7 @@ follow as:
 * Python - 3.14
 * LaTeX - latest version available.
 
-The report reproduces Barnsley and Vince's Example 1 and Bak's Figure 5(c).
+The report illustrates Barnsley and Vince's theorem with the Sierpiński triangle and reproduces Bak's Figure 5(c).
 The original project overview is included as the abstract.
 
 From this directory, install NumPy and Matplotlib in your Python environment, then run:
@@ -27,6 +27,7 @@ pdflatex classProjectPart2.tex
 
 or run `./build.sh` as it contains this series of commands.
 
+The chaos game exports triangle samples to `data/triangle.csv`.
 The scripts write CSV tables to `data/` and Matplotlib previews to `plots/`.
 With only NumPy installed, pass `--data-only` to regenerate the CSV tables.
 The report draws the Python-based figures directly from those tables with TikZ/PGFPlots;

@@ -1,9 +1,11 @@
-"""Reproduce Barnsley and Vince, Example 1; export data for PGFPlots."""
-from pathlib import Path
-import numpy as np
+"""Sample the Sierpinski triangle with the chaos game and export plot data."""
 import argparse
+from pathlib import Path
+
+import numpy as np
 
 ROOT = Path(__file__).resolve().parent
+VERTICES = np.array([[0, 0], [1, 0], [0.5, np.sqrt(3) / 2]])
 
 
 def main():
@@ -12,21 +14,15 @@ def main():
     args = parser.parse_args()
     for folder in ("data", "plots"):
         (ROOT / folder).mkdir(exist_ok=True)
-    rng = np.random.default_rng(535)
-    steps = rng.integers(0, 2, size=4096)
-    phases = (np.cumsum(steps) * ((np.sqrt(5) - 1) / 2)) % 1
-    points = np.column_stack((np.cos(2 * np.pi * phases), np.sin(2 * np.pi * phases)))
-    sizes = 2 ** np.arange(3, 13)
-    distances = []
-    for n in sizes:
-        ordered = np.sort(np.unique(phases[:n]))
-        gap = np.diff(np.r_[ordered, ordered[0] + 1]).max()
-        distances.append(2 * np.sin(np.pi * gap / 2))
-    assert np.all(np.diff(distances) <= 1e-14) and distances[-1] < 0.01
-    np.savetxt(ROOT / "data/circle.csv", points[:512], delimiter=",", header="x,y", comments="")
-    np.savetxt(ROOT / "data/coverage.csv", np.c_[sizes, distances], delimiter=",",
-               header="n,distance", comments="")
-    print(f"Coverage errors at N=8 and N=4096: {distances[0]:.6g}, {distances[-1]:.6g}")
+    choices = np.random.default_rng(535).integers(0, 3, size=4096)
+    points = np.empty((len(choices), 2))
+    point = VERTICES[0].copy()
+    for n, i in enumerate(choices):
+        point = (point + VERTICES[i]) / 2
+        points[n] = point
+
+    np.savetxt(ROOT / "data/triangle.csv", points, delimiter=",",
+               header="x,y", comments="", fmt="%.10f")
     if args.data_only:
         return
     import matplotlib
@@ -34,10 +30,10 @@ def main():
     import matplotlib.pyplot as plt
 
     fig, axes = plt.subplots(1, 2, figsize=(8, 3.6), layout="constrained")
-    axes[0].scatter(*points[:512].T, s=3)
-    axes[0].set(aspect="equal", xlabel="x", ylabel="y", title="First 512 iterates")
-    axes[1].loglog(sizes, distances, "o-")
-    axes[1].set(xlabel="Number of iterates", ylabel="Hausdorff distance", title="Circle coverage")
+    for ax, n in zip(axes, (256, len(points))):
+        ax.scatter(*points[:n].T, s=2, color="tab:blue", linewidths=0)
+        ax.set(aspect="equal", xlim=(-.03, 1.03), ylim=(-.03, .9),
+               xlabel="x", ylabel="y", title=f"First {n:,} iterates")
     fig.savefig(ROOT / "plots/chaos_game.png", dpi=180)
 
 
